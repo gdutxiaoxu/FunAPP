@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.szl.mobileoa.R;
-import com.szl.mobileoa.common.mvp.BasePresenter;
-import com.szl.mobileoa.util.LUtils;
+import com.xujun.funapp.R;
+import com.xujun.funapp.common.mvp.BasePresenter;
+import com.xujun.funapp.common.util.LUtils;
 
-import org.simple.eventbus.EventBus;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Domen、on 2016/4/26.

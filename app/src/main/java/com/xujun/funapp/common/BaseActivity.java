@@ -12,9 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.simple.eventbus.EventBus;
-
-import static com.szl.mobileoa.common.Constants.IntentConstants.DEFAULT_PARCEABLE_NAME;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Domen、on 2016/4/20.
@@ -31,6 +29,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     protected ProgressDialog dialog;
     protected T mBind;
+    private String DEFAULT_PARCEABLE_NAME="DEFAULT_PARCEABLE_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
