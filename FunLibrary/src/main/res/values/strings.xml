@@ -6,9 +6,9 @@
     <string name="picture">美图</string>
 
     <string-array name="bottom_tab_array">
-        <item >首页</item>
-        <item >新闻</item>
-        <item >美图</item>
-        <item >设置</item>
+        <item>首页</item>
+        <item>新闻</item>
+        <item>美图</item>
+        <item>设置</item>
     </string-array>
 </resources>
