@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FunAPP</string>
+    <string name="news">新闻</string>
+    <string name="setting">设置</string>
+    <string name="home">首页</string>
+    <string name="picture">美图</string>
+
+    <string-array name="bottom_tab_array">
+        <item >首页</item>
+        <item >新闻</item>
+        <item >美图</item>
+        <item >设置</item>
+    </string-array>
+</resources>
