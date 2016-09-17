@@ -16,9 +16,12 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     protected List<Fragment> fragmentList = new ArrayList<Fragment>();
 
-    public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    protected String[] mTitles;
+
+    public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] mTitles) {
         super(fm);
         this.fragmentList = fragmentList;
+        this.mTitles=mTitles;
     }
 
     @Override
@@ -36,7 +39,13 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
         return fragmentList == null;
 
     }
-  /*  @Override
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles[position];
+    }
+
+    /*  @Override
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;
     }*/

@@ -11,4 +11,14 @@
         <item>美图</item>
         <item>设置</item>
     </string-array>
+
+    <string-array name="picture_titles">
+        <item>性感美女</item>
+        <item>韩日美女</item>
+        <item>丝袜美腿</item>
+        <item>美女照片</item>
+        <item>美女写真</item>
+        <item>清纯美女</item>
+        <item>性感车模</item>
+    </string-array>
 </resources>

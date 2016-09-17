@@ -28,7 +28,7 @@ public class PictureModel {
                     @Override
                     public void call(PictureClassify pictureClassify) {
                         List<PictureClassify.TngouBean> tngou = pictureClassify.tngou;
-                        EventBus.getDefault().post(tngou);
+                        EventBus.getDefault().post(pictureClassify);
 
                     }
                 }, new Action1<Throwable>() {

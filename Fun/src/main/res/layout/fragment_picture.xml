@@ -11,7 +11,7 @@
         <com.xujun.funapp.widget.TabPagerIndicator
             android:id="@+id/indicator"
             android:layout_width="match_parent"
-            android:layout_height="30dp"/>
+            android:layout_height="35dp"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"

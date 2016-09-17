@@ -26,7 +26,7 @@ public class PicturePresenter extends DefaultContract.DefaultPresenter<DefaultCo
         }
     }
 
-    public static void getPictureClassify(){
+    public  void getPictureClassify(){
         PictureModel.getPictureClassify();
     }
 }

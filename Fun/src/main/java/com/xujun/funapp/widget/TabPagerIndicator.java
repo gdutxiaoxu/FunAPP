@@ -74,7 +74,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
     private Paint rectPaint;
     private Paint dividerPaint;
 
-    private int indicatorColor = 0xFF666666;
+    private int indicatorColor = 0xffff0000;
     private int underlineColor = 0x1A000000;
     private int dividerColor = 0x1A000000;
 
@@ -85,16 +85,16 @@ public class TabPagerIndicator extends HorizontalScrollView {
     private boolean textAllCaps = true;
 
     private int scrollOffset = 52;
-    private int indicatorHeight = 8;
+    private int indicatorHeight = 4;
     private int underlineHeight = 2;
     private int dividerPadding = 12;
     //表示自己之间的间隔
 
-    private int horizontalPadding =24;
+    private int horizontalPadding =2*dividerPadding;
     private int verticalPadding =10;
     private int dividerWidth = 1;
 
-    private int tabTextSize = 12;
+    private int tabTextSize = 14;
     private int tabTextColor = 0xFF666666;
     private Typeface tabTypeface = null;
     private int tabTypefaceStyle = Typeface.BOLD;
