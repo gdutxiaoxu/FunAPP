@@ -1,8 +1,6 @@
 package com.xujun.funapp.network;
 
 import com.orhanobut.logger.Logger;
-import com.xujun.funapp.common.APP;
-import com.xujun.funapp.network.exception.ResponseConverterFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +30,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Domen、on 2016/4/20.
+ * Created by xujun on 2016/4/20.
  */
 public class Network {
 
@@ -74,10 +72,10 @@ public class Network {
      */
     private OkHttpClient mOkHttpClient;
     //    测试的时候使用下面这个
-    //    private Converter.Factory mGsonConverterFactory = GsonConverterFactory.create();
+    private Converter.Factory mGsonConverterFactory = GsonConverterFactory.create();
 
     //    统一处理，正式上线的时候使用
-    private Converter.Factory mGsonConverterFactory = ResponseConverterFactory.create();
+    //    private Converter.Factory mGsonConverterFactory = ResponseConverterFactory.create();
 
     private CallAdapter.Factory mRxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
 
@@ -91,14 +89,9 @@ public class Network {
             synchronized (Network.class) {
                 if (mTnGouAPi == null) {
                     if (mOkHttpClient == null) {
-                        APP application = APP.getApplication();
-                        try {
-                            mOkHttpClient = Network.getInstance().setCertificates(application
-                                    .getAssets()
-                                    .open("mobileoa.cer"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        mOkHttpClient = new OkHttpClient.Builder()
+                                .addInterceptor(mInterceptor)
+                                .build();
                     }
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(mCurrentUrl)
@@ -225,22 +218,6 @@ public class Network {
         }
     };
 
-    private void show(String str) {
-        str = str.trim();
-        int index = 0;
-        int maxLength = 3500;
-        String sub;
-        while (index < str.length()) {
-            // java的字符不允许指定超过总的长度end
-            if (str.length() <= index + maxLength) {
-                sub = str.substring(index);
-            } else {
-                sub = str.substring(index, maxLength);
-            }
-            index += maxLength;
-            Logger.i(sub.trim());
-        }
-    }
 
     private static class MyHostnameVerifier implements HostnameVerifier {
         @Override

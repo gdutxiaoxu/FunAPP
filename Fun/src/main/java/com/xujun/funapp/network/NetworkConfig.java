@@ -26,12 +26,12 @@ public class NetworkConfig {
     }
 
     public static class Normal implements INetwork {
-        public static final String mBaseHttps = "https://121.8.226.221:8443";
+        public static final String mBaseHttps = "http://www.tngou.net/";
 
-        public static final String mBaseHttp = "http://121.8.226.221:8443";
+        public static final String mBaseHttp = "http://www.tngou.net/";
         private static String mHostName = "121.8.226.221";
 
-        private static final String mBaseUrl = mBaseHttps + "/mobileOA/interface/";
+        private static final String mBaseUrl = mBaseHttp;
         // 正式环境
         private static final String mDownLoadUrl = mBaseHttp + "/mobileOA/interface/";
 
