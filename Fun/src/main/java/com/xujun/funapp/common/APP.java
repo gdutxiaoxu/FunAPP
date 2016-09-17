@@ -7,7 +7,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.Settings;
 
 /**
- * Created by Domen、on 2016/4/20.
+ * Created by xujun、on 2016/4/20.
  */
 public class APP extends Application{
 
