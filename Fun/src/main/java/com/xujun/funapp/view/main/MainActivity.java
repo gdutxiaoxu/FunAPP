@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.xujun.funapp.R;
@@ -21,6 +22,12 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
 
     int position=0;
 
+    private Fragment mCurrentFragemnt;
+    private RadioButton mRbHome;
+    private RadioButton mRbNews;
+    private RadioButton mRbPicture;
+    private RadioButton mRbSetting;
+
     @Override
     protected BasePresenter setPresenter() {
         return null;
@@ -35,6 +42,10 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
     protected void initView(ActivityMainBinding bind) {
         mFlContent = bind.flContent;
         mRg = bind.rg;
+        mRbHome = bind.rbHome;
+        mRbNews = bind.rbNews;
+        mRbPicture = bind.rbPicture;
+        mRbSetting = bind.rbSetting;
 
     }
 
@@ -63,12 +74,20 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
                           position=0;
 
                 }
+                Fragment fragment = MainFragmentFactory.getInstance().get(position);
+                showFragment(mCurrentFragemnt,fragment);
+                mCurrentFragemnt=fragment;
+
             }
         });
     }
 
     @Override
     protected void initData() {
+        mCurrentFragemnt=MainFragmentFactory.getInstance().get(0);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fl_content,mCurrentFragemnt).commit();
 
     }
 

@@ -6,8 +6,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
-import com.szl.mobileoa.beans.SecurityBean;
-import com.szl.mobileoa.common.APP;
+import com.xujun.funapp.common.APP;
 
 /**
  * Created by chenzhihui on 2016/5/18 0018.
@@ -21,8 +20,7 @@ public class AppUtils {
         return mInstance;
     }
 
-    //密保手机信息暂时在内存存一份。。。不提倡这种做法最好存进文件或者数据库。。。之后再改
-    SecurityBean securityBean;
+
 
     private AppUtils() {
     }
@@ -62,11 +60,5 @@ public class AppUtils {
     }
 
 
-    public SecurityBean getSecurityBean() {
-        return securityBean;
-    }
 
-    public void setSecurityBean(SecurityBean securityBean) {
-        this.securityBean = securityBean;
-    }
 }

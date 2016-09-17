@@ -65,8 +65,8 @@ public class Network {
     public static final String mCurrentUploapUrlBase = mINetwork.getUploadUrl();
     private static String mHostName = mINetwork.getHostName();
 
-    private Api mApi;
-    private Api mDifferentAPI;
+    private TnGouAPi mTnGouAPi;
+    private TnGouAPi mDifferentTnGouAPi;
     private DownLoadApi mDownLoadApi;
 
     /**
@@ -86,10 +86,10 @@ public class Network {
      *
      * @return
      */
-    public Api getApi() {
-        if (mApi == null) {
+    public TnGouAPi getTnGouAPi() {
+        if (mTnGouAPi == null) {
             synchronized (Network.class) {
-                if (mApi == null) {
+                if (mTnGouAPi == null) {
                     if (mOkHttpClient == null) {
                         APP application = APP.getApplication();
                         try {
@@ -107,13 +107,13 @@ public class Network {
                             .addCallAdapterFactory(mRxJavaCallAdapterFactory)
                             .client(mOkHttpClient)
                             .build();
-                    mApi = retrofit.create(Api.class);
+                    mTnGouAPi = retrofit.create(TnGouAPi.class);
                 }
             }
 
 
         }
-        return mApi;
+        return mTnGouAPi;
     }
 
     /**
@@ -121,21 +121,21 @@ public class Network {
      *
      * @return
      */
-    public Api getDifferentAPI() {
-        if (mDifferentAPI == null) {
+    public TnGouAPi getDifferentTnGouAPi() {
+        if (mDifferentTnGouAPi == null) {
             synchronized (Network.class) {
-                if (mDifferentAPI == null) {
+                if (mDifferentTnGouAPi == null) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(mCurrentUrl)
                             .addConverterFactory(GsonConverterFactory.create())//这里没有在转化gson的时候进行拦截
                             .addCallAdapterFactory(mRxJavaCallAdapterFactory)
                             .client(mOkHttpClient)
                             .build();
-                    mDifferentAPI = retrofit.create(Api.class);
+                    mDifferentTnGouAPi = retrofit.create(TnGouAPi.class);
                 }
             }
         }
-        return mDifferentAPI;
+        return mDifferentTnGouAPi;
     }
 
     public static String getDonwLoadUrl() {

@@ -1,5 +1,7 @@
 package com.xujun.funapp.network;
 
+import com.xujun.funapp.beans.PictureClassify;
+
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -11,7 +13,7 @@ import rx.Observable;
 /**
  * Created by Domen、on 2016/4/20.
  */
-public interface Api {
+public interface TnGouAPi {
     //检验MD5
     @GET("checkImg")
     Observable<ResponseBody> checkMD5(@Query("md5") String MD5);
@@ -35,5 +37,9 @@ public interface Api {
     Observable<ResponseBody> updateGestureCode(@Field("staffNo") String staffNo,
                                                @Field("gestureCode") String gestureCode, @Field
                                                        ("state") int state);
+
+    //将待遇文件标记为已阅
+    @GET("tnfs/api/classify")
+    Observable<PictureClassify> pictureClassify();
 
 }

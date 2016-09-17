@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.szl.mobileoa.common.APP;
-import com.szl.mobileoa.common.Constants;
+import com.xujun.funapp.common.APP;
+import com.xujun.funapp.common.Constants;
 
 /**
  * Created by Domen、on 2016/5/5.

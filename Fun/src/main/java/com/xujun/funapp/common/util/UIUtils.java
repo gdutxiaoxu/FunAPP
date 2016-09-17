@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.szl.mobileoa.common.APP;
+import com.xujun.funapp.common.APP;
 
 public class UIUtils {
 
