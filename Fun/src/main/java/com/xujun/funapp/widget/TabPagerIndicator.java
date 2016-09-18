@@ -68,7 +68,12 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
     private int tabCount;
     private static final String TAG = "xujun";
+    /**
+     * 记录当前的tab的position
+     */
     private int currentPosition = 0;
+//    记录上一次position的位置
+    private int lastPosition = -1;
     private float currentPositionOffset = 0f;
 
     private Paint rectPaint;
@@ -96,6 +101,8 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
     private int tabTextSize = 14;
     private int tabTextColor = 0xFF666666;
+//    选中的字体的颜色默认与indicatorColor的颜色相同
+    private int tabSelectTextColor = indicatorColor;
     private Typeface tabTypeface = null;
     private int tabTypefaceStyle = Typeface.BOLD;
 
@@ -209,6 +216,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
         indicatorColor = a.getColor(R.styleable.TabPagerIndicator_pstsIndicatorColor,
                 indicatorColor);
+        tabSelectTextColor=indicatorColor;
         underlineColor = a.getColor(R.styleable.TabPagerIndicator_pstsUnderlineColor,
                 underlineColor);
         dividerColor = a.getColor(R.styleable.TabPagerIndicator_pstsDividerColor, dividerColor);
@@ -399,6 +407,13 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
         // default: line below current tab
         View currentTab = tabsContainer.getChildAt(currentPosition);
+        if(currentTab instanceof TextView){
+            ((TextView) currentTab).setTextColor(tabSelectTextColor);
+            if(lastPosition!=-1){
+                TextView lastTab =(TextView) tabsContainer.getChildAt(lastPosition);
+                lastTab.setTextColor(tabTextColor);
+            }
+        }
         float lineLeft = currentTab.getLeft();
         float lineRight = currentTab.getRight();
 
@@ -442,7 +457,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            lastPosition=currentPosition;
             currentPosition = position;
             currentPositionOffset = positionOffset;
 

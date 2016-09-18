@@ -1,6 +1,7 @@
 package com.xujun.funapp.network;
 
 import com.xujun.funapp.beans.PictureClassify;
+import com.xujun.funapp.beans.PictureList;
 
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
@@ -18,19 +19,11 @@ public interface TnGouAPi {
     @GET("checkImg")
     Observable<ResponseBody> checkMD5(@Query("md5") String MD5);
 
-    //将待遇文件标记为已阅
-    @GET("markRead")
-    Observable<ResponseBody> markRead(@Query("PASSREAD_ID") String PASSREAD_ID,
-                                      @Query("auth_token") String auth_token);
-
-    @GET("download")
-    Observable<ResponseBody> download(@Query("document_id") String document_id, @Query
-            ("biz_type") String biz_type,
-                                      @Query("file_type") String file_type, @Query("isDocPdf")
-                                      String isDocPdf,
-                                      @Query("is_doc") String is_doc, @Query("file_code") String
-                                              file_code,
-                                      @Query("auth_token") String auth_token);
+    // 获取图片列表
+    @GET("tnfs/api/list")
+    Observable<PictureList> getPictureList(@Query("page") String page,
+                                           @Query("rows") String rows,
+                                           @Query("id") String id);
 
     @FormUrlEncoded
     @POST("updateGestureCode")
@@ -38,7 +31,7 @@ public interface TnGouAPi {
                                                @Field("gestureCode") String gestureCode, @Field
                                                        ("state") int state);
 
-    //将待遇文件标记为已阅
+    //获取图片分类
     @GET("tnfs/api/classify")
     Observable<PictureClassify> pictureClassify();
 
