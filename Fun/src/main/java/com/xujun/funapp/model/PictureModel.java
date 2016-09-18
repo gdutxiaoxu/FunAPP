@@ -4,9 +4,10 @@ import com.xujun.funapp.beans.PictureClassify;
 import com.xujun.funapp.network.Network;
 import com.xujun.funapp.network.TnGouAPi;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;

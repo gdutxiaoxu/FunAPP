@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.xujun.funapp.common.util.LUtils;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.ArrayList;
 
-import de.greenrobot.event.EventBus;
+
 
 /**
  * @ explain:

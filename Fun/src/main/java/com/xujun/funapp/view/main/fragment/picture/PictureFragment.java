@@ -48,7 +48,7 @@ public class PictureFragment extends BindingBaseFragment<FragmentPictureBinding,
         super.initData();
         mFragments=new ArrayList<>();
         for(int i=0;i<mTitles.length;i++){
-            PictureListFragment pictureListFragment = PictureListFragment.newInstance(mTitles[0]);
+            PictureListFragment pictureListFragment = PictureListFragment.newInstance(mTitles[0],i+1);
             mFragments.add(pictureListFragment);
 
         }

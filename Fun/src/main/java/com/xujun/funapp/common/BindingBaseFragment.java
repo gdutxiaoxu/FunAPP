@@ -18,7 +18,7 @@ import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.LUtils;
 
-import de.greenrobot.event.EventBus;
+import org.simple.eventbus.EventBus;
 
 /**
  * Created by Domen、on 2016/4/26.

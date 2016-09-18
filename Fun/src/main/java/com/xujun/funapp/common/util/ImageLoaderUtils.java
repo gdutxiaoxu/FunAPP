@@ -24,8 +24,12 @@ public class ImageLoaderUtils {
      * @param mImageView 控件
      */
     public static void loadImageViewSize(Context mContext, String path, int width, int height,
-                                         ImageView mImageView) {
+                                     ImageView mImageView) {
         Picasso.with(mContext).load(path).resize(width, height).centerCrop().into(mImageView);
+    }
+
+    public static void loadImageView(Context mContext, String path, ImageView mImageView) {
+        Picasso.with(mContext).load(path).into(mImageView);
     }
 
     /**

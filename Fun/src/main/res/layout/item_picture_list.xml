@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="80dp"
+              android:layout_height="100dp"
               android:orientation="vertical">
 
     <ImageView
+        android:layout_gravity="center"
         android:id="@+id/iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/bga_refresh_loading01"/>
 
 </LinearLayout>

@@ -4,7 +4,7 @@ import com.xujun.funapp.beans.PictureClassify;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.model.PictureModel;
 
-import de.greenrobot.event.Subscribe;
+import org.simple.eventbus.Subscriber;
 
 /**
  * @ explain:
@@ -18,7 +18,7 @@ public class PicturePresenter extends DefaultContract.DefaultPresenter<DefaultCo
     }
 
 
-    @Subscribe
+    @Subscriber
     public void onReceive(PictureClassify  pictureClassify){
         DefaultContract.View view = getView();
         if(view!=null){

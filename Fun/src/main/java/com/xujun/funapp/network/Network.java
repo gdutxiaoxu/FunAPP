@@ -13,6 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Network {
 
+    public static final String mBaseImageUrl="http://tnfs.tngou.net/image";
+
     private Network() {
     }
 

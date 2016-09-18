@@ -12,7 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import de.greenrobot.event.EventBus;
+import org.simple.eventbus.EventBus;
 
 /**
  * Created by Domen、on 2016/4/20.

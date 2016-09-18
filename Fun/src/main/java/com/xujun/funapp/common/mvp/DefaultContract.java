@@ -1,8 +1,10 @@
 package com.xujun.funapp.common.mvp;
 
+import org.simple.eventbus.EventBus;
+
 import java.lang.ref.WeakReference;
 
-import de.greenrobot.event.EventBus;
+
 
 /**
  * @ explain:
@@ -24,9 +26,9 @@ public interface DefaultContract {
    }
 
 
-    public static class DefaultPresenter<T> implements BasePresenter {
+    public static class DefaultPresenter<V extends BaseView> implements BasePresenter {
 
-        private final WeakReference<T> mBaseViewWeakReference;
+        private final WeakReference<V> mBaseViewWeakReference;
 
         @Override
         public void start() {
@@ -40,11 +42,11 @@ public interface DefaultContract {
 
         }
 
-        public  DefaultPresenter(T view){
+        public  DefaultPresenter(V view){
             mBaseViewWeakReference =  new WeakReference<>(view);
         }
 
-        public T getView(){
+        public V getView(){
             return mBaseViewWeakReference.get();
         }
     }

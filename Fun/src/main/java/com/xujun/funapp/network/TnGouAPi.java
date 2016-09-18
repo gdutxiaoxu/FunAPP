@@ -1,7 +1,7 @@
 package com.xujun.funapp.network;
 
 import com.xujun.funapp.beans.PictureClassify;
-import com.xujun.funapp.beans.PictureList;
+import com.xujun.funapp.beans.PictureListBean;
 
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
@@ -21,9 +21,9 @@ public interface TnGouAPi {
 
     // 获取图片列表
     @GET("tnfs/api/list")
-    Observable<PictureList> getPictureList(@Query("page") String page,
-                                           @Query("rows") String rows,
-                                           @Query("id") String id);
+    Observable<PictureListBean> getPictureList(@Query("page") String page,
+                                               @Query("rows") String rows,
+                                               @Query("id") int id);
 
     @FormUrlEncoded
     @POST("updateGestureCode")

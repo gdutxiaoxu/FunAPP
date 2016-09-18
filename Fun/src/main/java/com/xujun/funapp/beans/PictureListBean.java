@@ -7,11 +7,16 @@ import java.util.List;
  * @ author：xujun on 2016/9/18 21:09
  * @ email：gdutxiaoxu@163.com
  */
-public class PictureList {
+public class PictureListBean {
 
 
     public boolean status;
     public int total;
+
+    /**
+     * 作为区分是哪一个PictureListFragment
+     */
+    public String tag;
     /**
      * count : 3567
      * fcount : 0
