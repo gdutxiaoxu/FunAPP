@@ -13,9 +13,6 @@ public interface INetwork {
      */
 
     String getBaseUrl();
-
-
-
     String getUploadUrl();
     String getDownloadUrl();
     String getHostName();

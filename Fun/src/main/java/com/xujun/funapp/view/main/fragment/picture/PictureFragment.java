@@ -5,12 +5,15 @@ import android.support.v4.view.ViewPager;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureClassify;
+import com.xujun.funapp.beans.Test;
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BindingBaseFragment;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.funapp.common.util.MD5;
 import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.databinding.FragmentPictureBinding;
+import com.xujun.funapp.model.PictureListModel;
 import com.xujun.funapp.widget.TabPagerIndicator;
 
 import java.util.ArrayList;
@@ -58,6 +61,18 @@ public class PictureFragment extends BindingBaseFragment<FragmentPictureBinding,
         mIndicator.setViewPager(mViewPager);
 
         mPresenter.getPictureClassify();
+        Test.Text2 text2 = new Test.Text2();
+        text2.action="getVideo";
+        String timeStap = System.currentTimeMillis() + "";
+        text2.timestamp= timeStap;
+        String encode = MD5.encode("hison" + timeStap);
+        text2.token=encode;
+
+
+        List<Test.Text2> text2s = new ArrayList<Test.Text2>();
+        Test test = new Test();
+        test.para=text2s;
+        PictureListModel.test(test);
 
     }
 

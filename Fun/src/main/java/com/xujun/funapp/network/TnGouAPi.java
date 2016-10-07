@@ -2,8 +2,11 @@ package com.xujun.funapp.network;
 
 import com.xujun.funapp.beans.PictureClassify;
 import com.xujun.funapp.beans.PictureListBean;
+import com.xujun.funapp.beans.Test;
 
 import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -12,7 +15,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 /**
- * Created by Domen、on 2016/4/20.
+ * Created by xujun、on 2016/4/20.
  */
 public interface TnGouAPi {
     //检验MD5
@@ -34,5 +37,8 @@ public interface TnGouAPi {
     //获取图片分类
     @GET("tnfs/api/classify")
     Observable<PictureClassify> pictureClassify();
+
+    @POST("/api.php")
+    Call<ResponseBody> getTest(@Body Test test);
 
 }
