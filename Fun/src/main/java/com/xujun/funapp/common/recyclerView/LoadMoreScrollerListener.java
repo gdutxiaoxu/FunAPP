@@ -1,11 +1,11 @@
-package com.xujun.funapp.common;
+package com.xujun.funapp.common.recyclerView;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 /**
- * Created by Domen、on 2016/5/16.
+ * Created by xujun、on 2016/5/16.
  */
 public class LoadMoreScrollerListener extends RecyclerView.OnScrollListener {
 

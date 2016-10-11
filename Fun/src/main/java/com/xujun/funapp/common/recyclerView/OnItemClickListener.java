@@ -1,4 +1,4 @@
-package com.xujun.funapp.common;
+package com.xujun.funapp.common.recyclerView;
 
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by Domen、on 2016/5/16.
+ * Created by xujun、on 2016/5/16.
  */
 public abstract class OnItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
 

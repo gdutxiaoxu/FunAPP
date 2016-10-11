@@ -21,18 +21,19 @@ import com.xujun.funapp.common.util.LUtils;
 import org.simple.eventbus.EventBus;
 
 /**
- * Created by Domen、on 2016/4/26.
+ * Created by xujun、on 2016/4/26.
  */
-public abstract class BindingBaseFragment<T extends ViewDataBinding, P extends BasePresenter>
+public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends BasePresenter>
         extends Fragment {
 
-    protected T mBinding;
+    protected V mBinding;
     protected P mPresenter;
     protected Context mContext;
     public static final String TAG = "tag";
     protected boolean mIsVisiableToUser;
     protected boolean mIsViewInitiated;
     protected boolean mIsDataInitiated;
+    protected View mView;
 
     @Override
     public void onAttach(Context context) {
@@ -58,7 +59,8 @@ public abstract class BindingBaseFragment<T extends ViewDataBinding, P extends B
         mBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
         initView(mBinding);
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onCreateView()");
-        return mBinding.getRoot();
+        mView=mBinding.getRoot();
+        return mView;
     }
 
     @Override
@@ -158,7 +160,7 @@ public abstract class BindingBaseFragment<T extends ViewDataBinding, P extends B
 
     protected abstract int getContentViewLayoutID();
 
-    protected abstract void initView(T binding);
+    protected abstract void initView(V binding);
 
     protected abstract P setPresenter();
 

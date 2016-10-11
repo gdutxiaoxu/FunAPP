@@ -14,19 +14,34 @@ import java.util.List;
  */
 public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
-    protected List<Fragment> fragmentList = new ArrayList<Fragment>();
+    protected List<Fragment> fragmentList;
 
     protected String[] mTitles;
 
+    public BaseFragmentAdapter(FragmentManager fm) {
+        this(fm, null, null);
+    }
+
     public BaseFragmentAdapter(FragmentManager fm, List<Fragment> fragmentList, String[] mTitles) {
         super(fm);
+        if (fragmentList == null) {
+            fragmentList = new ArrayList<>();
+        }
         this.fragmentList = fragmentList;
-        this.mTitles=mTitles;
+        this.mTitles = mTitles;
+    }
+
+    public void add(Fragment fragment) {
+        if (isEmpty()) {
+            fragmentList = new ArrayList<>();
+
+        }
+        fragmentList.add(fragment);
     }
 
     @Override
     public Fragment getItem(int position) {
-//        Logger.i("BaseFragmentAdapter position=" +position);
+        //        Logger.i("BaseFragmentAdapter position=" +position);
         return isEmpty() ? null : fragmentList.get(position);
     }
 
@@ -49,8 +64,6 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;
     }*/
-
-
 
 
 }
