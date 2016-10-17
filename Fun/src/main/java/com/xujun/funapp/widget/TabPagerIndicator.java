@@ -19,7 +19,6 @@ package com.xujun.funapp.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.databinding.tool.util.L;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
@@ -41,15 +40,17 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.xujun.funapp.R;
 
 import java.util.Locale;
 
+
 public class TabPagerIndicator extends HorizontalScrollView {
 
+    private boolean isPageSelected;
+
     public interface IconTabProvider {
-         int getPageIconResId(int position);
+        int getPageIconResId(int position);
     }
 
     // @formatter:off
@@ -69,13 +70,13 @@ public class TabPagerIndicator extends HorizontalScrollView {
     private ViewPager pager;
 
     private int tabCount;
-    private static final String TAG = "xujun";
+    private static final String TAG = "TabPagerIndicator";
     /**
      * 记录当前的tab的position
      */
     private int currentPosition = 0;
-//    记录上一次position的位置
-    private int lastPosition = -1;
+    //    记录上一次position的位置
+    private int lastSelectPosition = -1;
     private float currentPositionOffset = 0f;
 
     private Paint rectPaint;
@@ -103,7 +104,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
     private int tabTextSize = 14;
     private int tabTextColor = 0xFF666666;
-//    选中的字体的颜色默认与indicatorColor的颜色相同
+    //    选中的字体的颜色默认与indicatorColor的颜色相同
     private int tabSelectTextColor = indicatorColor;
     private Typeface tabTypeface = null;
     private int tabTypefaceStyle = Typeface.BOLD;
@@ -352,7 +353,12 @@ public class TabPagerIndicator extends HorizontalScrollView {
                 TextView tab = (TextView) v;
                 tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
                 tab.setTypeface(tabTypeface, tabTypefaceStyle);
-                tab.setTextColor(tabTextColor);
+                if(i==0 && pager.getCurrentItem()==0){
+                    tab.setTextColor(tabSelectTextColor);
+                }else{
+                    tab.setTextColor(tabTextColor);
+                }
+
 
                 // setAllCaps() is only available from API 14, so the upper case is made manually
                 // if we are on a pre-ICS-build
@@ -409,13 +415,6 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
         // default: line below current tab
         View currentTab = tabsContainer.getChildAt(currentPosition);
-        if(currentTab instanceof TextView){
-            ((TextView) currentTab).setTextColor(tabSelectTextColor);
-            if(lastPosition!=-1  && lastPosition!=currentPosition){
-                TextView lastTab =(TextView) tabsContainer.getChildAt(lastPosition);
-                lastTab.setTextColor(tabTextColor);
-            }
-        }
         float lineLeft = currentTab.getLeft();
         float lineRight = currentTab.getRight();
 
@@ -457,9 +456,11 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
     private class PageListener implements OnPageChangeListener {
 
+        private int selectCurPotition;
+
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            lastPosition=currentPosition;
+
             currentPosition = position;
             currentPositionOffset = positionOffset;
 
@@ -494,10 +495,23 @@ public class TabPagerIndicator extends HorizontalScrollView {
                 delegatePageListener.onPageSelected(position);
             }
 
-            lastPosition=currentPosition;
-            currentPosition = position;
-            Logger.i("lastPosition="+lastPosition);
-            Logger.i("currentPosition="+currentPosition);
+
+            lastSelectPosition =selectCurPotition;
+            selectCurPotition =pager.getCurrentItem();
+            Log.i("xujun", "lastSelectPosition:=" + lastSelectPosition);
+            Log.i("xujun", "selectCurPotition:=" +selectCurPotition);
+
+
+            View currentTab = tabsContainer.getChildAt(selectCurPotition);
+            if((currentTab instanceof TextView)){
+                ((TextView) currentTab).setTextColor(tabSelectTextColor);
+                if(lastSelectPosition !=-1 ){
+                    TextView lastTab =(TextView) tabsContainer.getChildAt(lastSelectPosition);
+                    lastTab.setTextColor(tabTextColor);
+                }
+            }
+            //            Logger.i("lastSelectPosition="+lastSelectPosition);
+            //            Logger.i("currentPosition="+currentPosition);
 
         }
 
