@@ -41,4 +41,10 @@ public interface TnGouAPi {
     @POST("/api.php")
     Call<ResponseBody> getTest(@Body Test test);
 
+    //    http://www.tngou.net/tnfs/api/show?id=9
+
+    // 获取图片列表
+    @GET("tnfs/api/show")
+    Observable<PictureListBean> getPictureDetail(@Query("id") int id);
+
 }

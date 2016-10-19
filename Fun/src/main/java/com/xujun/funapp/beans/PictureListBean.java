@@ -1,5 +1,8 @@
 package com.xujun.funapp.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -7,7 +10,7 @@ import java.util.List;
  * @ author：xujun on 2016/9/18 21:09
  * @ email：gdutxiaoxu@163.com
  */
-public class PictureListBean {
+public class PictureListBean implements Parcelable {
 
 
     public boolean status;
@@ -30,6 +33,36 @@ public class PictureListBean {
      */
 
     public List<TngouBean> tngou;
+
+    protected PictureListBean(Parcel in) {
+        status = in.readByte() != 0;
+        total = in.readInt();
+        tag = in.readString();
+    }
+
+    public static final Creator<PictureListBean> CREATOR = new Creator<PictureListBean>() {
+        @Override
+        public PictureListBean createFromParcel(Parcel in) {
+            return new PictureListBean(in);
+        }
+
+        @Override
+        public PictureListBean[] newArray(int size) {
+            return new PictureListBean[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (status ? 1 : 0));
+        dest.writeInt(total);
+        dest.writeString(tag);
+    }
 
     public static class TngouBean {
         public int count;

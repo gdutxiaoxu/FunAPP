@@ -5,5 +5,7 @@ package com.xujun.funapp.common.mvp;
  */
 public interface BaseView<T> {
 
+
+
   
 }

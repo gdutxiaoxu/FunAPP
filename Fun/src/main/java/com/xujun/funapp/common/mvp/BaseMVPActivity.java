@@ -90,6 +90,13 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
 
     }
 
+    protected  <T>  T  checkNotNull(T t) {
+        if(t==null){
+            throw new NullPointerException();
+        }
+        return t;
+    }
+
     protected void getParcexbleExtras(Parcelable parcelable) {
 
     }

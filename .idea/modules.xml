@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Fun/Fun.iml" filepath="$PROJECT_DIR$/Fun/Fun.iml" />
       <module fileurl="file://$PROJECT_DIR$/FunAPP.iml" filepath="$PROJECT_DIR$/FunAPP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SuperMvp/SuperMvp.iml" filepath="$PROJECT_DIR$/SuperMvp/SuperMvp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/funvideo/funvideo.iml" filepath="$PROJECT_DIR$/funvideo/funvideo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commonlibrary/commonlibrary.iml" filepath="$PROJECT_DIR$/commonlibrary/commonlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrofitdemo/retrofitdemo.iml" filepath="$PROJECT_DIR$/retrofitdemo/retrofitdemo.iml" />
     </modules>
   </component>
