@@ -3,7 +3,7 @@ package com.xujun.funapp.view.detail;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureDetailBean;
@@ -22,10 +22,11 @@ public class PictureDetailActivity extends
         BaseMVPActivity<ActivityPictureDetailBinding,PictureDetailPresenter>
         implements PictureDetailContract.View{
 
-    private RecyclerView mRecyclerView;
     private ViewPager mViewPager;
     private TngouBean mTngouBean;
     private ArrayList<Fragment> mFragments;
+    private TextView mTvPageNum;
+    private int mTotalPage;
 
     @Override
     protected PictureDetailPresenter setPresenter() {
@@ -36,6 +37,7 @@ public class PictureDetailActivity extends
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
         mTngouBean = (TngouBean)intent.getParcelableExtra(IntentConstants.DEFAULT_PARCEABLE_NAME);
+        mTotalPage = mTngouBean.size;
         checkNotNull(mTngouBean);
     }
 
@@ -43,9 +45,20 @@ public class PictureDetailActivity extends
 
     @Override
     protected void initView(ActivityPictureDetailBinding bind) {
-        mRecyclerView = bind.recyclerView;
         mViewPager = bind.viewPager;
+        mTvPageNum = bind.tvPageNum;
 
+    }
+
+    @Override
+    protected void initListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                String format = String.format("%d/" + mTotalPage, position + 1);
+                mTvPageNum.setText(format);
+            }
+        });
     }
 
     @Override

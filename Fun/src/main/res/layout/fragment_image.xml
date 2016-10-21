@@ -13,12 +13,5 @@
             android:src="@drawable/sel_home"
         />
 
-        <TextView
-            android:id="@+id/tv_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:padding="10dp"
-            android:text="1/10"/>
     </FrameLayout>
 </layout>

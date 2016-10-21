@@ -40,25 +40,30 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
         return pictureListFragment;
     }
 
-
     @Override
     protected RecyclerView.Adapter getAdapter() {
         mDatas = new ArrayList<>();
-        mAdapter = new PictureListAdapter(mContext, mDatas);
+        mAdapter = new PictureListAdapter(mContext, mDatas,this);
         return mAdapter;
     }
 
     @Override
     protected void initListener() {
-      mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-          @Override
-          public void onClick(View view, RecyclerView.ViewHolder holder,  int position) {
-              PictureListBean.TngouBean tngouBean = mDatas.get(position);
-              readyGo(PictureDetailActivity.class,
-                      IntentConstants.DEFAULT_PARCEABLE_NAME,tngouBean);
-          }
-      });
+        super.initListener();
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
+                PictureListBean.TngouBean tngouBean = mDatas.get(position);
+                readyGo(PictureDetailActivity.class,
+                        IntentConstants.DEFAULT_PARCEABLE_NAME, tngouBean);
+            }
+        });
 
+    }
+
+    @Override
+    public void fetchData() {
+        mPresenter.getPictureList(String.valueOf(mPage), String.valueOf(mRows), mId);
     }
 
     @Override

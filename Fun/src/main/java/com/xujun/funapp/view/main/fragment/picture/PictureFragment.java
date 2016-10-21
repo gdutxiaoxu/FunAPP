@@ -36,7 +36,7 @@ public class PictureFragment extends BaseViewFragment<PicturePresenter>
         }
         BaseFragmentAdapter baseFragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager
                 (), mFragments,mTitles);
-        return new BaseFragmentAdapter(getChildFragmentManager(),mFragments,mTitles);
+        return baseFragmentAdapter;
     }
 
     @Override

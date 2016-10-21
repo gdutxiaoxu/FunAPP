@@ -66,7 +66,7 @@ public class PictureListFragment3 extends BindingBaseFragment<FragmentPictureLis
         mRefreshLayout = binding.refreshLayout;
 
         mDatas = new ArrayList<>();
-        mAdapter = new PictureListAdapter(mContext, mDatas);
+        mAdapter = new PictureListAdapter(mContext, mDatas,new Object());
         mLayoutManager = new LinearLayoutManager(mContext);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mContext,
                 mLayoutManager.getOrientation());
@@ -74,7 +74,7 @@ public class PictureListFragment3 extends BindingBaseFragment<FragmentPictureLis
         mRecyclerView.addItemDecoration(dividerItemDecoration);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext));
+        mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext,new Object()));
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);

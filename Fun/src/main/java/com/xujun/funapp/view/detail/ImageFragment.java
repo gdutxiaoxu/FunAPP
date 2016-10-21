@@ -2,7 +2,6 @@ package com.xujun.funapp.view.detail;
 
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureDetailBean;
@@ -15,7 +14,6 @@ import com.xujun.funapp.databinding.FragmentImageBinding;
 public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,BasePresenter> {
 
     private ImageView mImage;
-    private TextView mTvPage;
 
     PictureDetailBean.ListBean mListBean;
 
@@ -42,7 +40,6 @@ public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,Base
             checkNotNull(mListBean);
         }
         mImage = binding.image;
-        mTvPage = binding.tvPage;
         String  imageURl= Constants.URLConstants.URL_IMAGE_BASE+mListBean.src;
         ImageUtils.display(mContext,mImage,imageURl);
 

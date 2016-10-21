@@ -28,11 +28,12 @@ public abstract class BaseListFragment<P extends BasePresenter>
     private BGARefreshLayout mRefreshLayout;
     private RecyclerView.Adapter mAdapter;
 
-
     OnRefreshListener mOnRefreshListener;
+    //    加载图片的tag
+    protected Object mPictureTag;
 
-    protected void setOnRefreshListner(OnRefreshListener OnRefreshListener){
-       this.mOnRefreshListener=OnRefreshListener;
+    protected void setOnRefreshListner(OnRefreshListener OnRefreshListener) {
+        this.mOnRefreshListener = OnRefreshListener;
     }
 
     @Override
@@ -44,17 +45,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
     protected void initView(FragmentBaseListBinding binding) {
         mRecyclerView = binding.recyclerView;
         mRefreshLayout = binding.refreshLayout;
-        RecyclerUtils.init(mRecyclerView);
 
-
-        mAdapter=getAdapter();
-        if(mAdapter==null){
-            throw new IllegalStateException("You must init recycler adapter first");
-        }
-
-        mRecyclerView.setAdapter(mAdapter);
-
-        mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext));
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -64,9 +55,22 @@ public abstract class BaseListFragment<P extends BasePresenter>
         refreshViewHolder.setLoadingMoreText("正在加载更多");
 
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
+
+        RecyclerUtils.init(mRecyclerView);
+
+
+        mAdapter = getAdapter();
+        if (mAdapter == null) {
+            throw new IllegalStateException("You must init recycler adapter first");
+        }
+
+        mRecyclerView.setAdapter(mAdapter);
+
+        mPictureTag = new Object();
+        mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
+
+
     }
-
-
 
     protected abstract RecyclerView.Adapter getAdapter();
 
@@ -75,15 +79,15 @@ public abstract class BaseListFragment<P extends BasePresenter>
         mRefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-               if(mOnRefreshListener!=null){
-                   mOnRefreshListener.onRefresh(refreshLayout);
-               }
+                if (mOnRefreshListener != null) {
+                    mOnRefreshListener.onRefresh(refreshLayout);
+                }
 
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-                if(mOnRefreshListener!=null){
+                if (mOnRefreshListener != null) {
                     mOnRefreshListener.onLoadMore(refreshLayout);
                 }
                 return true;
@@ -92,10 +96,10 @@ public abstract class BaseListFragment<P extends BasePresenter>
         setOnRefreshListner(this);
     }
 
-    protected void endRefresh(){
-        if(isRefresh()){
+    protected void endRefresh() {
+        if (isRefresh()) {
             mRefreshLayout.endRefreshing();
-        }else{
+        } else {
             mRefreshLayout.endLoadingMore();
         }
     }
@@ -115,7 +119,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
     }
 
-    public boolean isRefresh(){
-        return mPage<=1;
+    public boolean isRefresh() {
+        return mPage <= 1;
     }
 }

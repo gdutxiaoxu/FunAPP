@@ -14,22 +14,28 @@ import com.squareup.picasso.Picasso;
 
 public class RecyclerScroller extends RecyclerView.OnScrollListener {
 
-    private Context tag;
+    private Object tag;
+    Context mContext;
 
-    public RecyclerScroller(Context tag){
+    public RecyclerScroller(Context context, Object tag){
         this.tag=tag;
+        this.mContext=context;
+
     }
 
 
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-        final  Picasso picasso=Picasso.with(tag);
-       if(newState==RecyclerView.SCROLL_STATE_IDLE ||newState==RecyclerView.SCROLL_STATE_DRAGGING ){
-           picasso.resumeTag(tag);
-       }else{
-           picasso.pauseTag(tag);
-       }
+        final  Picasso picasso=Picasso.with(mContext);
+        if (newState == RecyclerView.SCROLL_STATE_IDLE)
+        {
+            Picasso.with(mContext).resumeTag(tag);
+        }
+        else
+        {
+            Picasso.with(mContext).pauseTag(tag);
+        }
     }
 
     @Override

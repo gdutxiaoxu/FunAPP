@@ -21,8 +21,12 @@ import java.util.List;
  */
 public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.TngouBean> {
 
-    public PictureListAdapter(Context context, List<PictureListBean.TngouBean> datas) {
+    //    加载图片的tag
+    protected Object mPictureTag;
+
+    public PictureListAdapter(Context context, List<PictureListBean.TngouBean> datas, Object pictureTag) {
         super(context, R.layout.item_picture_list, datas);
+        this.mPictureTag=pictureTag;
     }
 
     @Override
@@ -44,7 +48,7 @@ public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.Tngo
 
 
         String imageUrl = Network.mBaseImageUrl + item.img;
-        ImageUtils.display(mContext,imageView,imageUrl);
+        ImageUtils.display(mContext,imageView,imageUrl,mPictureTag);
 //        Picasso.with(mContext).load(Network.mBaseImageUrl + item.img).resizeDimen(
 //                R.dimen.iv_width_pic_list, R.dimen.iv_height_pic_list).into(imageView);
 
