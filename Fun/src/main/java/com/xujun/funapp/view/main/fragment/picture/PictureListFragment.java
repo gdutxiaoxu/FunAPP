@@ -2,13 +2,17 @@ package com.xujun.funapp.view.main.fragment.picture;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.adapters.PictureListAdapter;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.BaseListFragment;
+import com.xujun.funapp.common.Constants.IntentConstants;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.model.PictureListModel;
+import com.xujun.funapp.view.detail.PictureDetailActivity;
 
 import java.util.ArrayList;
 
@@ -25,6 +29,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     private static String[] tags = PictureListModel.tags;
     private ArrayList<PictureListBean.TngouBean> mDatas;
+    private PictureListAdapter mAdapter;
 
     public static PictureListFragment newInstance(String title, int id) {
         PictureListFragment pictureListFragment = new PictureListFragment();
@@ -39,7 +44,21 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     @Override
     protected RecyclerView.Adapter getAdapter() {
         mDatas = new ArrayList<>();
-        return new PictureListAdapter(mContext, mDatas);
+        mAdapter = new PictureListAdapter(mContext, mDatas);
+        return mAdapter;
+    }
+
+    @Override
+    protected void initListener() {
+      mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+          @Override
+          public void onClick(View view, RecyclerView.ViewHolder holder,  int position) {
+              PictureListBean.TngouBean tngouBean = mDatas.get(position);
+              readyGo(PictureDetailActivity.class,
+                      IntentConstants.DEFAULT_PARCEABLE_NAME,tngouBean);
+          }
+      });
+
     }
 
     @Override

@@ -5,7 +5,7 @@ package com.xujun.funapp.network;
  * @ author：xujun on 2016/10/19 23:40
  * @ email：gdutxiaoxu@163.com
  */
-public interface Request<T> {
+public interface RequestListener<T> {
 
     public void onSuccess(T t);
     public void onError(Throwable throwable);

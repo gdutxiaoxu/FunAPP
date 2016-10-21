@@ -26,7 +26,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
     private RecyclerView mRecyclerView;
     private BGARefreshLayout mRefreshLayout;
-    protected RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter mAdapter;
 
 
     OnRefreshListener mOnRefreshListener;

@@ -1,11 +1,11 @@
 package com.xujun.funapp.common;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,11 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.LUtils;
 
 import org.simple.eventbus.EventBus;
+
+import static com.xujun.funapp.common.Constants.IntentConstants.DEFAULT_PARCEABLE_NAME;
 
 /**
  * Created by xujun、on 2016/4/26.
@@ -134,10 +135,6 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
             mPresenter.stop();
     }
 
-    public void readGo(Class<? extends Activity> claz) {
-        Intent intent = new Intent(getActivity(), claz);
-        startActivity(intent);
-    }
 
     protected void showToast(int resID) {
         Toast.makeText(getActivity(), resID, Toast.LENGTH_SHORT).show();
@@ -147,13 +144,35 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
         Toast.makeText(getActivity(), res, Toast.LENGTH_SHORT).show();
     }
 
-    protected void replace(Fragment target) {
+    protected void replace(Fragment target,int id) {
         if (getActivity() == null)
             return;
         if (getActivity().isFinishing())
             return;
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentPanel, target).commit();
+                .replace(id, target).commit();
+    }
+
+    public void readyGo(Class<?> clazz, Parcelable parcelable) {
+        this.readyGo(clazz, DEFAULT_PARCEABLE_NAME,parcelable);
+    }
+
+
+
+
+    public void readyGo(Class<?> clazz, String name, Parcelable parcelable) {
+        Intent intent = new Intent(getActivity(), clazz);
+        if (null != parcelable) {
+            intent = intent.putExtra(name, parcelable);
+        }
+        startActivity(intent);
+    }
+
+    protected  <T>  T  checkNotNull(T t) {
+        if(t==null){
+            throw new NullPointerException();
+        }
+        return t;
     }
 
 

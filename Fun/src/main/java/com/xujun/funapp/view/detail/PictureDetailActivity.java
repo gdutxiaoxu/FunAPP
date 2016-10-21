@@ -1,16 +1,22 @@
 package com.xujun.funapp.view.detail;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
 import com.xujun.funapp.R;
+import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.beans.PictureListBean.TngouBean;
+import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.databinding.ActivityPictureDetailBinding;
 import com.xujun.funapp.presenter.PictureDetailContract;
 import com.xujun.funapp.presenter.PictureDetailPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PictureDetailActivity extends
         BaseMVPActivity<ActivityPictureDetailBinding,PictureDetailPresenter>
@@ -19,6 +25,7 @@ public class PictureDetailActivity extends
     private RecyclerView mRecyclerView;
     private ViewPager mViewPager;
     private TngouBean mTngouBean;
+    private ArrayList<Fragment> mFragments;
 
     @Override
     protected PictureDetailPresenter setPresenter() {
@@ -54,7 +61,18 @@ public class PictureDetailActivity extends
     }
 
     @Override
-    public void onReceivePictureList() {
+    public void onReceivePictureList(PictureDetailBean pictureDetailBean) {
+        List<PictureDetailBean.ListBean> data = pictureDetailBean.list;
+        mFragments = new ArrayList<>();
+
+        for(int i=0;i<data.size();i++){
+            PictureDetailBean.ListBean listBean = data.get(i);
+            ImageFragment imageFragment = ImageFragment.newInstance(listBean);
+            mFragments.add(imageFragment);
+        }
+        BaseFragmentAdapter fragmentAdapter = new BaseFragmentAdapter
+                (getSupportFragmentManager(), mFragments);
+        mViewPager.setAdapter(fragmentAdapter);
 
     }
 }

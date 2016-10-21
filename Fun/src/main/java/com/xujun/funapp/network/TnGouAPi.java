@@ -1,6 +1,7 @@
 package com.xujun.funapp.network;
 
 import com.xujun.funapp.beans.PictureClassify;
+import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.beans.Test;
 
@@ -45,6 +46,6 @@ public interface TnGouAPi {
 
     // 获取图片列表
     @GET("tnfs/api/show")
-    Observable<PictureListBean> getPictureDetail(@Query("id") int id);
+    Observable<PictureDetailBean> getPictureDetail(@Query("id") int id);
 
 }

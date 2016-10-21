@@ -1,16 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.xujun.funapp"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
+
 
     dataBinding {
         enabled = true
@@ -26,24 +31,35 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.0'
 
-    compile 'com.android.support:design:23.2.0'
     // -------------------- 以下三个库是必须依赖的 ----------------------------
-    compile 'com.android.support:recyclerview-v7:23.2.0'
+    // -------------------- 以上三个库是必须依赖的 ----------------------------
+    // 添加依赖
+    compile project(':commonlibrary')
+
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+
+
+
+
+
+
+
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.6@aar'
-    // -------------------- 以上三个库是必须依赖的 ----------------------------
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.orhanobut:logger:1.15'
-    // 添加依赖
     compile 'org.simple:androideventbus:1.0.5.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.litepal.android:core:1.3.2'
-    compile project(':commonlibrary')
+
+    testCompile 'junit:junit:4.12'
 }

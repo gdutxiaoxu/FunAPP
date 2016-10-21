@@ -1,5 +1,6 @@
 package com.xujun.funapp.presenter;
 
+import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.mvp.BaseView;
 
@@ -13,7 +14,7 @@ public class PictureDetailContract {
 
 
     public interface View extends BaseView{
-        void onReceivePictureList();
+        void onReceivePictureList(PictureDetailBean pictureDetailBean);
 
     }
 

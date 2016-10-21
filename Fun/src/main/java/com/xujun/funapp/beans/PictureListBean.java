@@ -64,7 +64,7 @@ public class PictureListBean implements Parcelable {
         dest.writeString(tag);
     }
 
-    public static class TngouBean {
+    public static class TngouBean  implements Parcelable {
         public int count;
         public int fcount;
         public int galleryclass;
@@ -74,5 +74,47 @@ public class PictureListBean implements Parcelable {
         public int size;
         public long time;
         public String title;
+
+        protected TngouBean(Parcel in) {
+            count = in.readInt();
+            fcount = in.readInt();
+            galleryclass = in.readInt();
+            id = in.readInt();
+            img = in.readString();
+            rcount = in.readInt();
+            size = in.readInt();
+            time = in.readLong();
+            title = in.readString();
+        }
+
+        public static final Creator<TngouBean> CREATOR = new Creator<TngouBean>() {
+            @Override
+            public TngouBean createFromParcel(Parcel in) {
+                return new TngouBean(in);
+            }
+
+            @Override
+            public TngouBean[] newArray(int size) {
+                return new TngouBean[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(count);
+            dest.writeInt(fcount);
+            dest.writeInt(galleryclass);
+            dest.writeInt(id);
+            dest.writeString(img);
+            dest.writeInt(rcount);
+            dest.writeInt(size);
+            dest.writeLong(time);
+            dest.writeString(title);
+        }
     }
 }

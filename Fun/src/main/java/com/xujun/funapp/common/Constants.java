@@ -5,7 +5,7 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by Domen、on 2016/5/5.
+ * Created by xujun、on 2016/5/5.
  */
 public class Constants {
     public static final String REQUEST_SUC = "0";//请求成功
@@ -27,17 +27,16 @@ public class Constants {
     public final static String LOGIN_OUT = "login_out";
     public final static String BaseCachePath = Environment.getExternalStoragePublicDirectory("Download") + File.separator + APP.getApplication().getPackageName() + File.separator;
 
-    // 根据系统流程编号 来判断是发文 来文 还是会议
-    public static final String FlagReceiveDoc = "2006083005302033";
-    public static final String FlagSendDoc = "2006090502280735";
-    public static final String FlagConference = "2006122705014455";
-    public static final String FlagInsideReceiveDoc = "2006091804275336";//内部事务来文
-    public static final String FlagInsideSendDoc = "2006091804282537";//内部事务发文
+
 
     public static class IntentConstants {
         public static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
         public static final String DEFAULT_PARCEABLE_LIST_NAME = "DEFAULT_PARCEABLE_LIST_NAME";
         public static final String Action_ChuanYueDetailActivity = "Action_ChuanYueDetailActivity";
         public static final String Action_PiYueDetailActivity = "Action_PiYueDetailActivity";
+    }
+
+    public static  class URLConstants{
+        public static final String URL_IMAGE_BASE="http://tnfs.tngou.net/image";
     }
 }
