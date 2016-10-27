@@ -1,7 +1,6 @@
 package com.xujun.funapp.view.detail;
 
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureDetailBean;
@@ -10,12 +9,14 @@ import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.ImageUtils;
 import com.xujun.funapp.databinding.FragmentImageBinding;
+import com.xujun.funapp.widget.DragImageView;
 
 public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,BasePresenter> {
 
-    private ImageView mImage;
+
 
     PictureDetailBean.ListBean mListBean;
+    private DragImageView mImage;
 
     public static ImageFragment  newInstance(PictureDetailBean.ListBean listBean){
         ImageFragment imageFragment = new ImageFragment();
