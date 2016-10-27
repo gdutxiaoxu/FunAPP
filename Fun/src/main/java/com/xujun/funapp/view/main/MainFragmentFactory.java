@@ -2,7 +2,7 @@ package com.xujun.funapp.view.main;
 
 import android.support.v4.app.Fragment;
 
-import com.xujun.funapp.view.main.fragment.NewsFragment;
+import com.xujun.funapp.view.main.fragment.news.NewsFragment;
 import com.xujun.funapp.view.main.fragment.picture.PictureFragment;
 
 import java.util.ArrayList;

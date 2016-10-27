@@ -3,10 +3,8 @@ package com.xujun.funapp.common;
 import android.support.v4.view.ViewPager;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.beans.PictureClassify;
-import com.xujun.funapp.common.mvp.DefaultContract;
+import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.databinding.FragmentViewPagerBinding;
-import com.xujun.funapp.view.main.fragment.picture.PicturePresenter;
 import com.xujun.funapp.widget.TabPagerIndicator;
 
 /**
@@ -14,8 +12,8 @@ import com.xujun.funapp.widget.TabPagerIndicator;
  * @ author：xujun on 2016/10/7 22:51
  * @ email：gdutxiaoxu@163.com
  */
-public abstract class BaseViewPagerFragemnt extends BindingBaseFragment<FragmentViewPagerBinding,PicturePresenter>
-        implements DefaultContract.View<PictureClassify>{
+public abstract class BaseViewPagerFragemnt<P extends BasePresenter > extends
+        BindingBaseFragment<FragmentViewPagerBinding,P>{
 
     private ViewPager mViewPager;
     private TabPagerIndicator mIndicator;
@@ -36,36 +34,14 @@ public abstract class BaseViewPagerFragemnt extends BindingBaseFragment<Fragment
 
     }
 
+    /**
+     * 这个方式是用来初始化ViewPager的adapter的
+     * @return
+     */
     protected abstract BaseFragmentAdapter getViewPagerAdapter() ;
 
 
-    @Override
-    protected PicturePresenter setPresenter() {
-        return new PicturePresenter(this);
-    }
 
-    @Override
-    public void showProgress() {
 
-    }
 
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void onSuccess(PictureClassify pictureClassify) {
-
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-
-    }
-
-    @Override
-    public void onLocal(PictureClassify pictureClassify) {
-
-    }
 }

@@ -1,8 +1,11 @@
 package com.xujun.funapp.common;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.xujun.commonlibrary.widget.MutiLayout;
+import com.xujun.commonlibrary.widget.MutiLayout.LoadResult;
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.RecyclerScroller;
@@ -31,6 +34,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
     OnRefreshListener mOnRefreshListener;
     //    加载图片的tag
     protected Object mPictureTag;
+    private MutiLayout mMultiLayout;
 
     protected void setOnRefreshListner(OnRefreshListener OnRefreshListener) {
         this.mOnRefreshListener = OnRefreshListener;
@@ -45,6 +49,9 @@ public abstract class BaseListFragment<P extends BasePresenter>
     protected void initView(FragmentBaseListBinding binding) {
         mRecyclerView = binding.recyclerView;
         mRefreshLayout = binding.refreshLayout;
+        mMultiLayout = binding.multiLayout;
+
+        mMultiLayout.show(LoadResult.loading);
 
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
@@ -94,10 +101,24 @@ public abstract class BaseListFragment<P extends BasePresenter>
             }
         });
         setOnRefreshListner(this);
+
+        mMultiLayout.setOnRetryListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**
+                 * 默认调用刷新第一页的数据的方法
+                 */
+                onRefresh(mRefreshLayout);
+            }
+        });
     }
 
     protected void endRefresh() {
         if (isRefresh()) {
+            /**
+             * 在第一页刷新结束的要隐藏mMultiLayout
+             */
+            mMultiLayout.hide();
             mRefreshLayout.endRefreshing();
         } else {
             mRefreshLayout.endLoadingMore();

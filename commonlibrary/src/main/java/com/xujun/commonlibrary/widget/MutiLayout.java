@@ -73,7 +73,7 @@ public class MutiLayout extends FrameLayout {
     }
 
     public enum LoadResult {
-        loading(1), error(2), empty(3), success(4);
+        loading(1), error(2), empty(3), noone(4);
 
         int value;
 
@@ -90,6 +90,13 @@ public class MutiLayout extends FrameLayout {
 
     public void setOnRetryListener(OnClickListener onClickListener){
         mRetryListener=onClickListener;
+    }
+
+    public void hide(){
+        for(int i=0;i<getChildCount();i++){
+            View view = getChildAt(i);
+            view.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void show(LoadResult loadResult) {

@@ -6,7 +6,7 @@ import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureClassify;
 import com.xujun.funapp.beans.Test;
 import com.xujun.funapp.common.BaseFragmentAdapter;
-import com.xujun.funapp.common.BaseViewFragment;
+import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.common.util.MD5;
 import com.xujun.funapp.common.util.UIUtils;
@@ -20,7 +20,7 @@ import java.util.List;
  * @ author：xujun on 2016/10/17 21:48
  * @ email：gdutxiaoxu@163.com
  */
-public class PictureFragment extends BaseViewFragment<PicturePresenter>
+public class PictureFragment extends BaseViewPagerFragemnt<PicturePresenter>
         implements DefaultContract.View<PictureClassify> {
 
     private static final String[] mTitles= UIUtils.getStringArray(R.array.picture_titles);

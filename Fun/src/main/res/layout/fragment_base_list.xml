@@ -2,16 +2,31 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
-        android:id="@+id/refresh_layout"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-        />
-    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+            />
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+        <com.xujun.commonlibrary.widget.MutiLayout
+            android:id="@+id/multiLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+        >
+
+        </com.xujun.commonlibrary.widget.MutiLayout>
+
+    </FrameLayout>
 
 </layout>
