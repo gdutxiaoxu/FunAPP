@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CommonLibrary</string>
+    <string name="load_error">点击重试</string>
 </resources>

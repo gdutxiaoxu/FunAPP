@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="empty">
+        <attr name="emptyText" format="string"/>
+        <attr name="emptyIcon" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="error">
+        <attr name="errorText" format="string"/>
+        <attr name="errorIcon" format="reference"/>
+    </declare-styleable>
+
+</resources>

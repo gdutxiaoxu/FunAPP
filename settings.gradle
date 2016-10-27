@@ -1,3 +1,4 @@
-include ':Fun',  ':commonlibrary', ':app',  ':image_zoom_drag_vp', ':ImageDetailDemo'
+include ':Fun', ':commonlibrary', ':app'
+
 
 
