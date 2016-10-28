@@ -3,12 +3,14 @@ package com.xujun.funapp.common;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.xujun.commonlibrary.widget.MutiLayout;
 import com.xujun.commonlibrary.widget.MutiLayout.LoadResult;
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.RecyclerScroller;
+import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
 
 import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
@@ -31,10 +33,13 @@ public abstract class BaseListFragment<P extends BasePresenter>
     private BGARefreshLayout mRefreshLayout;
     private RecyclerView.Adapter mAdapter;
 
+
+
     OnRefreshListener mOnRefreshListener;
     //    加载图片的tag
     protected Object mPictureTag;
-    private MutiLayout mMultiLayout;
+    private MutiLayout mMutiLayout;
+    private FrameLayout mFlRoot;
 
     protected void setOnRefreshListner(OnRefreshListener OnRefreshListener) {
         this.mOnRefreshListener = OnRefreshListener;
@@ -49,9 +54,13 @@ public abstract class BaseListFragment<P extends BasePresenter>
     protected void initView(FragmentBaseListBinding binding) {
         mRecyclerView = binding.recyclerView;
         mRefreshLayout = binding.refreshLayout;
-        mMultiLayout = binding.multiLayout;
+        mFlRoot = binding.flRoot;
+        mMutiLayout = new MutiLayout(mContext);
 
-        mMultiLayout.show(LoadResult.loading);
+        mFlRoot.addView(mMutiLayout, ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+
+
 
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
@@ -64,7 +73,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
         RecyclerUtils.init(mRecyclerView);
-
+        mPictureTag = this;
 
         mAdapter = getAdapter();
         if (mAdapter == null) {
@@ -73,7 +82,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
         mRecyclerView.setAdapter(mAdapter);
 
-        mPictureTag = new Object();
+
         mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
 
 
@@ -102,15 +111,22 @@ public abstract class BaseListFragment<P extends BasePresenter>
         });
         setOnRefreshListner(this);
 
-        mMultiLayout.setOnRetryListener(new View.OnClickListener() {
+        mMutiLayout.setOnRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * 默认调用刷新第一页的数据的方法
-                 */
+
                 onRefresh(mRefreshLayout);
             }
         });
+    }
+
+    protected void showError(){
+        show(LoadResult.empty);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mRefreshLayout.setVisibility(View.INVISIBLE);
+    }
+    protected  void show(LoadResult loadResult){
+        mMutiLayout.show(loadResult);
     }
 
     protected void endRefresh() {
@@ -118,26 +134,43 @@ public abstract class BaseListFragment<P extends BasePresenter>
             /**
              * 在第一页刷新结束的要隐藏mMultiLayout
              */
-            mMultiLayout.hide();
+            show(LoadResult.noone);
             mRefreshLayout.endRefreshing();
         } else {
             mRefreshLayout.endLoadingMore();
         }
     }
 
+
+
+    @Override
+    public void fetchData() {
+        super.fetchData();
+
+    }
+
     @Override
     protected void initData() {
+        WriteLogUtil.i("fetchData()");
+        show(LoadResult.loading);
         mRefreshLayout.beginRefreshing();
     }
 
     @Override
     public void onRefresh(ViewGroup viewGroup) {
+        getFirstPageData();
 
+    }
+
+    protected void getFirstPageData() {
+    }
+
+    protected void getNextPageData() {
     }
 
     @Override
     public void onLoadMore(ViewGroup viewGroup) {
-
+        getNextPageData();
     }
 
     public boolean isRefresh() {

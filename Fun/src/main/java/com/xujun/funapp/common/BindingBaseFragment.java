@@ -45,13 +45,19 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = setPresenter();
-        mContext = getActivity();
+        initAru();
+
+    }
+
+    protected  void initAru(){
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
     Bundle savedInstanceState) {
+        mContext = getContext();
         Log.i(TAG, this.getClass().getSimpleName()+" onCreateView" );
         if (hasEventBus()) {
             EventBus.getDefault().register(this);
@@ -61,6 +67,7 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
         initView(mBinding);
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onCreateView()");
         mView=mBinding.getRoot();
+
         return mView;
     }
 
@@ -72,6 +79,7 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
             mPresenter.start();
         }
         mIsViewInitiated=true;
+        prepareFetchData();
         initListener();
         initData();
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onActivityCreated()");
@@ -83,7 +91,7 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mIsVisiableToUser=true;
+        mIsVisiableToUser=isVisibleToUser;
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>setUserVisibleHint()"+isVisibleToUser);
         prepareFetchData();
 
@@ -107,6 +115,8 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
      */
     public boolean prepareFetchData(boolean forceUpdate) {
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>prepareFetchData()"+forceUpdate);
+        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>mIsViewInitiated"+mIsViewInitiated);
+        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>mIsVisiableToUser"+mIsVisiableToUser);
         if (mIsVisiableToUser && mIsViewInitiated && (!mIsDataInitiated || forceUpdate)) {
             fetchData();
             mIsDataInitiated = true;

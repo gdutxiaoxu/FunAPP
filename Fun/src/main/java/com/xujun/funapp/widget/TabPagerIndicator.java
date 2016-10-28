@@ -318,6 +318,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
     private void addTab(final int position, View tab) {
         tab.setFocusable(true);
+        tab.setClickable(true);
         tab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

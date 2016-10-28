@@ -3,7 +3,6 @@ package com.xujun.funapp.view.main.fragment.picture;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.adapters.PictureListAdapter;
@@ -61,31 +60,19 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     }
 
-    @Override
-    public void fetchData() {
-        mPresenter.getPictureList(String.valueOf(mPage), String.valueOf(mRows), mId);
-    }
+
 
     @Override
     protected PictureListPresenter setPresenter() {
         return new PictureListPresenter(this, tags[mId]);
     }
 
-    @Override
-    public void onRefresh(ViewGroup viewGroup) {
-        getFirstPageData();
-    }
 
-    @Override
-    public void onLoadMore(ViewGroup viewGroup) {
-        getNextPageData();
-    }
-
-    private void getNextPageData() {
+    protected void getNextPageData() {
         mPresenter.getPictureList(String.valueOf(++mPage), String.valueOf(mRows), mId);
     }
 
-    private void getFirstPageData() {
+    protected void getFirstPageData() {
         mPage = 1;
         mPresenter.getPictureList(String.valueOf(mPage), String.valueOf(mRows), mId);
     }

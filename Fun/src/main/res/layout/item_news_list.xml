@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+>
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/iv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bga_refresh_loading01"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/iv"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:text="哈哈，我是唐嫣大美女的粉丝"/>
+
+
+    <TextView
+        android:id="@+id/tv_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv"
+        android:layout_alignLeft="@id/tv_title"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="15sp"
+        android:text="凤凰新闻"
+    />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv"
+        android:layout_alignParentRight="true"
+        android:paddingRight="15dp"
+        android:layout_alignBaseline="@id/tv_source"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="15sp"
+        android:text="凤凰新闻"
+    />
+
+</RelativeLayout>

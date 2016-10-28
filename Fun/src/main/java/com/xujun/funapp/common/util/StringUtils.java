@@ -15,6 +15,6 @@ public class StringUtils {
     }
 
     public static String getStr(String str){
-       return getStr(str,"");
+       return getStr(str,"null");
     }
 }

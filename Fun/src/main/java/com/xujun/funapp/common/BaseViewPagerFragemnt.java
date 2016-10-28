@@ -1,11 +1,11 @@
 package com.xujun.funapp.common;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.databinding.FragmentViewPagerBinding;
-import com.xujun.funapp.widget.TabPagerIndicator;
 
 /**
  * @ explain:
@@ -16,8 +16,9 @@ public abstract class BaseViewPagerFragemnt<P extends BasePresenter > extends
         BindingBaseFragment<FragmentViewPagerBinding,P>{
 
     private ViewPager mViewPager;
-    private TabPagerIndicator mIndicator;
+
     private BaseFragmentAdapter mFragmentAdapter;
+    private TabLayout mTabLayout;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -27,10 +28,11 @@ public abstract class BaseViewPagerFragemnt<P extends BasePresenter > extends
     @Override
     protected void initView(FragmentViewPagerBinding binding) {
         mViewPager = binding.viewPager;
-        mIndicator = binding.indicator;
+        mTabLayout = binding.tabLayout;
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mFragmentAdapter = getViewPagerAdapter();
         mViewPager.setAdapter(mFragmentAdapter);
-        mIndicator.setViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 

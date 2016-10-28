@@ -9,7 +9,7 @@
     >
 
         <com.xujun.funapp.widget.TabPagerIndicator
-            android:id="@+id/indicator"
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="35dp"/>
 

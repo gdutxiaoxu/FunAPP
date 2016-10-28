@@ -25,11 +25,11 @@ public class BaiDuNewsConfig {
     }
 
     public  static final String[] mTitles=new String[]{
-            "世界","社会","科技","体育"
+            "世界","科技","体育"
     };
 
     public  static final String[] mTypes=new String[]{
-            "world","social","keji","tiyu"
+            "world","keji","tiyu"
     };
 
     public List<NewsClassify> getList(){

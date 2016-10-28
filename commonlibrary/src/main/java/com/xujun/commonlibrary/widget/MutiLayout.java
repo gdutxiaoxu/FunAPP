@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -54,7 +55,28 @@ public class MutiLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
         mContext = context;
         initAttr(attrs);
+        initView();
 
+    }
+
+    private void initView() {
+        emptyView = createEmptyView();
+        errorView = createErrorView();
+        loadingView = createLoadingView();
+        removeView(emptyView);
+        removeView(errorView);
+        removeView(loadingView);
+        add(emptyView);
+        add(errorView);
+        add(loadingView);
+        show(LoadResult.loading);
+
+    }
+
+    private void add(View view) {
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LayoutParams
+                .MATCH_PARENT);
+        addView(view, layoutParams);
     }
 
     private void initAttr(AttributeSet attrs) {
@@ -73,7 +95,7 @@ public class MutiLayout extends FrameLayout {
     }
 
     public enum LoadResult {
-        loading(1), error(2), empty(3), noone(4);
+        loading(1), error(2), empty(3), noone(0);
 
         int value;
 
@@ -87,40 +109,32 @@ public class MutiLayout extends FrameLayout {
 
     }
 
-
-    public void setOnRetryListener(OnClickListener onClickListener){
-        mRetryListener=onClickListener;
+    public void setOnRetryListener(OnClickListener onClickListener) {
+        mRetryListener = onClickListener;
     }
 
-    public void hide(){
-        for(int i=0;i<getChildCount();i++){
+    public void hide() {
+        for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             view.setVisibility(View.INVISIBLE);
         }
     }
 
+    // 根据不同的状态显示不同的界面
     public void show(LoadResult loadResult) {
         state = loadResult.getValue();
-        showPage();
-    }
+        if (state == STATE_NOONE) {
+            hide();
+        } else {
 
-    // 根据不同的状态显示不同的界面
-    private void showPage() {
-        if (loadingView == null) {
-            loadingView = createLoadingView();
+            loadingView.setVisibility(state == STATE_LOADING ? View.VISIBLE : View.INVISIBLE);
 
+            errorView.setVisibility(state == STATE_ERROR ? View.VISIBLE
+                    : View.INVISIBLE);
+
+            emptyView.setVisibility(state == STATE_EMPTY ? View.VISIBLE
+                    : View.INVISIBLE);
         }
-        loadingView.setVisibility(state == STATE_LOADING ? View.VISIBLE : View.INVISIBLE);
-        if (errorView == null) {
-            errorView = createErrorView();
-        }
-        errorView.setVisibility(state == STATE_ERROR ? View.VISIBLE
-                : View.INVISIBLE);
-        if (emptyView == null) {
-            emptyView = createEmptyView();
-        }
-        emptyView.setVisibility(state == STATE_EMPTY ? View.VISIBLE
-                : View.INVISIBLE);
 
     }
 
@@ -128,13 +142,13 @@ public class MutiLayout extends FrameLayout {
     private View createEmptyView() {
         View view = View.inflate(mContext, R.layout.loadpage_empty,
                 null);
-        TextView tv=(TextView)view.findViewById(R.id.tv_empty);
-        ImageView imageView=(ImageView)view.findViewById(R.id.iv_empty);
+        TextView tv = (TextView) view.findViewById(R.id.tv_empty);
+        ImageView imageView = (ImageView) view.findViewById(R.id.iv_empty);
         if (TextUtils.isEmpty(mEmptyText)) {
             tv.setText(mEmptyText);
         }
 
-        if(mEmptyIconId!=-1){
+        if (mEmptyIconId != -1) {
             imageView.setImageResource(mEmptyIconId);
         }
         return view;
@@ -145,12 +159,12 @@ public class MutiLayout extends FrameLayout {
         View view = View.inflate(mContext, R.layout.loadpage_error,
                 null);
         Button page_bt = (Button) view.findViewById(R.id.page_bt);
-        ImageView iv=(ImageView)view.findViewById(R.id.page_iv);
-        if(!TextUtils.isEmpty(mEmptyText)){
+        ImageView iv = (ImageView) view.findViewById(R.id.page_iv);
+        if (!TextUtils.isEmpty(mEmptyText)) {
             page_bt.setText(mErrorText);
         }
 
-        if(mErrorIconId!=-1){
+        if (mErrorIconId != -1) {
             iv.setImageResource(mErrorIconId);
         }
 
@@ -158,7 +172,7 @@ public class MutiLayout extends FrameLayout {
 
             @Override
             public void onClick(View v) {
-                if(mRetryListener!=null){
+                if (mRetryListener != null) {
                     mRetryListener.onClick(v);
                 }
             }
@@ -171,6 +185,14 @@ public class MutiLayout extends FrameLayout {
         View view = View.inflate(mContext,
                 R.layout.loadpage_loading, null);
         return view;
+    }
+
+    public  void removeParent(View view){
+        ViewGroup parent =(ViewGroup) view.getParent();
+        if(parent!=null){
+            parent.removeView(view);
+        }
+
     }
 
 
