@@ -1,7 +1,7 @@
 package com.xujun.funapp.model;
 
 import com.xujun.funapp.beans.PictureClassify;
-import com.xujun.funapp.network.Network;
+import com.xujun.funapp.network.TnGouNet;
 import com.xujun.funapp.network.TnGouAPi;
 
 import org.simple.eventbus.EventBus;
@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 public class PictureModel {
 
     public static void getPictureClassify() {
-        TnGouAPi tnGouAPi = Network.getInstance().getTnGouAPi();
+        TnGouAPi tnGouAPi = TnGouNet.getInstance().getTnGouAPi();
         Observable<PictureClassify> observable = tnGouAPi.pictureClassify();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -2,7 +2,7 @@ package com.xujun.funapp.model;
 
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureDetailBean;
-import com.xujun.funapp.network.Network;
+import com.xujun.funapp.network.TnGouNet;
 import com.xujun.funapp.network.RequestListener;
 import com.xujun.funapp.network.TnGouAPi;
 
@@ -20,7 +20,7 @@ public class PictureDetailModel {
 
     public  void  getPictureList(int id, final RequestListener listener){
 
-        TnGouAPi tnGouAPi = Network.getInstance().getTnGouAPi();
+        TnGouAPi tnGouAPi = TnGouNet.getInstance().getTnGouAPi();
         Observable<PictureDetailBean> observable = tnGouAPi.getPictureDetail(id);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

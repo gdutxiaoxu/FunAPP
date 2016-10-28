@@ -3,7 +3,7 @@ package com.xujun.funapp.model;
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.beans.Test;
-import com.xujun.funapp.network.Network;
+import com.xujun.funapp.network.TnGouNet;
 import com.xujun.funapp.network.TnGouAPi;
 
 import org.simple.eventbus.EventBus;
@@ -61,7 +61,7 @@ public class PictureListModel {
     }
 
     public static void getPictureList(String page, String rows, int id, final String tag) {
-        TnGouAPi tnGouAPi = Network.getInstance().getTnGouAPi();
+        TnGouAPi tnGouAPi = TnGouNet.getInstance().getTnGouAPi();
         Observable<PictureListBean> observable = tnGouAPi.getPictureList(page,rows,id);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

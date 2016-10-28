@@ -2,11 +2,14 @@ package com.xujun.funapp.view.main.fragment.news;
 
 import android.support.v4.app.Fragment;
 
+import com.xujun.funapp.beans.NewsClassify;
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
+import com.xujun.funapp.network.BaiDuNewsConfig;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ explain:
@@ -17,14 +20,20 @@ public class NewsFragment extends BaseViewPagerFragemnt<NewsPresenter> implement
         .View {
 
     private ArrayList<Fragment> mFragments;
-    private static final String[] mTitles=new String[]{
-           "农业要闻","农业新闻","地方农业","农业新闻","地方新闻","政策热点","技术快讯"
-    };
+    private static final String[] mTitles= BaiDuNewsConfig.mTitles;
     private BaseFragmentAdapter mBaseFragmentAdapter;
+    private List<NewsClassify> mClassifyList;
 
     @Override
     protected BaseFragmentAdapter getViewPagerAdapter() {
         mFragments = new ArrayList<>();
+        mClassifyList = BaiDuNewsConfig.getInstance().getList();
+        for(int i=0;i<mTitles.length;i++){
+            NewsClassify newsClassify = mClassifyList.get(i);
+            String type = newsClassify.type;
+            NewsListFragment newsListFragment = NewsListFragment.newInstance(type);
+            mFragments.add(newsListFragment);
+        }
         mBaseFragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments,
                 mTitles);
         return mBaseFragmentAdapter;

@@ -10,7 +10,7 @@ import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.util.ImageUtils;
 import com.xujun.funapp.common.util.StringUtils;
-import com.xujun.funapp.network.Network;
+import com.xujun.funapp.network.TnGouNet;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.Tngo
         ImageView imageView = (ImageView) holder.getView(R.id.iv);
         TextView tvDes=holder.getView(R.id.tv_des);
         TextView tvNums=holder.getView(R.id.tv_image_nums);
-        //        ImageLoaderUtils.loadImageView(mContext, Network.mBaseImageUrl+item.img,
+        //        ImageLoaderUtils.loadImageView(mContext, TnGouNet.mBaseImageUrl+item.img,
         // imageView);
 
         int size = item.size;
@@ -47,9 +47,9 @@ public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.Tngo
 
 
 
-        String imageUrl = Network.mBaseImageUrl + item.img;
+        String imageUrl = TnGouNet.mBaseImageUrl + item.img;
         ImageUtils.display(mContext,imageView,imageUrl,mPictureTag);
-//        Picasso.with(mContext).load(Network.mBaseImageUrl + item.img).resizeDimen(
+//        Picasso.with(mContext).load(TnGouNet.mBaseImageUrl + item.img).resizeDimen(
 //                R.dimen.iv_width_pic_list, R.dimen.iv_height_pic_list).into(imageView);
 
     }

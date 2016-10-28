@@ -11,21 +11,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by xujun on 2016/4/20.
  */
-public class Network {
+public class TnGouNet {
 
     public static final String mBaseImageUrl="http://tnfs.tngou.net/image";
 
-    private Network() {
+    private TnGouNet() {
     }
 
     private static class NetworkHelper {
-        private static final Network INSTANCE = new Network();
+        private static final TnGouNet INSTANCE = new TnGouNet();
     }
 
     /**
      * 通过静态内部类实现单例
      */
-    public static Network getInstance() {
+    public static TnGouNet getInstance() {
         return NetworkHelper.INSTANCE;
     }
 
@@ -67,7 +67,7 @@ public class Network {
      */
     public TnGouAPi getTnGouAPi() {
         if (mTnGouAPi == null) {
-            synchronized (Network.class) {
+            synchronized (TnGouNet.class) {
                 if (mTnGouAPi == null) {
                     if (mOkHttpClient == null) {
                         Interceptor interceptor = OkHttpUtils.getInstance().getInterceptor();
@@ -98,7 +98,7 @@ public class Network {
      */
     public TnGouAPi getDifferentTnGouAPi() {
         if (mDifferentTnGouAPi == null) {
-            synchronized (Network.class) {
+            synchronized (TnGouNet.class) {
                 if (mDifferentTnGouAPi == null) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(mCurrentUrl)
