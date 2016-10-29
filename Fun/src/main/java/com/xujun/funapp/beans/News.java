@@ -1,5 +1,8 @@
 package com.xujun.funapp.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -59,11 +62,45 @@ public class News {
 
     public List<NewslistBean> newslist;
 
-    public static class NewslistBean {
+    public static class NewslistBean implements Parcelable {
         public String ctime;
         public String title;
         public String description;
         public String picUrl;
         public String url;
+
+        protected NewslistBean(Parcel in) {
+            ctime = in.readString();
+            title = in.readString();
+            description = in.readString();
+            picUrl = in.readString();
+            url = in.readString();
+        }
+
+        public static final Creator<NewslistBean> CREATOR = new Creator<NewslistBean>() {
+            @Override
+            public NewslistBean createFromParcel(Parcel in) {
+                return new NewslistBean(in);
+            }
+
+            @Override
+            public NewslistBean[] newArray(int size) {
+                return new NewslistBean[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(ctime);
+            dest.writeString(title);
+            dest.writeString(description);
+            dest.writeString(picUrl);
+            dest.writeString(url);
+        }
     }
 }

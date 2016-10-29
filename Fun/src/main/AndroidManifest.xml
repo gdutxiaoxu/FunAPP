@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".view.detail.PictureDetailActivity">
         </activity>
+        <activity android:name=".view.detail.NewsDetailActivity">
+        </activity>
     </application>
 
 </manifest>

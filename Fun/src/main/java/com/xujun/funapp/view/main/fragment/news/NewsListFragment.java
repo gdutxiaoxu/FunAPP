@@ -2,10 +2,13 @@ package com.xujun.funapp.view.main.fragment.news;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.xujun.commonlibrary.common.recyclerView.DefaultAdapter;
 import com.xujun.funapp.adapters.NewsListAdapter;
 import com.xujun.funapp.beans.News;
 import com.xujun.funapp.common.BaseListFragment;
+import com.xujun.funapp.view.detail.NewsDetailActivity;
 
 import java.util.ArrayList;
 
@@ -18,7 +21,7 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
         implements NewsListContract.View {
 
     static final String type = "id";
-    private String mType="world";
+    private String mType = "world";
     private ArrayList<News.NewslistBean> mDatas;
     private NewsListAdapter mAdapter;
 
@@ -35,23 +38,36 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     protected void initAru() {
         super.initAru();
         Bundle arguments = getArguments();
-        if(arguments!=null){
+        if (arguments != null) {
             mType = arguments.getString(type);
         }
     }
 
     @Override
+    protected void initListener() {
+        super.initListener();
+        mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+                //  将newslistBean传递过去
+                News.NewslistBean newslistBean = mDatas.get(position);
+                readyGo(NewsDetailActivity.class, newslistBean);
+            }
+        });
+    }
+
+    @Override
     protected void getFirstPageData() {
         super.getFirstPageData();
-        mPage=1;
-        mPresenter.getNews(mType,mPage,mRows);
+        mPage = 1;
+        mPresenter.getNews(mType, mPage, mRows);
     }
 
     @Override
     protected void getNextPageData() {
         super.getNextPageData();
         mPage++;
-        mPresenter.getNews(mType,mPage,mRows);
+        mPresenter.getNews(mType, mPage, mRows);
     }
 
     @Override
@@ -68,7 +84,7 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
 
     @Override
     public void onReceiveNews(News news) {
-        if(isRefresh()){
+        if (isRefresh()) {
             mDatas.clear();
         }
         mDatas.addAll(news.newslist);
@@ -79,9 +95,9 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
 
     @Override
     public void onReceiveNewsError(Throwable error) {
-         if(isRefresh()){
-//             showError();
-         }
+        if (isRefresh()) {
+            showError();
+        }
         mPage--;
         endRefresh();
     }

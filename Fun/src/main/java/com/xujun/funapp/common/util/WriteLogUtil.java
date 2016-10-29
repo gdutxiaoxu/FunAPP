@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * <Pre>
- *     将日志文件输出在本地日志
+ * 将日志文件输出在本地日志
  * </Pre>
  *
  * @author 刘阳
@@ -32,25 +32,30 @@ public class WriteLogUtil {
      */
     public static final boolean LOG_WRITE_TO_FILE = true;
 
+    public static final boolean isIShow = true;
+    public static final boolean isDShow = true;
+    public static final boolean isWShow = true;
+    public static final boolean isEShow = true;
 
-    public static final boolean isIShow=true;
-    public static final boolean isDShow=true;
-    public static final boolean isWShow=true;
-    public static final boolean isEShow=true;
-
-
-    public static void init(Context context){
+    public static void init(Context context) {
         Context applicationContext = context.getApplicationContext();
         if (applicationContext.getExternalCacheDir() != null && isExistSDCard()) {
             cacheDir = applicationContext.getExternalCacheDir().toString();
 
-        }
-        else {
+        } else {
             cacheDir = applicationContext.getCacheDir().toString();
         }
         PATH = cacheDir + "/Log";
-    }
+        Logger.init(TAG)                 // default PRETTYLOGGER or use just init()
+                .methodCount(3)                 // default 2
+                .hideThreadInfo();
+      /*  Logger.init(TAG)                 // default PRETTYLOGGER or use just init()
+                .methodCount(3)                 // default 2
+                .hideThreadInfo()               // default shown
+                .logLevel(LogLevel.FULL)        // default LogLevel.FULL
+                .methodOffset(2);               // default 0*/
 
+    }
 
     /**
      * 错误信息
@@ -59,16 +64,18 @@ public class WriteLogUtil {
      * @param msg
      */
     public final static void e(String TAG, String msg) {
-        if(isEShow){
-            Logger.e(TAG, msg);
+        if (isEShow) {
+            Logger.t(TAG).e(msg);
             if (LOG_WRITE_TO_FILE)
                 writeLogtoFile("e", TAG, msg);
         }
 
     }
 
-    public final static void e(String msg){
-        e(TAG,msg);
+    public final static void e(String msg) {
+        e(TAG, msg);
+
+
     }
 
     /**
@@ -78,18 +85,17 @@ public class WriteLogUtil {
      * @param msg
      */
     public final static void w(String TAG, String msg) {
-        if(!isWShow){
+        if (!isWShow) {
             return;
         }
-        Logger.w(TAG, msg);
+        Logger.t(TAG).w(msg);
         if (LOG_WRITE_TO_FILE)
             writeLogtoFile("w", TAG, msg);
     }
 
-    public final static void w(String msg){
-      w(TAG,msg);
+    public final static void w(String msg) {
+        w(TAG, msg);
     }
-
 
     /**
      * 调试信息
@@ -98,18 +104,17 @@ public class WriteLogUtil {
      * @param msg
      */
     public final static void d(String TAG, String msg) {
-        if(!isDShow){
+        if (!isDShow) {
             return;
         }
-        Logger.d(TAG, msg);
+        Logger.t(TAG).d(msg);
         if (LOG_WRITE_TO_FILE)
             writeLogtoFile("d", TAG, msg);
     }
 
-    public final static void d(String msg){
-       d(TAG,msg);
+    public final static void d(String msg) {
+        d(TAG, msg);
     }
-
 
     /**
      * 提示信息
@@ -120,19 +125,17 @@ public class WriteLogUtil {
     public final static void i(String TAG, String msg) {
 
 
-        if(!isIShow){
+        if (!isIShow) {
             return;
         }
-        Logger.i(TAG, msg);
+        Logger.t(TAG).i(msg);
         if (LOG_WRITE_TO_FILE)
             writeLogtoFile("i", TAG, msg);
     }
 
-    public final static void i(String msg){
-       i(TAG,msg);
+    public final static void i(String msg) {
+        i(TAG, msg);
     }
-
-
 
     /**
      * 写入日志到文件中
@@ -152,6 +155,10 @@ public class WriteLogUtil {
                 + tag
                 + "\r\n"
                 + msg;
+        File parent = new File(PATH);
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
         File file = new File(PATH, LOG_FILE_NAME);
         try {
             FileWriter filerWriter = new FileWriter(file, true);
@@ -190,10 +197,10 @@ public class WriteLogUtil {
     }
 
     private static boolean isExistSDCard() {
-        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment
+                .MEDIA_MOUNTED)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

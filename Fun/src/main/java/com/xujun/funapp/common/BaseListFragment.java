@@ -33,11 +33,10 @@ public abstract class BaseListFragment<P extends BasePresenter>
     private BGARefreshLayout mRefreshLayout;
     private RecyclerView.Adapter mAdapter;
 
-
-
     OnRefreshListener mOnRefreshListener;
     //    加载图片的tag
     protected Object mPictureTag;
+    // 集成错误界面，空界面，加载中的界面在一起
     private MutiLayout mMutiLayout;
     private FrameLayout mFlRoot;
 
@@ -59,8 +58,6 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
         mFlRoot.addView(mMutiLayout, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-
-
 
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
@@ -111,21 +108,26 @@ public abstract class BaseListFragment<P extends BasePresenter>
         });
         setOnRefreshListner(this);
 
+        /**
+         * 当出现错误界面的时候，点击按钮，会调用下拉刷新，即重新获取第一页的数据
+         */
+
         mMutiLayout.setOnRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                onRefresh(mRefreshLayout);
+                mRefreshLayout.beginRefreshing();
             }
         });
     }
 
-    protected void showError(){
-        show(LoadResult.empty);
+    protected void showError() {
+        show(LoadResult.error);
         mRecyclerView.setVisibility(View.INVISIBLE);
         mRefreshLayout.setVisibility(View.INVISIBLE);
     }
-    protected  void show(LoadResult loadResult){
+
+    protected void show(LoadResult loadResult) {
         mMutiLayout.show(loadResult);
     }
 
@@ -140,8 +142,6 @@ public abstract class BaseListFragment<P extends BasePresenter>
             mRefreshLayout.endLoadingMore();
         }
     }
-
-
 
     @Override
     public void fetchData() {
@@ -173,7 +173,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
         getNextPageData();
     }
 
-    public boolean isRefresh() {
+    protected boolean isRefresh() {
         return mPage <= 1;
     }
 }

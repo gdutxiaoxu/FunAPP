@@ -8,7 +8,7 @@ import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
-import com.xujun.funapp.common.util.ImageUtils;
+import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.common.util.StringUtils;
 import com.xujun.funapp.network.TnGouNet;
 
@@ -48,7 +48,8 @@ public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.Tngo
 
 
         String imageUrl = TnGouNet.mBaseImageUrl + item.img;
-        ImageUtils.display(mContext,imageView,imageUrl,mPictureTag);
+        GlideUtils.display(mContext,imageView,imageUrl);
+//        ImageUtils.display(mContext,imageView,imageUrl,mPictureTag);
 //        Picasso.with(mContext).load(TnGouNet.mBaseImageUrl + item.img).resizeDimen(
 //                R.dimen.iv_width_pic_list, R.dimen.iv_height_pic_list).into(imageView);
 

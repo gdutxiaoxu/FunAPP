@@ -78,7 +78,7 @@ public abstract class BaseRecyclerAdapter<T> extends DefaultAdapter<T> {
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
                     //这个方法是获取在holder里面真正的位置，而不是对应list的位置
-                    int position = viewHolder.getAdapterPosition()-1;
+                    int position = viewHolder.getAdapterPosition();
                     T t = mDatas.get(position);
                     mOnItemClickListener.onClick(v, viewHolder, t, position);
                 }

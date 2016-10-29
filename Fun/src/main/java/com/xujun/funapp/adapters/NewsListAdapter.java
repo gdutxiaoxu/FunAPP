@@ -8,9 +8,8 @@ import com.xujun.commonlibrary.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.commonlibrary.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.News;
-import com.xujun.funapp.common.util.ImageUtils;
+import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.common.util.StringUtils;
-import com.xujun.funapp.common.util.WriteLogUtil;
 
 import java.util.List;
 
@@ -41,10 +40,11 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
         tvTime.setText(time);
         tvSource.setText(source);
         tvTitle.setText(title);
-        WriteLogUtil.i("mContext"+(mContext==null));
-        WriteLogUtil.i("mContext"+(pictureTag==null));
-        WriteLogUtil.i("picUrl"+picUrl);
-        ImageUtils.display(mContext,iv,picUrl,pictureTag);
+//        WriteLogUtil.i("mContext"+(mContext==null));
+//        WriteLogUtil.i("mContext"+(pictureTag==null));
+//        WriteLogUtil.i("picUrl"+picUrl);
+//        ImageUtils.display(mContext,iv,picUr,pictureTag);
+        GlideUtils.display(mContext,iv,picUrl);
 
     }
 }
