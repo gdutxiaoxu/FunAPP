@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.xujun.commonlibrary.R;
 
+import static com.xujun.commonlibrary.R.id.page_bt;
+
 /**
  * @ explain:
  * @ author：xujun on 2016/10/27 20:07
@@ -28,6 +30,11 @@ public class MutiLayout extends FrameLayout {
 
     private ImageView mIvEmpty;
     private TextView mTvEmpty;
+
+    private Button mBtnError;
+    private TextView mTvError;
+    private ImageView mIvError;
+
     private int mEmptyIconId;
     private String mEmptyText;
     private Context mContext;
@@ -74,7 +81,8 @@ public class MutiLayout extends FrameLayout {
     }
 
     private void add(View view) {
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LayoutParams
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams
+                .MATCH_PARENT, LayoutParams
                 .MATCH_PARENT);
         addView(view, layoutParams);
     }
@@ -95,7 +103,7 @@ public class MutiLayout extends FrameLayout {
     }
 
     public enum LoadResult {
-        loading(1), error(2), empty(3), noone(0);
+        noone(0), loading(1), error(2), empty(3);
 
         int value;
 
@@ -126,7 +134,6 @@ public class MutiLayout extends FrameLayout {
         if (state == STATE_NOONE) {
             hide();
         } else {
-
             loadingView.setVisibility(state == STATE_LOADING ? View.VISIBLE : View.INVISIBLE);
 
             errorView.setVisibility(state == STATE_ERROR ? View.VISIBLE
@@ -142,14 +149,14 @@ public class MutiLayout extends FrameLayout {
     private View createEmptyView() {
         View view = View.inflate(mContext, R.layout.loadpage_empty,
                 null);
-        TextView tv = (TextView) view.findViewById(R.id.tv_empty);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_empty);
+        mTvEmpty = (TextView) view.findViewById(R.id.tv_empty);
+        mIvEmpty = (ImageView) view.findViewById(R.id.iv_empty);
         if (TextUtils.isEmpty(mEmptyText)) {
-            tv.setText(mEmptyText);
+            mTvEmpty.setText(mEmptyText);
         }
 
         if (mEmptyIconId != -1) {
-            imageView.setImageResource(mEmptyIconId);
+            mIvEmpty.setImageResource(mEmptyIconId);
         }
         return view;
     }
@@ -158,17 +165,17 @@ public class MutiLayout extends FrameLayout {
     private View createErrorView() {
         View view = View.inflate(mContext, R.layout.loadpage_error,
                 null);
-        Button page_bt = (Button) view.findViewById(R.id.page_bt);
-        ImageView iv = (ImageView) view.findViewById(R.id.page_iv);
+        mBtnError = (Button) view.findViewById(page_bt);
+        mIvError = (ImageView) view.findViewById(R.id.page_iv);
         if (!TextUtils.isEmpty(mEmptyText)) {
-            page_bt.setText(mErrorText);
+            mBtnError.setText(mErrorText);
         }
 
         if (mErrorIconId != -1) {
-            iv.setImageResource(mErrorIconId);
+            mIvError.setImageResource(mErrorIconId);
         }
 
-        page_bt.setOnClickListener(new OnClickListener() {
+        mBtnError.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -187,9 +194,9 @@ public class MutiLayout extends FrameLayout {
         return view;
     }
 
-    public  void removeParent(View view){
-        ViewGroup parent =(ViewGroup) view.getParent();
-        if(parent!=null){
+    public void removeParent(View view) {
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null) {
             parent.removeView(view);
         }
 

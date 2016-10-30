@@ -10,6 +10,7 @@ import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.model.PictureListModel;
 import com.xujun.funapp.view.detail.PictureDetailActivity;
 
@@ -40,9 +41,9 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     }
 
     @Override
-    protected RecyclerView.Adapter getAdapter() {
+    protected BaseRecyclerAdapter getAdapter() {
         mDatas = new ArrayList<>();
-        mAdapter = new PictureListAdapter(mContext, mDatas,this);
+        mAdapter = new PictureListAdapter(mContext, mDatas, this);
         return mAdapter;
     }
 
@@ -60,13 +61,10 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     }
 
-
-
     @Override
     protected PictureListPresenter setPresenter() {
         return new PictureListPresenter(this, tags[mId]);
     }
-
 
     protected void getNextPageData() {
         mPresenter.getPictureList(String.valueOf(++mPage), String.valueOf(mRows), mId);
@@ -89,20 +87,29 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     @Override
     public void onSuccess(PictureListBean o) {
-        if (isRefresh()) {
-            mDatas.clear();
+        if (false == ListUtils.isEmpty(o.tngou)) {
+            if (isRefresh()) {
+                mDatas.clear();
+            }
+            mDatas.addAll(o.tngou);
+            mAdapter.notifyDataSetChanged();
+            endRefresh(RequestResult.success);
+        } else {
+            if (isRefresh()) {
+                mDatas.clear();
+            }
+            mDatas.addAll(o.tngou);
+            mAdapter.notifyDataSetChanged();
+            endRefresh(RequestResult.empty);
         }
-        mDatas.addAll(o.tngou);
-        mAdapter.notifyDataSetChanged();
-        endRefresh();
+
 
     }
 
     @Override
     public void onError(Throwable throwable) {
         Logger.i(throwable.getMessage());
-        mPage--;
-        endRefresh();
+        endRefresh(RequestResult.error);
     }
 
     @Override

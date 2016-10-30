@@ -4,14 +4,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.xujun.commonlibrary.widget.MutiLayout;
 import com.xujun.commonlibrary.widget.MutiLayout.LoadResult;
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
-import com.xujun.funapp.common.recyclerView.RecyclerScroller;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
+
+import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -29,9 +32,13 @@ public abstract class BaseListFragment<P extends BasePresenter>
     protected int mPage = 1;
     protected int mRows = 20;
 
+    protected RequestResult mRequestResult;
+
+
+
     private RecyclerView mRecyclerView;
     private BGARefreshLayout mRefreshLayout;
-    private RecyclerView.Adapter mAdapter;
+    private BaseRecyclerAdapter mBaseAdapter;
 
     OnRefreshListener mOnRefreshListener;
     //    加载图片的tag
@@ -39,6 +46,10 @@ public abstract class BaseListFragment<P extends BasePresenter>
     // 集成错误界面，空界面，加载中的界面在一起
     private MutiLayout mMutiLayout;
     private FrameLayout mFlRoot;
+
+    public enum RequestResult{
+        success,error,empty;
+    }
 
     protected void setOnRefreshListner(OnRefreshListener OnRefreshListener) {
         this.mOnRefreshListener = OnRefreshListener;
@@ -72,20 +83,20 @@ public abstract class BaseListFragment<P extends BasePresenter>
         RecyclerUtils.init(mRecyclerView);
         mPictureTag = this;
 
-        mAdapter = getAdapter();
-        if (mAdapter == null) {
+        mBaseAdapter = getAdapter();
+        if (mBaseAdapter == null) {
             throw new IllegalStateException("You must init recycler adapter first");
         }
 
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mBaseAdapter);
 
 
-        mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
+//        mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
 
 
     }
 
-    protected abstract RecyclerView.Adapter getAdapter();
+    protected  abstract <V> BaseRecyclerAdapter<V> getAdapter();
 
     @Override
     protected void initListener() {
@@ -115,37 +126,114 @@ public abstract class BaseListFragment<P extends BasePresenter>
         mMutiLayout.setOnRetryListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mRefreshLayout.setVisibility(View.VISIBLE);
                 mRefreshLayout.beginRefreshing();
+                show(LoadResult.loading);
             }
         });
     }
 
-    protected void showError() {
-        show(LoadResult.error);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mRefreshLayout.setVisibility(View.INVISIBLE);
+    protected <V>  void handleResult(List<V> data,RequestResult requestResult){
+
+
+        // 请求成功的时候
+        if (requestResult == RequestResult.success) {
+            if (isRefresh()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                show(LoadResult.noone);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRefreshLayout.endLoadingMore();
+            }
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mRefreshLayout.setVisibility(View.VISIBLE);
+            mBaseAdapter.addDates(data);
+        } else if(requestResult == RequestResult.error){
+
+            if (isRefresh()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                show(LoadResult.error);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mRefreshLayout.setVisibility(View.INVISIBLE);
+                mRefreshLayout.endRefreshing();
+                mBaseAdapter.clearDates();
+            } else {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mRefreshLayout.setVisibility(View.VISIBLE);
+                mRefreshLayout.endLoadingMore();
+                Toast.makeText(mContext,"",Toast.LENGTH_SHORT).show();
+            }
+
+            mPage--;
+        }else{
+
+            if (isRefresh()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                show(LoadResult.empty);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mRefreshLayout.setVisibility(View.INVISIBLE);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mRefreshLayout.setVisibility(View.VISIBLE);
+                mRefreshLayout.endLoadingMore();
+            }
+            mPage--;
+        }
+
+
     }
+
 
     protected void show(LoadResult loadResult) {
         mMutiLayout.show(loadResult);
     }
 
-    protected void endRefresh() {
-        if (isRefresh()) {
-            /**
-             * 在第一页刷新结束的要隐藏mMultiLayout
-             */
-            show(LoadResult.noone);
-            mRefreshLayout.endRefreshing();
-        } else {
-            mRefreshLayout.endLoadingMore();
+    protected void endRefresh(RequestResult requestResult) {
+        // 请求成功的时候
+        if (requestResult == RequestResult.success) {
+            if (isRefresh()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                show(LoadResult.noone);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRefreshLayout.endLoadingMore();
+            }
+        } else if(requestResult == RequestResult.error){
+            mPage--;
+            if (isRefresh()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                show(LoadResult.error);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mRefreshLayout.setVisibility(View.INVISIBLE);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRefreshLayout.endLoadingMore();
+            }
+        }else{
+            mPage--;
+            if (isRefresh()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                show(LoadResult.empty);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mRefreshLayout.setVisibility(View.INVISIBLE);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRefreshLayout.endLoadingMore();
+            }
         }
-    }
-
-    @Override
-    public void fetchData() {
-        super.fetchData();
 
     }
 

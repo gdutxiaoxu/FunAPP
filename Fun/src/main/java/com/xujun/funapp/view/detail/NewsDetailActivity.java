@@ -14,8 +14,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.orhanobut.logger.Logger;
-import com.xujun.commonlibrary.common.util.LUtils;
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.News;
 import com.xujun.funapp.common.Constants.IntentConstants;
@@ -76,13 +74,11 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
         mUrl = mNewsListBean.url;
         final String url = "http://www.baidu.com";
         WriteLogUtil.i("mUrl=" + mUrl);
-        Logger.d("initData:  mUrl =" + mUrl);
         mWebView.loadUrl(mUrl);
         WebSettings settings = mWebView.getSettings();
         //        设置是够支持js脚本
         settings.setJavaScriptEnabled(true);
 
-        LUtils.i("initData:  mUrl =" + mUrl);
 
         //优先使用缓存:
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -150,7 +146,7 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                LUtils.i("newProgress=" + newProgress);
+//                LUtils.i("newProgress=" + newProgress);
                 if (newProgress != 100) {
                     mProgressBar.setProgress(newProgress);
                 } else {

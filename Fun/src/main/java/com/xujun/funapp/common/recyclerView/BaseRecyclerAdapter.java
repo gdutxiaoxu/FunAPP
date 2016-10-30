@@ -87,7 +87,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
                     //这个方法是获取在holder里面真正的位置，而不是对应list的位置
                     int position = viewHolder.getAdapterPosition();
                     T t = mDatas.get(position);
-                    mOnItemClickListener.onClick(v, viewHolder,  position);
+                    mOnItemClickListener.onClick(v, viewHolder, position);
                 }
             }
         });
@@ -105,7 +105,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     }
 
-
     public interface OnItemClickListener {
         void onClick(View view, RecyclerView.ViewHolder holder, int position);
 
@@ -120,7 +119,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
      *
      * @param onItemClickListener
      */
-    public void setOnItemClickListener(BaseRecyclerAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(BaseRecyclerAdapter.OnItemClickListener
+                                               onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
@@ -129,8 +129,101 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
      *
      * @param onLongItemClickListener
      */
-    public void setonLongItemClickListener(BaseRecyclerAdapter.OnLongItemClickListener onLongItemClickListener) {
+    public void setonLongItemClickListener(BaseRecyclerAdapter.OnLongItemClickListener
+                                                   onLongItemClickListener) {
         this.mOnLongItemClickListener = onLongItemClickListener;
+    }
+
+    /**
+     * 设置列表中的数据
+     */
+    public void setDatas(List<T> datas) {
+        if (datas == null) {
+            return;
+        }
+        this.mDatas = datas;
+        notifyDataSetChanged();
+    }
+
+    public List<T> getDatas() {
+        return mDatas;
+    }
+
+    /**
+     * 将单个数据添加到列表中
+     */
+    public void addSingleDate(T t) {
+        if (t == null) {
+            return;
+        }
+        this.mDatas.add(t);
+        notifyItemInserted(mDatas.size() - 1);
+    }
+
+    public void addDates(List<T> dates, int position) {
+        if (dates == null || dates.size() == 0)
+            return;
+        mDatas.addAll(position, dates);
+        notifyItemRangeInserted(position, dates.size());
+    }
+
+    public void removeDatas(List<T> dates, int position) {
+        if (dates == null || dates.size() == 0)
+            return;
+        mDatas.removeAll(dates);
+        notifyItemRangeRemoved(position, dates.size());
+    }
+
+    public void addSingleDate(T t, int position) {
+        mDatas.add(position, t);
+        notifyItemInserted(position);
+        // notifyItemRangeChanged(position, mDatas.size());
+    }
+
+    public void removeData(int position) {
+        mDatas.remove(position);
+        notifyItemRemoved(position);
+        // notifyItemRangeChanged(position, mDatas.size());
+    }
+
+    public void removeData(T t) {
+        int index = mDatas.indexOf(t);
+        notifyItemRemoved(index);
+        // notifyItemRangeChanged(index, mDatas.size());
+    }
+
+    /**
+     * 将一个List添加到列表中
+     */
+    public void addDates(List<T> dates, boolean isNotify) {
+        if (dates == null || dates.size() == 0) {
+            return;
+        }
+        //        int oldSize = this.mDatas.size();
+        //        int newSize = dates.size();
+        //        this.mDatas.addAll(dates);
+        //        notifyItemRangeInserted(oldSize, newSize);
+        this.mDatas.addAll(dates);
+        if (true) {
+            notifyDataSetChanged();
+        }
+
+
+    }
+
+    public void addDates(List<T> dates) {
+        this.addDates(dates, false);
+        notifyDataSetChanged();
+
+
+    }
+
+    public void clearDates() {
+        if (!isEmpty()) {
+            this.mDatas.clear();
+            notifyDataSetChanged();
+        }
+
     }
 
 

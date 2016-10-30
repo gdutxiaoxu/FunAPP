@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.xujun.commonlibrary.common.recyclerView.DefaultAdapter;
 import com.xujun.funapp.adapters.NewsListAdapter;
 import com.xujun.funapp.beans.News;
 import com.xujun.funapp.common.BaseListFragment;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.view.detail.NewsDetailActivity;
 
 import java.util.ArrayList;
@@ -46,14 +47,16 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     @Override
     protected void initListener() {
         super.initListener();
-        mAdapter.setOnItemClickListener(new DefaultAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view, RecyclerView.ViewHolder holder, Object o, int position) {
+            public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
+
                 //  将newslistBean传递过去
                 News.NewslistBean newslistBean = mDatas.get(position);
                 readyGo(NewsDetailActivity.class, newslistBean);
             }
         });
+
     }
 
     @Override
@@ -71,7 +74,7 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     }
 
     @Override
-    protected RecyclerView.Adapter getAdapter() {
+    protected BaseRecyclerAdapter getAdapter() {
         mDatas = new ArrayList<>();
         mAdapter = new NewsListAdapter(mContext, mDatas, mPictureTag);
         return mAdapter;
@@ -84,21 +87,18 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
 
     @Override
     public void onReceiveNews(News news) {
-        if (isRefresh()) {
-            mDatas.clear();
+        if (false == ListUtils.isEmpty(news.newslist)) {
+            handleResult(news.newslist, RequestResult.success);
+        } else {
+            handleResult(news.newslist, RequestResult.empty);
         }
-        mDatas.addAll(news.newslist);
-        mAdapter.notifyDataSetChanged();
-        endRefresh();
+
 
     }
 
     @Override
     public void onReceiveNewsError(Throwable error) {
-        if (isRefresh()) {
-            showError();
-        }
-        mPage--;
-        endRefresh();
+        handleResult(null, RequestResult.error);
+
     }
 }

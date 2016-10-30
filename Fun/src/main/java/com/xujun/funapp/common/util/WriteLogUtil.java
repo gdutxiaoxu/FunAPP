@@ -128,7 +128,8 @@ public class WriteLogUtil {
         if (!isIShow) {
             return;
         }
-        Logger.t(TAG).i(msg);
+//        Logger.t(TAG).i(msg);
+        Logger.i(msg);
         if (LOG_WRITE_TO_FILE)
             writeLogtoFile("i", TAG, msg);
     }

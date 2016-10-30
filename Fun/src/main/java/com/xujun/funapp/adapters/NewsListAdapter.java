@@ -4,10 +4,10 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xujun.commonlibrary.common.recyclerView.BaseRecyclerAdapter;
-import com.xujun.commonlibrary.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.News;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.common.util.StringUtils;
 

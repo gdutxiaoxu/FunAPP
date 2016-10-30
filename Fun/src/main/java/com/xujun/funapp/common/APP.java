@@ -3,7 +3,6 @@ package com.xujun.funapp.common;
 import android.app.Application;
 import android.content.Context;
 
-import com.orhanobut.logger.Logger;
 import com.xujun.funapp.common.util.WriteLogUtil;
 
 /**
@@ -58,7 +57,6 @@ public class APP extends Application {
     private void init() {
 
         app = this;
-        Logger.init(Tag);
         WriteLogUtil.init(app);
 
 
