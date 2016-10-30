@@ -16,26 +16,27 @@ import android.util.Log;
 import com.xujun.funapp.common.APP;
 
 /**
- * 网络改变监控广播 
- *
- * 监听网络的改变状态,只有在用户操作网络连接开关(wifi,mobile)的时候接受广播,然后对相应的界面进行相应的操作 
- *
- *
+ * 网络改变监控广播
+ * <p>
+ * 监听网络的改变状态,只有在用户操作网络连接开关(wifi,mobile)的时候接受广播,然后对相应的界面进行相应的操作
+ * <p>
+ * <p>
  * Created by xujun
  */
-public class NetworkChangeReceiver extends BroadcastReceiver {
+public class NetworkChangeListener extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         State wifiState = null;
         State mobileState = null;
 
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
         wifiState = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
         mobileState = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
 
-       Log.d("NetworkChangeReceiver", 
-               "wifi状态:" + wifiState + "\n mobile状态:" + mobileState);
+        Log.d("NetworkChangeReceiver",
+                "wifi状态:" + wifiState + "\n mobile状态:" + mobileState);
 
         if (wifiState != null && mobileState != null
                 && State.CONNECTED != wifiState

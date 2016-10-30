@@ -32,7 +32,7 @@
         </activity>
 
 
-        <receiver android:name="com.xujun.funapp.network.NetworkChangeReceiver" >
+        <receiver android:name="com.xujun.funapp.network.NetworkChangeListener" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
