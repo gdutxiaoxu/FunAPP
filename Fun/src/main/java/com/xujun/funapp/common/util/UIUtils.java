@@ -26,7 +26,7 @@ public class UIUtils {
     }
 
     public static Resources getResources() {
-        return APP.getApplication().getResources();
+        return APP.getInstance().getResources();
     }
 
     public static Drawable getDrawable(int id) {
@@ -45,7 +45,7 @@ public class UIUtils {
     public static void showShortText(String text) {
 
         if (mToast == null) {
-            mToast = Toast.makeText(APP.getApplication(), "", Toast.LENGTH_SHORT);
+            mToast = Toast.makeText(APP.getInstance(), "", Toast.LENGTH_SHORT);
         }
         mToast.setText(text);
         mToast.show();

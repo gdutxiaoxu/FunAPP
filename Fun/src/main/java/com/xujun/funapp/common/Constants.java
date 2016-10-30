@@ -25,7 +25,7 @@ public class Constants {
     // 用户ID
     public final static String ID = "staff_no";
     public final static String LOGIN_OUT = "login_out";
-    public final static String BaseCachePath = Environment.getExternalStoragePublicDirectory("Download") + File.separator + APP.getApplication().getPackageName() + File.separator;
+    public final static String BaseCachePath = Environment.getExternalStoragePublicDirectory("Download") + File.separator + APP.getInstance().getPackageName() + File.separator;
 
 
 

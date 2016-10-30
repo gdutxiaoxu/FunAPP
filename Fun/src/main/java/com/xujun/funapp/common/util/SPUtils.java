@@ -24,7 +24,7 @@ public class SPUtils {
         if (TextUtils.isEmpty(fileName))
             fileName = DEFAULT_NAME;
 
-        SharedPreferences.Editor editor = APP.getApplication().getSharedPreferences(fileName,
+        SharedPreferences.Editor editor = APP.getInstance().getSharedPreferences(fileName,
                 Context.MODE_PRIVATE).edit();
 
         if (obj instanceof String) {
@@ -72,7 +72,7 @@ public class SPUtils {
         if (TextUtils.isEmpty(fileName))
             fileName = DEFAULT_NAME;
 
-        SharedPreferences sp = APP.getApplication().getSharedPreferences(fileName, Context
+        SharedPreferences sp = APP.getInstance().getSharedPreferences(fileName, Context
                 .MODE_PRIVATE);
 
         if (defaultObj instanceof String) {
@@ -93,7 +93,7 @@ public class SPUtils {
      * 移除某个key值已经对应的值
      */
     public static void remove(String... keys) {
-        SharedPreferences sp = APP.getApplication().getSharedPreferences(DEFAULT_NAME,
+        SharedPreferences sp = APP.getInstance().getSharedPreferences(DEFAULT_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         for (String key : keys)
@@ -105,7 +105,7 @@ public class SPUtils {
      * 清除所有数据
      */
     public static void clear(String fileName) {
-        SharedPreferences sp = APP.getApplication().getSharedPreferences(fileName, Context
+        SharedPreferences sp = APP.getInstance().getSharedPreferences(fileName, Context
                 .MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();

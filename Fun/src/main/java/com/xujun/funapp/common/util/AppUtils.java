@@ -44,8 +44,8 @@ public class AppUtils {
      * @return
      */
     public String getDeviceId() {
-        TelephonyManager telephonyManager = (TelephonyManager) APP.getApplication().getSystemService(
-                APP.getApplication().TELEPHONY_SERVICE);
+        TelephonyManager telephonyManager = (TelephonyManager) APP.getInstance().getSystemService(
+                APP.getInstance().TELEPHONY_SERVICE);
         String imei = telephonyManager.getDeviceId();
          Logger.i("AppUtils ,getDeviceId: 51  ="+imei);
         if (TextUtils.isEmpty(imei)) {
@@ -53,7 +53,7 @@ public class AppUtils {
             LUtils.e("获取设备号失败！DeviceId为空");
             imei= Build.SERIAL;
             if(TextUtils.isEmpty(imei)){
-                imei= Settings.System.getString(APP.getApplication().getContentResolver(), Settings.System.ANDROID_ID);
+                imei= Settings.System.getString(APP.getInstance().getContentResolver(), Settings.System.ANDROID_ID);
             }
         }
         return imei == null ? "UNKNOWN_DEVICE_ID" : imei;

@@ -14,6 +14,35 @@ public class APP extends Application {
     private static APP app;
     String Tag = "xujun";
 
+    //网路连接
+    private boolean isWifi;//wifi是否连接
+    private boolean isMobile;//手机是否连接
+    private boolean isNetworkConn;//是否有网
+
+    public boolean isWifi() {
+        return isWifi;
+    }
+
+    public void setWifi(boolean wifi) {
+        isWifi = wifi;
+    }
+
+    public boolean isMobile() {
+        return isMobile;
+    }
+
+    public void setMobile(boolean mobile) {
+        isMobile = mobile;
+    }
+
+    public boolean isNetworkConn() {
+        return isNetworkConn;
+    }
+
+    public void setNetworkConn(boolean networkConn) {
+        isNetworkConn = networkConn;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,8 +52,7 @@ public class APP extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-
-        //        MultiDex.install(this);
+        // MultiDex.install(this);
     }
 
     private void init() {
@@ -34,11 +62,11 @@ public class APP extends Application {
         WriteLogUtil.init(app);
 
 
-        //        Thread.setDefaultUncaughtExceptionHandler(UnCatchExceptionHandler.getInstance());
+        // Thread.setDefaultUncaughtExceptionHandler(UnCatchExceptionHandler.getInstance());
 
     }
 
-    public static APP getApplication() {
+    public static APP getInstance() {
         return app;
     }
 }
