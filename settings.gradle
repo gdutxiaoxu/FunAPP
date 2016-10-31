@@ -1,4 +1,4 @@
-include ':Fun', ':commonlibrary', ':app'
+include ':Fun', ':commonlibrary', ':app', ':网络连接demo'
 
 
 

@@ -11,6 +11,8 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.xujun.funapp.common.APP;
+
 /**
  * @ explain:
  * @ author：xujun on 2016/10/31 20:08
@@ -29,6 +31,7 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
             Log.e(TAG1, "wifiState" + wifiState);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_DISABLED:
+                    APP.getInstance().setEnablaWifi(false);
                     break;
                 case WifiManager.WIFI_STATE_DISABLING:
 
@@ -36,6 +39,7 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                 case WifiManager.WIFI_STATE_ENABLING:
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
+                    APP.getInstance().setEnablaWifi(true);
                     break;
                 case WifiManager.WIFI_STATE_UNKNOWN:
                     break;
@@ -56,8 +60,10 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                 boolean isConnected = state == State.CONNECTED;// 当然，这边可以更精确的确定状态
                 Log.e(TAG1, "isConnected" + isConnected);
                 if (isConnected) {
-                } else {
+                    APP.getInstance().setWifi(true);
 
+                } else {
+                    APP.getInstance().setWifi(false);
                 }
             }
         }
@@ -69,7 +75,21 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
 
             NetworkInfo activeNetwork = manager.getActiveNetworkInfo();
-            if (activeNetwork != null) { // connected to the internet
+            if (activeNetwork != null  && activeNetwork.isAvailable()) { // connected to the internet
+
+
+
+                if (State.CONNECTED == activeNetwork.getState()) {
+
+                }
+
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                    // connected to wifi
+                    Toast.makeText(context, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
+                } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                    // connected to the mobile provider's data plan
+                    Toast.makeText(context, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
+                }
 
                 Log.e(TAG1, "info.getTypeName()" + activeNetwork.getTypeName());
                 Log.e(TAG1, "getSubtypeName()" + activeNetwork.getSubtypeName());
@@ -78,20 +98,6 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                         + activeNetwork.getDetailedState().name());
                 Log.e(TAG1, "getDetailedState()" + activeNetwork.getExtraInfo());
                 Log.e(TAG1, "getType()" + activeNetwork.getType());
-
-                if (State.CONNECTED == activeNetwork.getState()) {
-                } else if (activeNetwork.getType() == 1) {
-                    if (State.DISCONNECTING == activeNetwork.getState()) {
-
-                    }
-                }
-                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
-                    // connected to wifi
-                    Toast.makeText(context, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
-                } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                    // connected to the mobile provider's data plan
-                    Toast.makeText(context, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
-                }
             } else {
                 // not connected to the internet
                 Toast.makeText(context, "当前 没有网络连接 ，请确保你已经打开网络", Toast.LENGTH_SHORT).show();
