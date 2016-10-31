@@ -8,7 +8,7 @@
     <!--允许读取网络状态-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <!--允许读取wifi网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name=".common.APP"
@@ -32,12 +32,10 @@
         </activity>
 
 
-        <receiver android:name="com.xujun.funapp.network.NetworkChangeListener" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-                <action android:name="android.net.wifi.STATE_CHANGE" />
-            </intent-filter>
+        <receiver android:name=".network.NetworkChangeListener">
+        </receiver>
+
+        <receiver android:name=".network.NetworkConnectChangedReceiver">
         </receiver>
     </application>
 
