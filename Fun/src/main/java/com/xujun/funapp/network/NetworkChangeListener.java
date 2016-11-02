@@ -26,7 +26,7 @@ import com.xujun.funapp.common.APP;
  */
 public class NetworkChangeListener extends BroadcastReceiver {
 
-    public static final String TAG1 = "tag";
+    public static final String TAG1 = "2tag1";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -48,14 +48,14 @@ public class NetworkChangeListener extends BroadcastReceiver {
 
             APP.getInstance().setMobile(true);
             APP.getInstance().setWifi(false);
-            APP.getInstance().setNetworkConn(true);
+            APP.getInstance().setConnected(true);
 
         } else if (wifiState != null && State.CONNECTED == wifiState) {// 无线网络连接成功  
             Log.d(TAG1, "无线网络连接成功");
 
             APP.getInstance().setMobile(false);
             APP.getInstance().setWifi(true);
-            APP.getInstance().setNetworkConn(true);
+            APP.getInstance().setConnected(true);
 
         } else if (wifiState != null && mobileState != null
                 && State.CONNECTED != wifiState
@@ -64,7 +64,7 @@ public class NetworkChangeListener extends BroadcastReceiver {
 
             APP.getInstance().setMobile(false);
             APP.getInstance().setWifi(false);
-            APP.getInstance().setNetworkConn(false);
+            APP.getInstance().setConnected(false);
 
         }
 

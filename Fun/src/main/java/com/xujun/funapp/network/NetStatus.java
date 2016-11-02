@@ -18,10 +18,8 @@ import java.util.Enumeration;
  */
 public class NetStatus {
 
-
-
     /**
-     * 判断当前网络是否是3G网络
+     * 判断当前网络是否是移动网络
      *
      * @param context
      * @return boolean
@@ -107,7 +105,7 @@ public class NetStatus {
     }
 
     /**
-     * 判断WIFI网络是否可用
+     * 判断MOBILE网络是否可用
      *
      * @param context
      * @param context

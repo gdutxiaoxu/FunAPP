@@ -9,19 +9,22 @@ import android.net.NetworkInfo.State;
 import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.xujun.funapp.common.APP;
 
 /**
- * @ explain:
- * @ author：xujun on 2016/10/31 20:08
- * @ email：gdutxiaoxu@163.com
+ * 网络改变监控广播
+ * <p>
+ * 监听网络的改变状态,只有在用户操作网络连接开关(wifi,mobile)的时候接受广播,
+ * 然后对相应的界面进行相应的操作，并将 状态 保存在我们的APP里面
+ * <p>
+ * <p>
+ * Created by xujun
  */
 public class NetworkConnectChangedReceiver extends BroadcastReceiver {
 
     private static final String TAG = "xujun";
-    public static final String TAG1 = "tag";
+    public static final String TAG1 = "xxx";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -43,8 +46,10 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                     break;
                 case WifiManager.WIFI_STATE_UNKNOWN:
                     break;
+                default:
+                    break;
 
-                //
+
             }
         }
         // 这个监听wifi的连接状态即是否连上了一个有效无线路由，当上边广播的状态是WifiManager
@@ -61,7 +66,6 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                 Log.e(TAG1, "isConnected" + isConnected);
                 if (isConnected) {
                     APP.getInstance().setWifi(true);
-
                 } else {
                     APP.getInstance().setWifi(false);
                 }
@@ -73,23 +77,24 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             ConnectivityManager manager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
+            Log.i(TAG1, "CONNECTIVITY_ACTION");
 
             NetworkInfo activeNetwork = manager.getActiveNetworkInfo();
-            if (activeNetwork != null  && activeNetwork.isAvailable()) { // connected to the internet
-
-
-
-                if (State.CONNECTED == activeNetwork.getState()) {
-
+            if (activeNetwork != null) { // connected to the internet
+                if (activeNetwork.isConnected()) {
+                    if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                        // connected to wifi
+                        APP.getInstance().setWifi(true);
+                        Log.e(TAG, "当前WiFi连接可用 ");
+                    } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                        // connected to the mobile provider's data plan
+                        APP.getInstance().setMobile(true);
+                        Log.e(TAG, "当前移动网络连接可用 ");
+                    }
+                } else {
+                    Log.e(TAG, "当前没有网络连接，请确保你已经打开网络 ");
                 }
 
-                if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
-                    // connected to wifi
-                    Toast.makeText(context, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
-                } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                    // connected to the mobile provider's data plan
-                    Toast.makeText(context, activeNetwork.getTypeName(), Toast.LENGTH_SHORT).show();
-                }
 
                 Log.e(TAG1, "info.getTypeName()" + activeNetwork.getTypeName());
                 Log.e(TAG1, "getSubtypeName()" + activeNetwork.getSubtypeName());
@@ -98,12 +103,17 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                         + activeNetwork.getDetailedState().name());
                 Log.e(TAG1, "getDetailedState()" + activeNetwork.getExtraInfo());
                 Log.e(TAG1, "getType()" + activeNetwork.getType());
-            } else {
-                // not connected to the internet
-                Toast.makeText(context, "当前 没有网络连接 ，请确保你已经打开网络", Toast.LENGTH_SHORT).show();
+            } else {   // not connected to the internet
+                Log.e(TAG, "当前没有网络连接，请确保你已经打开网络 ");
+                APP.getInstance().setWifi(false);
+                APP.getInstance().setMobile(false);
+                APP.getInstance().setConnected(false);
+
             }
 
 
         }
     }
+
+
 }

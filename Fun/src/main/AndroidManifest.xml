@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
     <!--允许读取wifi网络状态-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--允许 弹出系统级别的AlterDialog-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:name=".common.APP"

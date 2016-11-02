@@ -84,6 +84,9 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
 
     @Override
     protected void initData() {
+
+
+
         mCurrentFragemnt=MainFragmentFactory.getInstance().get(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -102,4 +105,6 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
         }
 
     }
+
+
 }
