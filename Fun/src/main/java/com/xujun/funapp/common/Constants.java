@@ -25,9 +25,8 @@ public class Constants {
     // 用户ID
     public final static String ID = "staff_no";
     public final static String LOGIN_OUT = "login_out";
-    public final static String BaseCachePath = Environment.getExternalStoragePublicDirectory("Download") + File.separator + APP.getInstance().getPackageName() + File.separator;
-
-
+    public final static String BaseCachePath = Environment.getExternalStoragePublicDirectory
+            ("Download") + File.separator + APP.getInstance().getPackageName() + File.separator;
 
     public static class IntentConstants {
         public static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
@@ -36,7 +35,12 @@ public class Constants {
         public static final String Action_PiYueDetailActivity = "Action_PiYueDetailActivity";
     }
 
-    public static  class URLConstants{
-        public static final String URL_IMAGE_BASE="http://tnfs.tngou.net/image";
+    public static class URLConstants {
+        public static final String URL_IMAGE_BASE = "http://tnfs.tngou.net/image";
+    }
+
+    public static class SPConstants {
+        //表示是否在WiFi的情况下 才加载图片，true表示在WiFi的情况下才加载图片 ，false而表示不是
+        public static final String isIntelligentNoPic = "http://tnfs.tngou.net/image";
     }
 }
