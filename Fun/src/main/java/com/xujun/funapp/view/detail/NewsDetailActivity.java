@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.News;
@@ -32,6 +33,7 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
     News.NewslistBean mNewsListBean;
     private String mUrl;
     private ProgressBar mProgressBar;
+    private TextView mTvTitle;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -55,6 +57,7 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
         mIvBack = bind.ivBack;
         mWebView = bind.webView;
         mProgressBar = bind.progressBar;
+        mTvTitle = bind.tvTitle;
     }
 
     @Override
@@ -78,10 +81,18 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
         WebSettings settings = mWebView.getSettings();
         //        设置是够支持js脚本
         settings.setJavaScriptEnabled(true);
+        //        设置是否支持画面缩放
+        settings.setBuiltInZoomControls(true);
+
+        settings.setSupportZoom(true);
+        //        设置是否显示缩放器
+        settings.setDisplayZoomControls(false);
+        //        设置字体的 大小
+        settings.setTextZoom(120);
 
 
         //优先使用缓存:
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         //不使用缓存:
         //        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         //重写这个方法 返回true，在当前 webView 打开，否则在浏览器中打开
@@ -102,8 +113,6 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
                 super.onPageFinished(view, url);
             }
 
-
-
             @Override
             public void onReceivedHttpError(WebView view, WebResourceRequest request,
                                             WebResourceResponse errorResponse) {
@@ -114,12 +123,11 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
                 }
             }
 
-
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String
                     failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
-                if(errorCode==404){
+                if (errorCode == 404) {
                     //用javascript隐藏系统定义的404页面信息
                     String data = "Page NO FOUND！";
                     view.loadUrl("javascript:document.body.innerHTML=\"" + data + "\"");
@@ -132,12 +140,9 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
                 super.onReceivedError(view, request, error);
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    int errorCode =  error.getErrorCode();
+                    int errorCode = error.getErrorCode();
                     CharSequence description = error.getDescription();
                 }
-
-
-
 
 
             }
@@ -146,7 +151,7 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-//                LUtils.i("newProgress=" + newProgress);
+                //                LUtils.i("newProgress=" + newProgress);
                 if (newProgress != 100) {
                     mProgressBar.setProgress(newProgress);
                 } else {
@@ -158,6 +163,7 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
+                mTvTitle.setText(title);
             }
         });
 

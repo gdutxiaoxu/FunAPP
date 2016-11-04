@@ -8,9 +8,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.xujun.funapp.R;
+import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.databinding.ActivityMainBinding;
+import com.xujun.funapp.network.NetStateUtils;
 
 public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresenter> {
 
@@ -84,13 +86,19 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
 
     @Override
     protected void initData() {
-
-
+      /*  if(false==NetStateUtils.isMobileConnected(this) &&false==NetStateUtils.isWifi(this)){
+            APP.getInstance().showWifiDlg(this);
+        }*/
+        if(false== NetStateUtils.isNetworkConnected(this)){
+            APP.getInstance().showWifiDlg(this);
+        }
 
         mCurrentFragemnt=MainFragmentFactory.getInstance().get(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fl_content,mCurrentFragemnt).commit();
+
+
 
 
     }

@@ -10,7 +10,6 @@ import android.provider.Settings;
 import android.view.WindowManager;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.network.NetworkChangeListener;
 import com.xujun.funapp.network.NetworkConnectChangedReceiver;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -24,7 +23,7 @@ public class BaseApp extends Application {
 
     private static AlertDialog mAlertDialog;
     private static AlertDialog mWifiDialog;
-    private NetworkChangeListener mNetworkChangeListener;
+
     private NetworkConnectChangedReceiver mNetworkConnectChangedReceiver;
     //表示是否连接
     public boolean isConnected;
@@ -48,15 +47,11 @@ public class BaseApp extends Application {
     }
 
     private void initReceiver() {
-        if (mNetworkChangeListener == null) {
-            mNetworkChangeListener = new NetworkChangeListener();
-        }
+
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         filter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         filter.addAction("android.net.wifi.STATE_CHANGE");
-        registerReceiver(mNetworkChangeListener, filter);
-
         mNetworkConnectChangedReceiver = new NetworkConnectChangedReceiver();
 
         registerReceiver(mNetworkConnectChangedReceiver, filter);
@@ -147,7 +142,7 @@ public class BaseApp extends Application {
     }
 
     public boolean isConnected() {
-        return isConnected;
+        return isWifi||isMobile;
     }
 
     public void setConnected(boolean connected) {

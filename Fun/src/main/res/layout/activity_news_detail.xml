@@ -19,6 +19,16 @@
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:src="@drawable/sel_back"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:maxLength="200"
+                android:maxLines="1"
+                android:text="标题"/>
         </RelativeLayout>
 
         <ProgressBar

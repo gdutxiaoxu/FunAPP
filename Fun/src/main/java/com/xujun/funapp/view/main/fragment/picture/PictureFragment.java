@@ -1,6 +1,7 @@
 package com.xujun.funapp.view.main.fragment.picture;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureClassify;
@@ -8,6 +9,7 @@ import com.xujun.funapp.beans.Test;
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
+import com.xujun.funapp.common.util.LUtils;
 import com.xujun.funapp.common.util.MD5;
 import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.model.PictureListModel;
@@ -42,6 +44,18 @@ public class PictureFragment extends BaseViewPagerFragemnt<PicturePresenter>
     @Override
     protected PicturePresenter setPresenter() {
         return new PicturePresenter(this);
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                LUtils.i(this.getClass().getSimpleName()+"   position=      "+position);
+            }
+        });
     }
 
     @Override

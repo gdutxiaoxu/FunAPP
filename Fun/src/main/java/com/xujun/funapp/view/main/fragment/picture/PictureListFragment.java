@@ -1,20 +1,25 @@
 package com.xujun.funapp.view.main.fragment.picture;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.orhanobut.logger.Logger;
 import com.xujun.funapp.adapters.PictureListAdapter;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.util.LUtils;
 import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.model.PictureListModel;
 import com.xujun.funapp.view.detail.PictureDetailActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ explain:
@@ -31,6 +36,39 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     private ArrayList<PictureListBean.TngouBean> mDatas;
     private PictureListAdapter mAdapter;
 
+    protected int mId = 1;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        LUtils.d(this.getClass().getSimpleName()+"onCreate  mId"+mId);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LUtils.d(this.getClass().getSimpleName()+"onCreateView  mId"+mId);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        LUtils.d(this.getClass().getSimpleName()+"onDestroyView  mId"+mId);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        LUtils.d(this.getClass().getSimpleName()+"onDestroyView  mId"+mId);
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        LUtils.d(this.getClass().getSimpleName()+"onDestroy  mId"+mId);
+        super.onDestroy();
+    }
+
     public static PictureListFragment newInstance(String title, int id) {
         PictureListFragment pictureListFragment = new PictureListFragment();
         Bundle bundle = new Bundle();
@@ -38,6 +76,17 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
         bundle.putInt(ID, id);
         pictureListFragment.setArguments(bundle);
         return pictureListFragment;
+    }
+
+    @Override
+    protected void initAru() {
+        super.initAru();
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mId = arguments.getInt(ID);
+            WriteLogUtil.i("mId=" + mId);
+        }
+
     }
 
     @Override
@@ -63,7 +112,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     @Override
     protected PictureListPresenter setPresenter() {
-        return new PictureListPresenter(this, tags[mId]);
+        return new PictureListPresenter(this);
     }
 
     protected void getNextPageData() {
@@ -87,20 +136,11 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     @Override
     public void onSuccess(PictureListBean o) {
-        if (false == ListUtils.isEmpty(o.tngou)) {
-            if (isRefresh()) {
-                mDatas.clear();
-            }
-            mDatas.addAll(o.tngou);
-            mAdapter.notifyDataSetChanged();
-            endRefresh(RequestResult.success);
+        List<PictureListBean.TngouBean> tngou = o.tngou;
+        if (false == ListUtils.isEmpty(tngou)) {
+            handleResult(tngou, RequestResult.success);
         } else {
-            if (isRefresh()) {
-                mDatas.clear();
-            }
-            mDatas.addAll(o.tngou);
-            mAdapter.notifyDataSetChanged();
-            endRefresh(RequestResult.empty);
+            handleResult(tngou, RequestResult.empty);
         }
 
 
@@ -108,8 +148,8 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     @Override
     public void onError(Throwable throwable) {
-        Logger.i(throwable.getMessage());
-        endRefresh(RequestResult.error);
+
+        handleResult(null, RequestResult.error);
     }
 
     @Override

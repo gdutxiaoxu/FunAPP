@@ -21,7 +21,7 @@ import java.util.Enumeration;
  * @ author：xujun on 2016/10/30 15:00
  * @ email：gdutxiaoxu@163.com
  */
-public class NetStatus {
+public class NetStateUtils {
 
     /**
      * 判断当前网络是否是移动网络
@@ -104,7 +104,7 @@ public class NetStatus {
             NetworkInfo networkInfo = manager.getActiveNetworkInfo();
             //判断NetworkInfo对象是否为空
             if (networkInfo != null)
-                return networkInfo.isAvailable();
+                return networkInfo.isConnected();
         }
         return false;
     }
@@ -291,3 +291,4 @@ public class NetStatus {
         return false;
 
     }
+}

@@ -18,7 +18,7 @@ public class APP extends BaseApp {
         app = this;
         WriteLogUtil.init(app);
         // Thread.setDefaultUncaughtExceptionHandler(UnCatchExceptionHandler.getInstance());
-        showWifiDlg(app);
+
 
 
     }

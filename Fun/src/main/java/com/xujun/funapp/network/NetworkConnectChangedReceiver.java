@@ -84,15 +84,19 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                 if (activeNetwork.isConnected()) {
                     if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                         // connected to wifi
+                        APP.getInstance().setMobile(false);
                         APP.getInstance().setWifi(true);
                         Log.e(TAG, "当前WiFi连接可用 ");
                     } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                         // connected to the mobile provider's data plan
                         APP.getInstance().setMobile(true);
+                        APP.getInstance().setWifi(false);
                         Log.e(TAG, "当前移动网络连接可用 ");
                     }
                 } else {
                     Log.e(TAG, "当前没有网络连接，请确保你已经打开网络 ");
+                    APP.getInstance().setWifi(false);
+                    APP.getInstance().setMobile(false);
                 }
 
 
@@ -107,7 +111,6 @@ public class NetworkConnectChangedReceiver extends BroadcastReceiver {
                 Log.e(TAG, "当前没有网络连接，请确保你已经打开网络 ");
                 APP.getInstance().setWifi(false);
                 APP.getInstance().setMobile(false);
-                APP.getInstance().setConnected(false);
 
             }
 

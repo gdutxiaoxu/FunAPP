@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.LUtils;
+import com.xujun.funapp.common.util.ViewUtils;
 
 import org.simple.eventbus.EventBus;
 
@@ -58,15 +58,18 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
     Bundle savedInstanceState) {
         mContext = getContext();
-        Log.i(TAG, this.getClass().getSimpleName()+" onCreateView" );
+        LUtils.d(this.getClass().getSimpleName()+" onCreateView" );
         if (hasEventBus()) {
             EventBus.getDefault().register(this);
         }
+        if(mView==null){
+            mBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
+            mView=mBinding.getRoot();
+            initView(mBinding);
+        }else{
+            ViewUtils.removeParent(mView);
+        }
 
-        mBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
-        initView(mBinding);
-        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onCreateView()");
-        mView=mBinding.getRoot();
 
         return mView;
     }
@@ -85,6 +88,28 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onActivityCreated()");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        LUtils.d( this.getClass().getSimpleName() +" onDestroyView" );
+        if (hasEventBus()) {
+            EventBus.getDefault().unregister(this);
+        }
+
+        if (mPresenter != null)
+            mPresenter.stop();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LUtils.d( this.getClass().getSimpleName() +" onDestroy" );
+    }
+
+
+
     protected void initData() {
     }
 
@@ -92,7 +117,7 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         mIsVisiableToUser=isVisibleToUser;
-        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>setUserVisibleHint()"+isVisibleToUser);
+       /* LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>setUserVisibleHint()"+isVisibleToUser);*/
         prepareFetchData();
 
     }
@@ -114,9 +139,9 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
      * @return
      */
     public boolean prepareFetchData(boolean forceUpdate) {
-        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>prepareFetchData()"+forceUpdate);
+      /*  LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>prepareFetchData()"+forceUpdate);
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>mIsViewInitiated"+mIsViewInitiated);
-        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>mIsVisiableToUser"+mIsVisiableToUser);
+        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>mIsVisiableToUser"+mIsVisiableToUser);*/
         if (mIsVisiableToUser && mIsViewInitiated && (!mIsDataInitiated || forceUpdate)) {
             fetchData();
             mIsDataInitiated = true;
@@ -130,19 +155,6 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
     }
 
     protected void initListener() {
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Log.i(TAG, this.getClass().getSimpleName() +" onDestroyView" );
-        if (hasEventBus()) {
-            EventBus.getDefault().unregister(this);
-        }
-
-        if (mPresenter != null)
-            mPresenter.stop();
     }
 
 

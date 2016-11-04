@@ -3,10 +3,10 @@ package com.xujun.funapp.model;
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.beans.Test;
-import com.xujun.funapp.network.TnGouNet;
+import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.funapp.network.RequestListener;
 import com.xujun.funapp.network.TnGouAPi;
-
-import org.simple.eventbus.EventBus;
+import com.xujun.funapp.network.TnGouNet;
 
 import java.io.IOException;
 
@@ -28,12 +28,12 @@ import rx.schedulers.Schedulers;
  */
 public class PictureListModel {
 
-    public static String[] tags=new String[]{
-           "0", "1","2","3","4","5","6","7"
+    public static String[] tags = new String[]{
+            "0", "1", "2", "3", "4", "5", "6", "7"
     };
 
-    public static void test(Test test){
-       Retrofit.Builder mBuilder = new Retrofit.Builder()
+    public static void test(Test test) {
+        Retrofit.Builder mBuilder = new Retrofit.Builder()
                 .baseUrl("http://120.76.120.173")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit build = mBuilder.build();
@@ -45,7 +45,7 @@ public class PictureListModel {
                 ResponseBody body = response.body();
 
                 try {
-                    Logger.i("onResponse:   body="+body.string());
+                    Logger.i("onResponse:   body=" + body.string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -53,31 +53,39 @@ public class PictureListModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Logger.i("onResponse:   t="+t.getMessage());
+                Logger.i("onResponse:   t=" + t.getMessage());
             }
         });
 
 
     }
 
-    public static void getPictureList(String page, String rows, int id, final String tag) {
+    public void getPictureList(String page, String rows, int id,
+                               final RequestListener<PictureListBean> requestListener) {
         TnGouAPi tnGouAPi = TnGouNet.getInstance().getTnGouAPi();
-        Observable<PictureListBean> observable = tnGouAPi.getPictureList(page,rows,id);
+        Observable<PictureListBean> observable = tnGouAPi.getPictureList(page, rows, id);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(new Action1<PictureListBean>() {
-                  @Override
-                  public void call(PictureListBean pictureListBean) {
-                      pictureListBean.tag=tag;
-                      EventBus.getDefault().post(pictureListBean);
-                  }
-              }, new Action1<Throwable>() {
-                  @Override
-                  public void call(Throwable throwable) {
-                      Logger.i(throwable.getMessage());
-                      EventBus.getDefault().post(throwable);
-                  }
-              });
+                .subscribe(new Action1<PictureListBean>() {
+                    @Override
+                    public void call(PictureListBean pictureListBean) {
+                        if (requestListener != null) {
+                            requestListener.onSuccess(pictureListBean);
+                        }
+                    /*  pictureListBean.tag=tag;
+                      EventBus.getDefault().post(pictureListBean);*/
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        WriteLogUtil.i(throwable.getMessage() + "\n" + throwable.getCause() +
+                                "\n" + throwable.getStackTrace());
+                      /*EventBus.getDefault().post(throwable);*/
+                        if (requestListener != null) {
+                            requestListener.onError(throwable);
+                        }
+                    }
+                });
 
     }
 }

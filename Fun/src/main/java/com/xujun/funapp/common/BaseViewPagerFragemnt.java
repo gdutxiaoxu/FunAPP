@@ -12,10 +12,10 @@ import com.xujun.funapp.databinding.FragmentViewPagerBinding;
  * @ author：xujun on 2016/10/7 22:51
  * @ email：gdutxiaoxu@163.com
  */
-public abstract class BaseViewPagerFragemnt<P extends BasePresenter > extends
-        BindingBaseFragment<FragmentViewPagerBinding,P>{
+public abstract class BaseViewPagerFragemnt<P extends BasePresenter> extends
+        BindingBaseFragment<FragmentViewPagerBinding, P> {
 
-    private ViewPager mViewPager;
+    protected ViewPager mViewPager;
 
     private BaseFragmentAdapter mFragmentAdapter;
     private TabLayout mTabLayout;
@@ -32,18 +32,22 @@ public abstract class BaseViewPagerFragemnt<P extends BasePresenter > extends
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mFragmentAdapter = getViewPagerAdapter();
         mViewPager.setAdapter(mFragmentAdapter);
+        mViewPager.setOffscreenPageLimit(setOffscreenPageLimit());
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
 
+    /*ViewPager 保存的Fragment的数量*/
+    protected int setOffscreenPageLimit() {
+        return mFragmentAdapter.getCount() - 1;
+    }
+
     /**
      * 这个方式是用来初始化ViewPager的adapter的
+     *
      * @return
      */
-    protected abstract BaseFragmentAdapter getViewPagerAdapter() ;
-
-
-
+    protected abstract BaseFragmentAdapter getViewPagerAdapter();
 
 
 }

@@ -27,7 +27,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
         extends BindingBaseFragment<FragmentBaseListBinding, P>
         implements OnRefreshListener {
 
-    protected int mId = 1;
+
     protected int mPage = 1;
     protected int mRows = 20;
     //记录请求结果的状态，有三种类型，success，error，empty
@@ -62,6 +62,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
     @Override
     protected void initView(FragmentBaseListBinding binding) {
+
         mRecyclerView = binding.recyclerView;
         mRefreshLayout = binding.refreshLayout;
         mFlRoot = binding.flRoot;
