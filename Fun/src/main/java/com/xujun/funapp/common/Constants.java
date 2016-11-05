@@ -41,6 +41,7 @@ public class Constants {
 
     public static class SPConstants {
         //表示是否在WiFi的情况下 才加载图片，true表示在WiFi的情况下才加载图片 ，false而表示不是
-        public static final String isIntelligentNoPic = "http://tnfs.tngou.net/image";
+        public static final String isIntelligentNoPic = "isIntelligentNoPic";
+        public static final String isNightMode = "isNightMode";
     }
 }

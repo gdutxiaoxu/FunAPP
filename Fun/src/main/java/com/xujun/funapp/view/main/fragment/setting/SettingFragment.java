@@ -1,15 +1,12 @@
 package com.xujun.funapp.view.main.fragment.setting;
 
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.TextView;
-
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.BindingBaseFragment;
 import com.xujun.funapp.common.Constants.SPConstants;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.databinding.FragmentSettingBinding;
+import com.xujun.funapp.widget.SwitchSettingItem;
 
 /**
  * @ explain:
@@ -18,8 +15,8 @@ import com.xujun.funapp.databinding.FragmentSettingBinding;
  */
 public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding, BasePresenter> {
 
-    private Switch mSwitchWifiPic;
-    private TextView mTvWifiPic;
+    private SwitchSettingItem mSsiIsIntelligentNoPic;
+    private SwitchSettingItem mSsiNightMode;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -28,27 +25,38 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
 
     @Override
     protected void initView(FragmentSettingBinding binding) {
-        mSwitchWifiPic = binding.switchWifiPic;
-        mTvWifiPic = binding.tvWifiPic;
+        mSsiIsIntelligentNoPic = binding.ssiIsIntelligentNoPic;
+        mSsiNightMode = binding.ssiNightMode;
+
 
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        mSwitchWifiPic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mSsiIsIntelligentNoPic.setOnChangedListenr(new SwitchSettingItem.onChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SPUtils.put(SPConstants.isIntelligentNoPic,isChecked);
+            public void onChange(boolean checked) {
+                SPUtils.put(SPConstants.isIntelligentNoPic, checked);
             }
         });
+        mSsiNightMode.setOnChangedListenr(new SwitchSettingItem.onChangeListener() {
+            @Override
+            public void onChange(boolean checked) {
+                SPUtils.put(SPConstants.isNightMode, checked);
+            }
+        });
+
     }
 
     @Override
     protected void initData() {
         super.initData();
         boolean isIntelligentNoPic = SPUtils.getBoolean(SPConstants.isIntelligentNoPic);
-        mSwitchWifiPic.setChecked(isIntelligentNoPic);
+        mSsiIsIntelligentNoPic.setChecked(isIntelligentNoPic);
+        boolean isNightMode = SPUtils.getBoolean(SPConstants.isNightMode);
+        mSsiNightMode.setChecked(isNightMode);
+
     }
 
     @Override
