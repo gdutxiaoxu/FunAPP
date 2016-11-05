@@ -29,7 +29,7 @@ public class MainFragmentFactory {
     public Fragment get(int position) {
         if (mFragmentList == null) {
             mFragmentList = new ArrayList<>();
-            mFragmentList.add(new PictureFragment());
+            mFragmentList.add(new NewsFragment());
             mFragmentList.add(new NewsFragment());
             mFragmentList.add(new PictureFragment());
             mFragmentList.add(new SettingFragment());

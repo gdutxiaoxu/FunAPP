@@ -1,5 +1,7 @@
 package com.xujun.funapp.common;
 
+import android.support.v7.app.AppCompatDelegate;
+
 import com.xujun.funapp.common.util.WriteLogUtil;
 
 /**
@@ -15,6 +17,7 @@ public class APP extends BaseApp {
     @Override
     protected void initData() {
         super.initData();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         app = this;
         WriteLogUtil.init(app);
         // Thread.setDefaultUncaughtExceptionHandler(UnCatchExceptionHandler.getInstance());

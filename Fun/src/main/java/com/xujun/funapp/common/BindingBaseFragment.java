@@ -62,13 +62,16 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
         if (hasEventBus()) {
             EventBus.getDefault().register(this);
         }
+
+
         if(mView==null){
-            mBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
-            mView=mBinding.getRoot();
-            initView(mBinding);
+
         }else{
             ViewUtils.removeParent(mView);
         }
+        mBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
+        mView=mBinding.getRoot();
+        initView(mBinding);
 
 
         return mView;

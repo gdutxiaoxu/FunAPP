@@ -44,6 +44,7 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
             @Override
             public void onChange(boolean checked) {
                 SPUtils.put(SPConstants.isNightMode, checked);
+                getActivity().recreate();
             }
         });
 

@@ -9,16 +9,17 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.util.LUtils;
+import com.xujun.funapp.common.util.SPUtils;
 
 import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
-
-
 
 /**
  * @ explain:
@@ -43,7 +44,14 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initWindows();
+        boolean isNightMode = SPUtils.getBoolean(Constants.SPConstants.isNightMode);
+        if(false==isNightMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
 
         LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onCreate()");
         // base setup
