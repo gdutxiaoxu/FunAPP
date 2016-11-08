@@ -9,7 +9,9 @@ import com.xujun.funapp.network.TnGouAPi;
 import com.xujun.funapp.network.TnGouNet;
 
 import java.io.IOException;
+import java.util.Set;
 
+import okhttp3.Headers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +45,12 @@ public class PictureListModel {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody body = response.body();
+                Headers headers = response.headers();
+                Set<String> names = headers.names();
+                for(String  key:names){
+                    String value = headers.get(key);
+                }
+
 
                 try {
                     Logger.i("onResponse:   body=" + body.string());

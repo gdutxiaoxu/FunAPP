@@ -119,8 +119,10 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mBind.unbind();
         if (dialog != null) {
             dialog.cancel();
+            dialog.dismiss();
         }
 
         if (mPresenter != null) {
