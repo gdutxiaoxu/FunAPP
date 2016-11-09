@@ -67,6 +67,7 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
         mWebView = bind.webView;
         mProgressBar = bind.progressBar;
         mTvTitle = bind.tvTitle;
+
     }
 
     @Override
