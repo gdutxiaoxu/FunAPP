@@ -7,9 +7,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 /**
- * Created by cundong on 2015/10/9.
- * <p/>
- * 继承自RecyclerView.OnScrollListener，可以监听到是否滑动到页面最低部
+ * 博客地址：http://blog.csdn.net/gdutxiaoxu
+ * @author xujun
+ * @time 2016/11/18 19:13.
  */
 public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener implements OnListLoadNextPageListener {
 
@@ -33,9 +33,26 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
      */
     private int currentScrollState = 0;
 
+    private int scrolledDistance = 0;
+    private boolean controlsVisible = false;
+
+    // True if we are still waiting for the last set of data to load.
+    private boolean loading = true;
+    // The minimum amount of items to have below your current scroll position before loading more.
+    private int visibleThreshold = 5;
+
+
+    private int pastVisibleItems;
+
+    private int current_page = 1;
+   
+    private int mDy;
+    private int previousTotal;
+
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
+        mDy = dy;
 
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
 
@@ -66,6 +83,14 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
                 }
                 staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions);
                 lastVisibleItemPosition = findMax(lastPositions);
+
+                //firstVisibleItem = mStaggeredGridLayoutManager.findFirstVisibleItemPosition();
+                int[] firstVisibleItems = null;
+                firstVisibleItems = staggeredGridLayoutManager.findFirstVisibleItemPositions
+                        (firstVisibleItems);
+                if (firstVisibleItems != null && firstVisibleItems.length > 0) {
+                    pastVisibleItems = firstVisibleItems[0];
+                }
                 break;
         }
 
@@ -78,9 +103,34 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
-        if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItemPosition) >= totalItemCount - 1)) {
-            onLoadNextPage(recyclerView);
+
+        visibleItemCount = recyclerView.getChildCount();
+        totalItemCount = layoutManager.getItemCount();
+
+
+
+        if (loading) {
+            if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                loading = false;
+                previousTotal = totalItemCount;
+            }
         }
+        if (!loading && (totalItemCount - visibleItemCount)
+                <= (pastVisibleItems + visibleThreshold)) {
+            // End has been reached
+
+            // Do something
+            current_page++;
+
+            onLoadMore(current_page);
+
+            loading = true;
+        }
+
+        
+    }
+
+    private void onLoadMore(int current_page) {
     }
 
     /**

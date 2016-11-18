@@ -16,6 +16,7 @@ import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.common.util.UIUtils;
+import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.view.detail.NewsDetailActivity;
 
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     private String mType = "world";
     private ArrayList<News.NewslistBean> mDatas;
     private NewsListAdapter mAdapter;
+    //    保存上一次的可见的第一个位置
+    private int mLastPosition;
 
     public static NewsListFragment newInstance(String type) {
         NewsListFragment newsListFragment = new NewsListFragment();
@@ -54,6 +57,18 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     @Override
     protected void initListener() {
         super.initListener();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -157,8 +172,24 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     }
 
     private void toogleTYpe(LayoutMangerType mangerType) {
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+
+            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager)
+                    layoutManager;
+            int[] positions = null;
+            staggeredGridLayoutManager.findFirstVisibleItemPositions(positions);
+            mLastPosition = positions[0];
+
+        } else {
+
+            mLastPosition = (((LinearLayoutManager) layoutManager))
+                    .findFirstVisibleItemPosition();
+        }
+        WriteLogUtil.i("mLastPosition=" + mLastPosition);
         RecyclerUtils.init(mRecyclerView, mangerType);
         mAdapter.setType(mangerType);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.scrollToPosition(mLastPosition);
     }
 }

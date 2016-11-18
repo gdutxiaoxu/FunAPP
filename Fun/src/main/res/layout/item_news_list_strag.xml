@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="150dp"
-             android:orientation="vertical"
+             android:layout_height="180dp"
+
 >
 
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:scaleType="fitXY"
@@ -19,10 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/iv"
+        android:padding="5dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="哈哈，我是唐嫣大美女的粉丝"

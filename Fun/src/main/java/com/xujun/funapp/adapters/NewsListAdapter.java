@@ -47,7 +47,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
     }
 
     private int getHeight() {
-        return (int) (200+Math.random()*400);
+        return (int) (350+Math.random()*300);
     }
 
     public void setType(LayoutMangerType mangerType) {
