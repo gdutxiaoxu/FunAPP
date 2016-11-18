@@ -1,21 +1,18 @@
 package com.xujun.funapp.common;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.xujun.commonlibrary.widget.MutiLayout;
 import com.xujun.commonlibrary.widget.MutiLayout.LoadResult;
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
-import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
 
 import java.util.List;
@@ -38,7 +35,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
     //记录请求结果的状态，有三种类型，success，error，empty
     protected RequestResult mRequestResult;
 
-    private RecyclerView mRecyclerView;
+    protected RecyclerView mRecyclerView;
     private BGARefreshLayout mRefreshLayout;
     //    recyclerView 的Adapter
     private BaseRecyclerAdapter mBaseAdapter;
@@ -50,9 +47,10 @@ public abstract class BaseListFragment<P extends BasePresenter>
     private MutiLayout mMutiLayout;
     //    根布局
     private FrameLayout mFlRoot;
-    private FloatingActionButton mMenuItemLinear;
-    private FloatingActionButton mMenuItemGrid;
-    private FloatingActionButton mMenuItemStrag;
+    protected FloatingActionButton mMenuItemLinear;
+    protected FloatingActionButton mMenuItemGrid;
+    protected FloatingActionButton mMenuItemStrag;
+    protected FloatingActionMenu mMenu;
 
     //记录请求结果的状态，有三种类型，success，error，empty
     public enum RequestResult {
@@ -77,6 +75,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
         mMenuItemLinear = binding.menuItemLinear;
         mMenuItemGrid = binding.menuItemGrid;
         mMenuItemStrag = binding.menuItemStrag;
+        mMenu = binding.menu;
 
 
         mMutiLayout = new MutiLayout(mContext);
@@ -145,10 +144,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
                 show(LoadResult.loading);
             }
         });
-        MenuItemListener menuItemListener = new MenuItemListener();
-        mMenuItemLinear.setOnClickListener(menuItemListener);
-        mMenuItemGrid.setOnClickListener(menuItemListener);
-        mMenuItemStrag.setOnClickListener(menuItemListener);
+
 
 
     }
@@ -288,47 +284,11 @@ public abstract class BaseListFragment<P extends BasePresenter>
     }
 
 
-    private class  MenuItemListener  implements View.OnClickListener{
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
 
-                case  R.id.menu_item_linear:
-                    UIUtils.showShortText("menu_item_linear");
-                    RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
-
-                    if(layoutManager instanceof LinearLayoutManager &&
-                            false==(layoutManager instanceof GridLayoutManager)){
-                        break;
-                    }
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-                    RecyclerUtils.init(mRecyclerView);
-                    mBaseAdapter.notifyDataSetChanged();
-                    break;
-                case  R.id.menu_item_grid:
-                    UIUtils.showShortText("menu_item_grid");
-                    if(mRecyclerView.getLayoutManager() instanceof GridLayoutManager){
-                        break;
-                    }
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(mContext,2));
-                    RecyclerUtils.init(mRecyclerView);
-                    mBaseAdapter.notifyDataSetChanged();
-                    break;
-                case  R.id.menu_item_strag:
-                    UIUtils.showShortText("menu_item_strag");
-
-                    if(mRecyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager){
-                        break;
-                    }
-                    mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
-                            LinearLayoutManager.VERTICAL));
-                    RecyclerUtils.init(mRecyclerView);
-                    mBaseAdapter.notifyDataSetChanged();
-                    break;
-
-                default:break;
-            }
+    protected void closeMenu() {
+        if(mMenu.isOpened()){
+            mMenu.close(true);
         }
     }
 }

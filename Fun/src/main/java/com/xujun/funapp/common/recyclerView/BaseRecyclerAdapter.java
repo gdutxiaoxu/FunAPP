@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerHolder> {
 
     protected Context mContext;
-    protected final int mItemLayoutId;
+    protected  int mItemLayoutId;
     protected List<T> mDatas;
     protected BaseRecyclerAdapter.OnItemClickListener mOnItemClickListener;
     protected BaseRecyclerAdapter.OnLongItemClickListener mOnLongItemClickListener;

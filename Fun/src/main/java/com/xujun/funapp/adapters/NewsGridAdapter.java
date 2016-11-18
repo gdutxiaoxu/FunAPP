@@ -28,7 +28,7 @@ import java.util.List;
  * @ author：xujun on 2016/10/28 19:26
  * @ email：gdutxiaoxu@163.com
  */
-public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
+public class NewsGridAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
     Object pictureTag;
     LayoutMangerType mType;
     private ArrayList<Integer> mHeights;
@@ -42,12 +42,8 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
 
         for(int i=0; i < mList.size();i++){
             //随机的获取一个范围为200-600直接的高度
-            mHeights.add(getHeight());
+            mHeights.add((int) (200+Math.random()*400));
         }
-    }
-
-    private int getHeight() {
-        return (int) (200+Math.random()*400);
     }
 
     public void setType(LayoutMangerType mangerType) {
@@ -66,7 +62,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
         }
     }
 
-    public NewsListAdapter(Context context, List<News.NewslistBean> datas, Object pictureTag,
+    public NewsGridAdapter(Context context, List<News.NewslistBean> datas, Object pictureTag,
                            LayoutMangerType type) {
 
         super(context, R.layout.item_news_list, datas);
@@ -135,8 +131,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
         }else{
             View convertView = holder.getConvertView();
             ViewGroup.LayoutParams layoutParams = convertView.getLayoutParams();
-//            layoutParams.height=mHeights.get(position);
-            layoutParams.height=getHeight();
+            layoutParams.height=mHeights.get(position);
             convertView.setLayoutParams(layoutParams);
             TextView tvTitle = holder.getView(R.id.tv_title);
             ImageView iv = holder.getView(R.id.iv);

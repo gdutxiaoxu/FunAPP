@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.widget.divider.DividerGridItemDecoration;
 import com.xujun.funapp.widget.divider.DividerItemDecoration;
 
@@ -16,28 +17,46 @@ import com.xujun.funapp.widget.divider.DividerItemDecoration;
  */
 public class RecyclerUtils {
 
-    public static void init(RecyclerView recyclerView){
+
+
+    public static void init(RecyclerView recyclerView, LayoutMangerType type) {
+        Context context = recyclerView.getContext();
+        if (type == LayoutMangerType.Linear) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        } else if (type == LayoutMangerType.Grid) {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+        } else {
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager
+                    .VERTICAL));
+        }
+        init(recyclerView);
+
+    }
+
+    public static void init(RecyclerView recyclerView) {
         Context context = recyclerView.getContext();
 
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        if(layoutManager ==null){
+        if (layoutManager == null) {
 
-            layoutManager=new  LinearLayoutManager(context);
+            layoutManager = new LinearLayoutManager(context);
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context,
                     LinearLayoutManager.VERTICAL);
             recyclerView.addItemDecoration(dividerItemDecoration);
             recyclerView.setLayoutManager(layoutManager);
-        }else{
-            if(layoutManager instanceof LinearLayoutManager){
+        } else {
+            if (layoutManager instanceof LinearLayoutManager &&
+                    false == layoutManager instanceof GridLayoutManager) {
                 DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context,
                         LinearLayoutManager.VERTICAL);
                 recyclerView.addItemDecoration(dividerItemDecoration);
-            }else if(layoutManager instanceof GridLayoutManager){
+            } else if (layoutManager instanceof GridLayoutManager) {
                 DividerGridItemDecoration dividerGridItemDecoration = new
                         DividerGridItemDecoration(context);
                 recyclerView.addItemDecoration(dividerGridItemDecoration);
 
-            }else if(layoutManager instanceof StaggeredGridLayoutManager){
+            } else if (layoutManager instanceof StaggeredGridLayoutManager) {
                 DividerGridItemDecoration dividerGridItemDecoration = new
                         DividerGridItemDecoration(context);
                 recyclerView.addItemDecoration(dividerGridItemDecoration);

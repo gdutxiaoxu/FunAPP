@@ -1,14 +1,21 @@
 package com.xujun.funapp.view.main.fragment.news;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.xujun.funapp.R;
 import com.xujun.funapp.adapters.NewsListAdapter;
 import com.xujun.funapp.beans.News;
 import com.xujun.funapp.common.BaseListFragment;
+import com.xujun.funapp.common.RecyclerUtils;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.view.detail.NewsDetailActivity;
 
 import java.util.ArrayList;
@@ -57,6 +64,11 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
             }
         });
 
+        MenuItemListener menuItemListener = new MenuItemListener();
+        mMenuItemLinear.setOnClickListener(menuItemListener);
+        mMenuItemGrid.setOnClickListener(menuItemListener);
+        mMenuItemStrag.setOnClickListener(menuItemListener);
+
     }
 
     @Override
@@ -76,7 +88,7 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     @Override
     protected BaseRecyclerAdapter getAdapter() {
         mDatas = new ArrayList<>();
-        mAdapter = new NewsListAdapter(mContext, mDatas, mPictureTag);
+        mAdapter = new NewsListAdapter(mContext, mDatas, mPictureTag, LayoutMangerType.Linear);
         return mAdapter;
     }
 
@@ -100,5 +112,53 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     public void onReceiveNewsError(Throwable error) {
         handleResult(null, RequestResult.error);
 
+    }
+
+    private class MenuItemListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+
+                case R.id.menu_item_linear:
+                    UIUtils.showShortText("menu_item_linear");
+                    RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+
+                    if (layoutManager instanceof LinearLayoutManager &&
+                            false == (layoutManager instanceof GridLayoutManager)) {
+                        break;
+                    }
+                    toogleTYpe(LayoutMangerType.Linear);
+                    closeMenu();
+                    break;
+                case R.id.menu_item_grid:
+                    UIUtils.showShortText("menu_item_grid");
+                    if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager) {
+                        break;
+                    }
+                    toogleTYpe(LayoutMangerType.Grid);
+                    closeMenu();
+                    break;
+                case R.id.menu_item_strag:
+                    UIUtils.showShortText("menu_item_strag");
+
+                    if (mRecyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+                        break;
+                    }
+                    mAdapter.getRandomHeight(mDatas);
+                    toogleTYpe(LayoutMangerType.Strag);
+                    closeMenu();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void toogleTYpe(LayoutMangerType mangerType) {
+        RecyclerUtils.init(mRecyclerView, mangerType);
+        mAdapter.setType(mangerType);
+        mRecyclerView.setAdapter(mAdapter);
     }
 }
