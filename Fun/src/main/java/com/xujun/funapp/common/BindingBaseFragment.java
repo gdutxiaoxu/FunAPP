@@ -178,6 +178,10 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
                 .replace(id, target).commit();
     }
 
+    public void readyGo(Class<?> clazz) {
+        this.readyGo(clazz, null,null);
+    }
+
     public void readyGo(Class<?> clazz, Parcelable parcelable) {
         this.readyGo(clazz, DEFAULT_PARCEABLE_NAME,parcelable);
     }

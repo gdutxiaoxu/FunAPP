@@ -26,6 +26,14 @@
 
         </com.xujun.funapp.widget.SwitchSettingItem>
 
+        <com.xujun.funapp.widget.SwitchSettingItem
+            android:id="@+id/ssi_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:des="我的位置">
+
+        </com.xujun.funapp.widget.SwitchSettingItem>
+
 
     </LinearLayout>
 </layout>

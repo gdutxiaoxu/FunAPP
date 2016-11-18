@@ -6,6 +6,7 @@ import com.xujun.funapp.common.Constants.SPConstants;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.databinding.FragmentSettingBinding;
+import com.xujun.funapp.view.location.CityPickerActivity;
 import com.xujun.funapp.widget.SwitchSettingItem;
 
 /**
@@ -17,6 +18,7 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
 
     private SwitchSettingItem mSsiIsIntelligentNoPic;
     private SwitchSettingItem mSsiNightMode;
+    private SwitchSettingItem mSsiLocation;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -27,6 +29,7 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
     protected void initView(FragmentSettingBinding binding) {
         mSsiIsIntelligentNoPic = binding.ssiIsIntelligentNoPic;
         mSsiNightMode = binding.ssiNightMode;
+        mSsiLocation = binding.ssiLocation;
 
 
     }
@@ -45,6 +48,12 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
             public void onChange(boolean checked) {
                 SPUtils.put(SPConstants.isNightMode, checked);
                 getActivity().recreate();
+            }
+        });
+        mSsiLocation.setOnChangedListenr(new SwitchSettingItem.onChangeListener() {
+            @Override
+            public void onChange(boolean checked) {
+                readyGo(CityPickerActivity.class);
             }
         });
 
