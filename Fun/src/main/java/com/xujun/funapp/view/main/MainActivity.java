@@ -1,5 +1,6 @@
 package com.xujun.funapp.view.main;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,8 @@ import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.databinding.ActivityMainBinding;
 import com.xujun.funapp.network.NetStateUtils;
+
+import java.util.List;
 
 public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresenter> {
 
@@ -77,7 +80,7 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
 
                 }
                 Fragment fragment = MainFragmentFactory.getInstance().get(position);
-                showFragment(mCurrentFragemnt,fragment);
+                showFragment(mCurrentFragemnt,fragment,position);
                 mCurrentFragemnt=fragment;
 
             }
@@ -104,16 +107,29 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding,BasePresen
     }
 
 
-    private void showFragment(Fragment from, Fragment to) {
+    private void showFragment(Fragment from, Fragment to, int position) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         if (!to.isAdded()) {    // 先判断是否被add过
-            transaction.hide(from).add(R.id.fl_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+            transaction.hide(from).add(R.id.fl_content, to,String.valueOf(position)).commit(); // 隐藏当前的fragment，add下一个到Activity中
         } else {
             transaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
         }
 
     }
 
-
+    /**
+     * 重写 这个方法，将 回传回来的结果传递给Fragemnt的onActivityResult
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragmentList = MainFragmentFactory.getInstance().getFragmentList();
+        for(int i=0;i<fragmentList.size();i++){
+            fragmentList.get(position).onActivityResult(requestCode,resultCode,data);
+        }
+    }
 }

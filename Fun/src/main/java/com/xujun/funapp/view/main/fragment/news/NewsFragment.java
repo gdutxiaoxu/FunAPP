@@ -1,5 +1,6 @@
 package com.xujun.funapp.view.main.fragment.news;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.xujun.funapp.beans.NewsClassify;
@@ -67,5 +68,14 @@ public class NewsFragment extends BaseViewPagerFragemnt<NewsPresenter> implement
     @Override
     public void onLocal(Object o) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for(int  i=0;i<mFragments.size();i++){
+            Fragment fragment = mFragments.get(i);
+            fragment.onActivityResult(requestCode,resultCode,data);
+        }
     }
 }

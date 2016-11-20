@@ -1,5 +1,6 @@
 package com.xujun.funapp.view.main.fragment.picture;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.xujun.funapp.R;
@@ -82,5 +83,14 @@ public class PictureFragment extends BaseViewPagerFragemnt<PicturePresenter>
     @Override
     public void onLocal(PictureClassify pictureClassify) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for(int  i=0;i<mFragments.size();i++){
+            Fragment fragment = mFragments.get(i);
+            fragment.onActivityResult(requestCode,resultCode,data);
+        }
     }
 }

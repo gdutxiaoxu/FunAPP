@@ -38,4 +38,8 @@ public class MainFragmentFactory {
         return mFragmentList.get(position);
 
     }
+
+    public List<Fragment> getFragmentList() {
+        return mFragmentList;
+    }
 }

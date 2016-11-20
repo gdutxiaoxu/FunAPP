@@ -277,15 +277,12 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
 
     private void onCityClick(String city) {
         ToastUtils.showToast(this, "点击的城市：" + city);
-        deliverData(city);
+        Intent data = new Intent();
+        data.putExtra(IntentConstants.KEY_PICKED_CITY, city);
+        setResult(IntentConstants.RESULT_CODE_PICK_CITY, data);
         finish();
     }
 
-    private void deliverData(String city) {
-        Intent data = new Intent();
-        data.putExtra(IntentConstants.KEY_PICKED_CITY, city);
-        setResult(IntentConstants.REQUEST_CODE_PICK_CITY, data);
-    }
 
     @Override
     public void onClick(View v) {

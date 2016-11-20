@@ -1,6 +1,7 @@
 package com.xujun.funapp.view.main.fragment.setting;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.xujun.funapp.R;
@@ -14,6 +15,8 @@ import com.xujun.funapp.view.location.CityPickerActivity;
 import com.xujun.funapp.view.location.GPSLocationActivity;
 import com.xujun.funapp.widget.SettingClickItem;
 import com.xujun.funapp.widget.SettingSwitchItem;
+
+import static com.xujun.funapp.common.Constants.SPConstants.city;
 
 /**
  * @ explain:
@@ -84,7 +87,7 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
         mSsiIsIntelligentNoPic.setChecked(isIntelligentNoPic);
         boolean isNightMode = SPUtils.getBoolean(SPConstants.isNightMode);
         mSsiNightMode.setChecked(isNightMode);
-        mCity = SPUtils.getString(SPConstants.city);
+        mCity = SPUtils.getString(city);
         mSciLocation.setContent(mCity);
 
     }
@@ -104,10 +107,14 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case IntentConstants.REQUEST_CODE_PICK_CITY:
+       switch (resultCode) {
+            case IntentConstants.RESULT_CODE_PICK_CITY:
                 String city = data.getStringExtra(IntentConstants.KEY_PICKED_CITY);
-                mSciLocation.setContent(city);
+                if(!TextUtils.isEmpty(city)){
+                    mSciLocation.setContent(city);
+                    SPUtils.put(IntentConstants.KEY_PICKED_CITY,city);
+                }
+
                 break;
         }
     }

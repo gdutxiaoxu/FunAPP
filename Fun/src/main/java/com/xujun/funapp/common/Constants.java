@@ -30,7 +30,7 @@ public class Constants {
 
     public static class IntentConstants {
         public static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
-        public static final int REQUEST_CODE_PICK_CITY = 2333;
+        public static final int RESULT_CODE_PICK_CITY = 2333;
         public static final String KEY_PICKED_CITY = "picked_city";
     }
 
