@@ -1,13 +1,19 @@
 package com.xujun.funapp.view.main.fragment.setting;
 
+import android.content.Intent;
+import android.view.View;
+
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.BindingBaseFragment;
+import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.Constants.SPConstants;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.databinding.FragmentSettingBinding;
 import com.xujun.funapp.view.location.CityPickerActivity;
-import com.xujun.funapp.widget.SwitchSettingItem;
+import com.xujun.funapp.view.location.GPSLocationActivity;
+import com.xujun.funapp.widget.SettingClickItem;
+import com.xujun.funapp.widget.SettingSwitchItem;
 
 /**
  * @ explain:
@@ -16,9 +22,12 @@ import com.xujun.funapp.widget.SwitchSettingItem;
  */
 public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding, BasePresenter> {
 
-    private SwitchSettingItem mSsiIsIntelligentNoPic;
-    private SwitchSettingItem mSsiNightMode;
-    private SwitchSettingItem mSsiLocation;
+    private SettingSwitchItem mSsiIsIntelligentNoPic;
+    private SettingSwitchItem mSsiNightMode;
+
+    private SettingClickItem mSciLocation;
+    private String mCity;
+    private SettingClickItem mSciGPSlocation;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -29,31 +38,40 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
     protected void initView(FragmentSettingBinding binding) {
         mSsiIsIntelligentNoPic = binding.ssiIsIntelligentNoPic;
         mSsiNightMode = binding.ssiNightMode;
-        mSsiLocation = binding.ssiLocation;
-
+        mSciLocation = binding.sciLocation;
+        mSciGPSlocation = binding.sciGPSlocation;
 
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        mSsiIsIntelligentNoPic.setOnChangedListenr(new SwitchSettingItem.onChangeListener() {
+        mSsiIsIntelligentNoPic.setOnChangedListenr(new SettingSwitchItem.onChangeListener() {
             @Override
             public void onChange(boolean checked) {
                 SPUtils.put(SPConstants.isIntelligentNoPic, checked);
             }
         });
-        mSsiNightMode.setOnChangedListenr(new SwitchSettingItem.onChangeListener() {
+        mSsiNightMode.setOnChangedListenr(new SettingSwitchItem.onChangeListener() {
             @Override
             public void onChange(boolean checked) {
                 SPUtils.put(SPConstants.isNightMode, checked);
                 getActivity().recreate();
             }
         });
-        mSsiLocation.setOnChangedListenr(new SwitchSettingItem.onChangeListener() {
+
+        mSciLocation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChange(boolean checked) {
-                readyGo(CityPickerActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CityPickerActivity.class);
+                intent.putExtra(IntentConstants.KEY_PICKED_CITY,mCity);
+                getActivity().startActivityForResult(intent,0);
+            }
+        });
+        mSciGPSlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readyGo(GPSLocationActivity.class);
             }
         });
 
@@ -66,11 +84,31 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
         mSsiIsIntelligentNoPic.setChecked(isIntelligentNoPic);
         boolean isNightMode = SPUtils.getBoolean(SPConstants.isNightMode);
         mSsiNightMode.setChecked(isNightMode);
+        mCity = SPUtils.getString(SPConstants.city);
+        mSciLocation.setContent(mCity);
 
     }
 
     @Override
     protected BasePresenter setPresenter() {
         return null;
+    }
+
+    /**
+     * 接收Activity回传回来的result
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case IntentConstants.REQUEST_CODE_PICK_CITY:
+                String city = data.getStringExtra(IntentConstants.KEY_PICKED_CITY);
+                mSciLocation.setContent(city);
+                break;
+        }
     }
 }

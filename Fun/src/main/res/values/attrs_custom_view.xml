@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SwitchSettingItem">
+    <declare-styleable name="SettingSwitchItem">
         <attr name="des"  format="string"/>
         <attr name="on_des" format="string"/>
         <attr name="off_des" format="string"/>
-
     </declare-styleable>
+
+    <declare-styleable name="SettingClickItem">
+        <attr name="content"  format="string"/>
+        <attr name="icon"  format="reference"/>
+        </declare-styleable>
+
 </resources>

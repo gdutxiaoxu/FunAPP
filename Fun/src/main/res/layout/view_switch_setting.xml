@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/background_tab_pressed">
+    android:background="@drawable/sel_bg_setting_item">
 
     <Switch
         android:id="@+id/sw"

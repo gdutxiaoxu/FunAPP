@@ -19,7 +19,7 @@ import com.xujun.funapp.common.util.WriteLogUtil;
  * @ author：xujun on 2016/11/4 18:25
  * @ email：gdutxiaoxu@163.com
  */
-public class SwitchSettingItem extends RelativeLayout {
+public class SettingSwitchItem extends RelativeLayout {
 
     private TextView mTvDes;
     private Switch mSwitch;
@@ -47,15 +47,15 @@ public class SwitchSettingItem extends RelativeLayout {
         this.mOnChangeListener = onChangeListener;
     }
 
-    public SwitchSettingItem(Context context) {
+    public SettingSwitchItem(Context context) {
         this(context, null);
     }
 
-    public SwitchSettingItem(Context context, AttributeSet attrs) {
+    public SettingSwitchItem(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SwitchSettingItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SettingSwitchItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         initAttr(attrs);
@@ -80,10 +80,10 @@ public class SwitchSettingItem extends RelativeLayout {
 
     private void initAttr(AttributeSet attrs) {
         TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable
-                .SwitchSettingItem);
-        mDes = typedArray.getString(R.styleable.SwitchSettingItem_des);
-        mOnDes = typedArray.getString(R.styleable.SwitchSettingItem_on_des);
-        mOffDes = typedArray.getString(R.styleable.SwitchSettingItem_off_des);
+                .SettingSwitchItem);
+        mDes = typedArray.getString(R.styleable.SettingSwitchItem_des);
+        mOnDes = typedArray.getString(R.styleable.SettingSwitchItem_on_des);
+        mOffDes = typedArray.getString(R.styleable.SettingSwitchItem_off_des);
 
         typedArray.recycle();
         TypedArray a = mContext.obtainStyledAttributes(this.track);
@@ -125,7 +125,7 @@ public class SwitchSettingItem extends RelativeLayout {
     }
 
     @TargetApi(21)
-    public SwitchSettingItem(Context context, AttributeSet attrs, int defStyleAttr, int
+    public SettingSwitchItem(Context context, AttributeSet attrs, int defStyleAttr, int
             defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }

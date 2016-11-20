@@ -1,5 +1,6 @@
 package com.xujun.funapp.view.location;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -24,6 +25,7 @@ import com.xujun.funapp.adapters.CityListAdapter;
 import com.xujun.funapp.adapters.ResultListAdapter;
 import com.xujun.funapp.beans.City;
 import com.xujun.funapp.beans.LocateState;
+import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.util.ToastUtils;
 import com.xujun.funapp.db.DBManager;
 import com.xujun.funapp.widget.SideLetterBar;
@@ -37,8 +39,8 @@ import java.util.List;
  * @time 2016/11/18 22:15.
  */
 public class CityPickerActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final int REQUEST_CODE_PICK_CITY = 2333;
-    public static final String KEY_PICKED_CITY = "picked_city";
+
+
 
     private ListView mListView;
     private ListView mResultListView;
@@ -55,15 +57,24 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
 
     private LocationClient mLocationClient;
     private LocationListener mLocationListener;
+    private String mCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_list);
+        initIntent();
 
         initData();
         initView();
         initLocation();
+    }
+
+    private void initIntent() {
+        Intent intent = getIntent();
+        if(intent!=null){
+            mCity = intent.getStringExtra(IntentConstants.KEY_PICKED_CITY);
+        }
     }
 
     private void initLocation() {
@@ -187,7 +198,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         mCityAdapter.setOnCityClickListener(new CityListAdapter.OnCityClickListener() {
             @Override
             public void onCityClick(String name) {
-                back(name);
+                CityPickerActivity.this.onCityClick(name);
             }
 
             @Override
@@ -253,7 +264,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         mResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                back(mResultAdapter.getItem(position).getName());
+                onCityClick(mResultAdapter.getItem(position).getName());
             }
         });
 
@@ -264,12 +275,16 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         backBtn.setOnClickListener(this);
     }
 
-    private void back(String city) {
+    private void onCityClick(String city) {
         ToastUtils.showToast(this, "点击的城市：" + city);
-        //        Intent data = new Intent();
-        //        data.putExtra(KEY_PICKED_CITY, city);
-        //        setResult(RESULT_OK, data);
-        //        finish();
+        deliverData(city);
+        finish();
+    }
+
+    private void deliverData(String city) {
+        Intent data = new Intent();
+        data.putExtra(IntentConstants.KEY_PICKED_CITY, city);
+        setResult(IntentConstants.REQUEST_CODE_PICK_CITY, data);
     }
 
     @Override

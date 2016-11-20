@@ -30,9 +30,8 @@ public class Constants {
 
     public static class IntentConstants {
         public static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
-        public static final String DEFAULT_PARCEABLE_LIST_NAME = "DEFAULT_PARCEABLE_LIST_NAME";
-        public static final String Action_ChuanYueDetailActivity = "Action_ChuanYueDetailActivity";
-        public static final String Action_PiYueDetailActivity = "Action_PiYueDetailActivity";
+        public static final int REQUEST_CODE_PICK_CITY = 2333;
+        public static final String KEY_PICKED_CITY = "picked_city";
     }
 
     public static class URLConstants {
@@ -43,5 +42,7 @@ public class Constants {
         //表示是否在WiFi的情况下 才加载图片，true表示在WiFi的情况下才加载图片 ，false而表示不是
         public static final String isIntelligentNoPic = "isIntelligentNoPic";
         public static final String isNightMode = "isNightMode";
+//        表示当前城市
+        public static final String city = "city";
     }
 }

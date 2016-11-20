@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/sel_bg_setting_item">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="@dimen/setting_icon_padding"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp"
+        android:paddingTop="@dimen/setting_icon_padding"
+        android:src="@mipmap/area"/>
+
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/icon"
+        android:text="我的地区"
+    />
+
+    <ImageView
+        android:id="@+id/icon_right"
+        android:layout_width="@dimen/setting_icon"
+        android:layout_height="@dimen/setting_icon"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/setting_icon_padding"
+        android:src="@mipmap/more_gray"/>
+
+    <TextView android:id="@+id/tv_content"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_toLeftOf="@id/icon_right"
+              android:text="北京"/>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_alignParentBottom="true"
+          android:background="@android:color/darker_gray"/>
+</RelativeLayout>
+
+

@@ -10,29 +10,45 @@
         android:orientation="vertical"
     >
 
-        <com.xujun.funapp.widget.SwitchSettingItem
+        <com.xujun.funapp.widget.SettingSwitchItem
             android:id="@+id/ssi_isIntelligentNoPic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:des="智能无图">
 
-        </com.xujun.funapp.widget.SwitchSettingItem>
+        </com.xujun.funapp.widget.SettingSwitchItem>
 
-        <com.xujun.funapp.widget.SwitchSettingItem
+        <com.xujun.funapp.widget.SettingSwitchItem
             android:id="@+id/ssi_nightMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:des="夜间模式">
 
-        </com.xujun.funapp.widget.SwitchSettingItem>
+        </com.xujun.funapp.widget.SettingSwitchItem>
 
-        <com.xujun.funapp.widget.SwitchSettingItem
-            android:id="@+id/ssi_location"
+
+
+
+        <com.xujun.funapp.widget.SettingClickItem
+            android:id="@+id/sci_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:des="我的位置">
+            app:content="北京"
+            app:des="我的位置"
+            app:icon="@mipmap/area"
+        >
 
-        </com.xujun.funapp.widget.SwitchSettingItem>
+        </com.xujun.funapp.widget.SettingClickItem>
+
+        <com.xujun.funapp.widget.SettingClickItem
+            android:id="@+id/sci_GPSlocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:des="GPS"
+            app:icon="@mipmap/area">
+
+        </com.xujun.funapp.widget.SettingClickItem>
+
 
 
     </LinearLayout>
