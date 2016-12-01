@@ -26,7 +26,7 @@ import com.xujun.funapp.adapters.ResultListAdapter;
 import com.xujun.funapp.beans.City;
 import com.xujun.funapp.beans.LocateState;
 import com.xujun.funapp.common.Constants.IntentConstants;
-import com.xujun.funapp.common.util.ToastUtils;
+
 import com.xujun.funapp.db.DBManager;
 import com.xujun.funapp.widget.SideLetterBar;
 
@@ -276,7 +276,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void onCityClick(String city) {
-        ToastUtils.showToast(this, "点击的城市：" + city);
+//        ToastUtils.showToast(this, "点击的城市：" + city);
         Intent data = new Intent();
         data.putExtra(IntentConstants.KEY_PICKED_CITY, city);
         setResult(IntentConstants.RESULT_CODE_PICK_CITY, data);

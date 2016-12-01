@@ -6,8 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/FunAPP.iml" filepath="$PROJECT_DIR$/FunAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonlibrary/commonlibrary.iml" filepath="$PROJECT_DIR$/commonlibrary/commonlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dragImageView/dragImageView.iml" filepath="$PROJECT_DIR$/dragImageView/dragImageView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/retrofitdemo/retrofitdemo.iml" filepath="$PROJECT_DIR$/retrofitdemo/retrofitdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/网络连接demo/网络连接demo.iml" filepath="$PROJECT_DIR$/网络连接demo/网络连接demo.iml" />
     </modules>
   </component>
 </project>
