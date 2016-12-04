@@ -1,4 +1,6 @@
-include ':Fun', ':commonlibrary', ':app', ':网络连接demo'
+include ':Fun', ':commonlibrary', ':library'
 
 
 
+
+include ':networkimageloader'

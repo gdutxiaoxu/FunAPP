@@ -4,9 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Fun/Fun.iml" filepath="$PROJECT_DIR$/Fun/Fun.iml" />
       <module fileurl="file://$PROJECT_DIR$/FunAPP.iml" filepath="$PROJECT_DIR$/FunAPP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonlibrary/commonlibrary.iml" filepath="$PROJECT_DIR$/commonlibrary/commonlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/网络连接demo/网络连接demo.iml" filepath="$PROJECT_DIR$/网络连接demo/网络连接demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/networkimageloader/networkimageloader.iml" filepath="$PROJECT_DIR$/networkimageloader/networkimageloader.iml" />
     </modules>
   </component>
 </project>

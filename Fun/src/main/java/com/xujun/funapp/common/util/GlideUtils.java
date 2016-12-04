@@ -1,11 +1,11 @@
 package com.xujun.funapp.common.util;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.xujun.funapp.R;
 
 /**
@@ -20,10 +20,18 @@ public class GlideUtils {
                 error(R.drawable.ic_error).placeholder(R.drawable.ic_progress).into(imageView);
     }
 
-    public static void display(Context context, ImageView imageView, String url) {
-        Glide.with(context).load(url).
-                error(R.drawable.ic_error).placeholder(new ColorDrawable(Color.GRAY)).into
+    public static void display(Context context, ImageView imageView, String url, int progressId) {
+        RequestManager manager = Glide.with(context);
+        DrawableTypeRequest<String> load = manager.load(url);
+        load.error(R.drawable.ic_error).into
                 (imageView);
+        if (progressId != -1) {
+            load.placeholder(progressId);
+        }
+    }
+
+    public static void display(Context context, ImageView imageView, String url) {
+        display(context, imageView, url, -1);
     }
 
     public static void cancel(Context context) {

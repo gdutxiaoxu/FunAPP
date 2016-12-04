@@ -9,14 +9,15 @@ import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.databinding.FragmentImageBinding;
-import com.xujun.funapp.widget.DragImageView;
+
+import ru.xujun.touchgallery.TouchView.TouchImageView;
 
 public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,BasePresenter> {
 
 
 
     PictureDetailBean.ListBean mListBean;
-    private DragImageView mImage;
+    private TouchImageView mImage;
 
     public static ImageFragment  newInstance(PictureDetailBean.ListBean listBean){
         ImageFragment imageFragment = new ImageFragment();
@@ -41,6 +42,7 @@ public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,Base
             checkNotNull(mListBean);
         }
         mImage = binding.image;
+
         String  imageURl= Constants.URLConstants.URL_IMAGE_BASE+mListBean.src;
 //        ImageUtils.display(mContext,mImage,imageURl);
         GlideUtils.display(mContext,mImage,imageURl);
