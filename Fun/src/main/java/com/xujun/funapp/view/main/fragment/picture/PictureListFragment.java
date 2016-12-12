@@ -15,7 +15,7 @@ import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.util.LUtils;
 import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.model.PictureListModel;
-import com.xujun.funapp.view.detail.PictureDetailActivity;
+import com.xujun.funapp.view.detail.PictureDetailActivity2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +102,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
                 PictureListBean.TngouBean tngouBean = mDatas.get(position);
-                readyGo(PictureDetailActivity.class,
+                readyGo(PictureDetailActivity2.class,
                         IntentConstants.DEFAULT_PARCEABLE_NAME, tngouBean);
             }
         });

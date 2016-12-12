@@ -3,6 +3,7 @@ package com.xujun.funapp.view.detail;
 import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.util.GlideUtils;
@@ -40,6 +41,7 @@ public class PicturePagerAdapter extends BasePagerAdapter {
 
         iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         String url = mResources.get(position);
         Log.i(TAG, "instantiateItem: url="+url);
         GlideUtils.display(mContext,iv, url, R.drawable.ic_progress);
