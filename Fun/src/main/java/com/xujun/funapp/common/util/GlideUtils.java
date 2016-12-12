@@ -1,6 +1,8 @@
 package com.xujun.funapp.common.util;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableTypeRequest;
@@ -23,7 +25,7 @@ public class GlideUtils {
     public static void display(Context context, ImageView imageView, String url, int progressId) {
         RequestManager manager = Glide.with(context);
         DrawableTypeRequest<String> load = manager.load(url);
-        load.error(R.drawable.ic_error).into
+        load.error(R.drawable.ic_error).placeholder(new ColorDrawable(Color.GRAY)).into
                 (imageView);
         if (progressId != -1) {
             load.placeholder(progressId);
