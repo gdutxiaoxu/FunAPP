@@ -94,7 +94,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
             // 是否开启智能无图模式，true表示开启智能无图模式
             boolean isIntelligentNoPic = SPUtils.getBoolean(Constants.SPConstants
                     .isIntelligentNoPic);
-            WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
+//            WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
                     GlideUtils.display(mContext, iv, picUrl);

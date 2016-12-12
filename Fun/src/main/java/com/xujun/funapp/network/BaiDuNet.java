@@ -143,7 +143,7 @@ public class BaiDuNet {
                 if (contentType != null)
                     charset = contentType.charset(Charset.forName("UTF-8"));
                 if (contentLength != 0) {
-                    Logger.json(buffer.clone().readString(charset));
+//                    WriteLogUtil.json(buffer.clone().readString(charset));
                 }
 
                 return response;

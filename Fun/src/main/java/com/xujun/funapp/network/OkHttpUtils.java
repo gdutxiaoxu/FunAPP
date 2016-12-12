@@ -1,6 +1,6 @@
 package com.xujun.funapp.network;
 
-import com.orhanobut.logger.Logger;
+import com.xujun.funapp.common.util.WriteLogUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -100,17 +100,17 @@ public class OkHttpUtils {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request request = chain.request();
-                    Logger.i("请求的url是" + request.url());
+                    WriteLogUtil.i("请求的url是" + request.url());
 
                     long startNs = System.nanoTime();
                     Response response = chain.proceed(request);
                     long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
                     ResponseBody responseBody = response.body();
                     long contentLength = responseBody.contentLength();
-                    Logger.w("TnGouNet ,intercept: 168  =" + "<-- " + response.code() + ' ' +
+                 /*   WriteLogUtil.w("TnGouNet ,intercept: 168  =" + "<-- " + response.code() + ' ' +
                             response
                                     .message() + " (" + tookMs + "ms" +
-                            ')');
+                            ')');*/
 
                     BufferedSource source = responseBody.source();
                     source.request(Long.MAX_VALUE);
@@ -120,7 +120,8 @@ public class OkHttpUtils {
                     if (contentType != null)
                         charset = contentType.charset(Charset.forName("UTF-8"));
                     if (contentLength != 0) {
-                        Logger.json(buffer.clone().readString(charset));
+
+//                        WriteLogUtil.json(buffer.clone().readString(charset));
                     }
 
                     return response;

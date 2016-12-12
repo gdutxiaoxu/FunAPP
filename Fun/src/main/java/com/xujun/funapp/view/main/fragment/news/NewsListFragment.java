@@ -17,6 +17,7 @@ import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.funapp.network.BaiDuNewsConfig;
 import com.xujun.funapp.view.detail.NewsDetailActivity;
 
 import java.util.ArrayList;
@@ -43,6 +44,11 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
         newsListFragment.setArguments(bundle);
         return newsListFragment;
 
+    }
+
+    //    判断是否是第一个Item
+    protected boolean isFirstItem() {
+        return mType.equals(BaiDuNewsConfig.mTypes[0]);
     }
 
     @Override
@@ -84,6 +90,15 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
         mMenuItemGrid.setOnClickListener(menuItemListener);
         mMenuItemStrag.setOnClickListener(menuItemListener);
 
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        //  如果是第0个Item，初始化的时候主动去刷新，不是第0个Item，等到界面的时候会调用fetech方法手动去刷新
+        if (isFirstItem()) {
+            beginRefresh();
+        }
     }
 
     @Override

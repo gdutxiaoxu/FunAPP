@@ -10,6 +10,7 @@ import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.Constants.SPConstants;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.SPUtils;
+import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.databinding.FragmentSettingBinding;
 import com.xujun.funapp.view.location.CityPickerActivity;
 import com.xujun.funapp.view.location.GPSLocationActivity;
@@ -117,5 +118,11 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
 
                 break;
         }
+    }
+
+    @Override
+    public void fetchData() {
+        super.fetchData();
+        WriteLogUtil.i(" fetchData=");
     }
 }

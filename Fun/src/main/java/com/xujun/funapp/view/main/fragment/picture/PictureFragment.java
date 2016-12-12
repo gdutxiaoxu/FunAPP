@@ -3,12 +3,10 @@ package com.xujun.funapp.view.main.fragment.picture;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
-import com.xujun.funapp.R;
 import com.xujun.funapp.beans.PictureClassify;
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
-import com.xujun.funapp.common.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +19,18 @@ import java.util.List;
 public class PictureFragment extends BaseViewPagerFragemnt<PicturePresenter>
         implements DefaultContract.View<PictureClassify> {
 
-    private  final String[] mTitles= UIUtils.getStringArray(R.array.picture_titles);
+
+
+    private  final String[] mTitles= new String[]{
+            "性感美女","韩日美女","丝袜美腿","美女照片","美女写真","清纯美女","性感车模"
+    };
     List<Fragment> mFragments;
 
     @Override
     protected BaseFragmentAdapter getViewPagerAdapter() {
         mFragments=new ArrayList<>();
         for(int i=0;i<mTitles.length;i++){
+//            传递过去分别是 1-7
             PictureListFragment pictureListFragment = PictureListFragment.newInstance(mTitles[0],i+1);
             mFragments.add(pictureListFragment);
 
@@ -59,6 +62,12 @@ public class PictureFragment extends BaseViewPagerFragemnt<PicturePresenter>
         super.initData();
         mPresenter.getPictureClassify();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
 
     @Override
     public void showProgress() {

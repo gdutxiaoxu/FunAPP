@@ -57,6 +57,10 @@ public class WriteLogUtil {
 
     }
 
+    public static final void json(String msg){
+        Logger.json(msg);
+    }
+
     /**
      * 错误信息
      *

@@ -15,7 +15,6 @@ import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.common.util.StringUtils;
-import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.network.TnGouNet;
 
 import java.util.List;
@@ -56,7 +55,7 @@ public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.Tngo
 
         String imageUrl = TnGouNet.mBaseImageUrl + item.img;
         boolean isIntelligentNoPic = SPUtils.getBoolean(Constants.SPConstants.isIntelligentNoPic);
-        WriteLogUtil.i("isIntelligentNoPic="+isIntelligentNoPic);
+//        WriteLogUtil.i("isIntelligentNoPic="+isIntelligentNoPic);
         if (isIntelligentNoPic) {
             if (APP.getInstance().isWifi()) {
                 GlideUtils.display(mContext, imageView, imageUrl);

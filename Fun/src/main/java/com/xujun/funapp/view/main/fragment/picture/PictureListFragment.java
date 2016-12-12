@@ -14,7 +14,6 @@ import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.util.LUtils;
 import com.xujun.funapp.common.util.ListUtils;
-import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.model.PictureListModel;
 import com.xujun.funapp.view.detail.PictureDetailActivity;
 
@@ -36,7 +35,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     private ArrayList<PictureListBean.TngouBean> mDatas;
     private PictureListAdapter mAdapter;
 
-    protected int mId = 1;
+    protected int mId = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
         Bundle arguments = getArguments();
         if (arguments != null) {
             mId = arguments.getInt(ID);
-            WriteLogUtil.i("mId=" + mId);
+//            WriteLogUtil.i("mId=" + mId);
         }
 
     }
@@ -111,6 +110,15 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        //  如果是第0个Item，初始化的时候主动去刷新，不是第0个Item，等到界面的时候会调用fetech方法手动去刷新
+        if(isFirstItem()){
+            beginRefresh();
+        }
+    }
+
+    @Override
     protected PictureListPresenter setPresenter() {
         return new PictureListPresenter(this);
     }
@@ -122,6 +130,10 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     protected void getFirstPageData() {
         mPage = 1;
         mPresenter.getPictureList(String.valueOf(mPage), String.valueOf(mRows), mId);
+    }
+
+    protected boolean isFirstItem(){
+        return mId==1;
     }
 
     @Override

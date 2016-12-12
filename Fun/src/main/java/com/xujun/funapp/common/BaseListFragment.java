@@ -29,7 +29,6 @@ public abstract class BaseListFragment<P extends BasePresenter>
         extends BindingBaseFragment<FragmentBaseListBinding, P>
         implements OnRefreshListener {
 
-
     protected int mPage = 1;
     protected int mRows = 20;
     //记录请求结果的状态，有三种类型，success，error，empty
@@ -140,11 +139,10 @@ public abstract class BaseListFragment<P extends BasePresenter>
             @Override
             public void onClick(View v) {
                 mRefreshLayout.setVisibility(View.VISIBLE);
-                mRefreshLayout.beginRefreshing();
+                beginRefresh();
                 show(LoadResult.loading);
             }
         });
-
 
 
     }
@@ -210,54 +208,24 @@ public abstract class BaseListFragment<P extends BasePresenter>
         mMutiLayout.show(loadResult);
     }
 
-    // 这个方法处理下拉刷新后界面的变化，但是并没有处理数据的变化，准备整改删除
-    protected void endRefresh(RequestResult requestResult) {
-        // 请求成功的时候
-        if (requestResult == RequestResult.success) {
-            if (isRefresh()) {
-                /**
-                 * 在第一页刷新结束的要隐藏mMultiLayout
-                 */
-                show(LoadResult.noone);
-                mRefreshLayout.endRefreshing();
-            } else {
-                mRefreshLayout.endLoadingMore();
-            }
-        } else if (requestResult == RequestResult.error) {
-            mPage--;
-            if (isRefresh()) {
-                /**
-                 * 在第一页刷新结束的要隐藏mMultiLayout
-                 */
-                show(LoadResult.error);
-                mRecyclerView.setVisibility(View.INVISIBLE);
-                mRefreshLayout.setVisibility(View.INVISIBLE);
-                mRefreshLayout.endRefreshing();
-            } else {
-                mRefreshLayout.endLoadingMore();
-            }
-        } else {
-            mPage--;
-            if (isRefresh()) {
-                /**
-                 * 在第一页刷新结束的要隐藏mMultiLayout
-                 */
-                show(LoadResult.empty);
-                mRecyclerView.setVisibility(View.INVISIBLE);
-                mRefreshLayout.setVisibility(View.INVISIBLE);
-                mRefreshLayout.endRefreshing();
-            } else {
-                mRefreshLayout.endLoadingMore();
-            }
-        }
-
-    }
-
     @Override
     protected void initData() {
         //        显示加载中的界面
         show(LoadResult.loading);
-        //        获取第一页数据
+
+    }
+
+    // 等待界面可见的时候在去加载第一页数据
+    @Override
+    public void fetchData() {
+        super.fetchData();
+        beginRefresh();
+
+    }
+
+    //    开始刷新，获取第一页的数据
+    protected void beginRefresh() {
+        //    获取第一页数据
         mRefreshLayout.beginRefreshing();
     }
 
@@ -283,11 +251,8 @@ public abstract class BaseListFragment<P extends BasePresenter>
         return mPage <= 1;
     }
 
-
-
-
     protected void closeMenu() {
-        if(mMenu.isOpened()){
+        if (mMenu.isOpened()) {
             mMenu.close(true);
         }
     }
