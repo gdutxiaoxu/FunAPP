@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/FunAPP.iml" filepath="$PROJECT_DIR$/FunAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonlibrary/commonlibrary.iml" filepath="$PROJECT_DIR$/commonlibrary/commonlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/networkimageloader/networkimageloader.iml" filepath="$PROJECT_DIR$/networkimageloader/networkimageloader.iml" />
     </modules>
   </component>
 </project>

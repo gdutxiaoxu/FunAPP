@@ -39,18 +39,4 @@ captures/
 # Keystore files
 *.jks
 /.idea/
-/projectFilesBackup/
-/retrofitdemo/
-/oSChina/
-/SuperMvp/
-/funvideo/
-/app/
-/dragImageView/
-/NineGridView-master/
-/image_zoom_drag_vp/
-/ImageDetailDemo/
-/TouchDemo/
-/example/
-/MultiInterfaceViewDemo-master/
-/网络连接demo/
-/networkimageloader/
+
