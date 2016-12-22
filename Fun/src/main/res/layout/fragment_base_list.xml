@@ -31,7 +31,7 @@
             fab:menu_animationDelayPerItem="50"
             fab:menu_backgroundColor="@android:color/transparent"
             fab:menu_buttonSpacing="0dp"
-            fab:menu_colorNormal="#DA4336"
+            fab:menu_colorNormal="?attr/colorPrimary"
             fab:menu_colorPressed="#E75043"
             fab:menu_colorRipple="#99FFFFFF"
 
