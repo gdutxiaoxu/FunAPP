@@ -8,12 +8,12 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.xujun.commonlibrary.widget.MutiLayout;
-import com.xujun.commonlibrary.widget.MutiLayout.LoadResult;
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
+import com.xujun.funapp.widget.MutiLayout;
+import com.xujun.funapp.widget.MutiLayout.LoadResult;
 
 import java.util.List;
 

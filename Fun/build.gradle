@@ -41,7 +41,7 @@ dependencies {
     // -------------------- 以下三个库是必须依赖的 ----------------------------
     // -------------------- 以上三个库是必须依赖的 ----------------------------
     // 添加依赖
-    compile project(':commonlibrary')
+//    compile project(':commonlibrary')
 
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
