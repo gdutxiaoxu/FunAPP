@@ -12,9 +12,9 @@ import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
-import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.common.util.StringUtils;
+import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.network.TnGouNet;
 
 import java.util.List;
@@ -58,13 +58,13 @@ public class PictureListAdapter extends BaseRecyclerAdapter<PictureListBean.Tngo
 //        WriteLogUtil.i("isIntelligentNoPic="+isIntelligentNoPic);
         if (isIntelligentNoPic) {
             if (APP.getInstance().isWifi()) {
-                GlideUtils.display(mContext, imageView, imageUrl);
+               ImageRequestManager.getInstance().display(mContext, imageView, imageUrl);
             } else {
                 imageView.setImageDrawable(new ColorDrawable(Color.GRAY));
             }
 
         } else {
-            GlideUtils.display(mContext, imageView, imageUrl);
+           ImageRequestManager.getInstance().display(mContext, imageView, imageUrl);
         }
 
         //        ImageUtils.display(mContext,imageView,imageUrl,mPictureTag);

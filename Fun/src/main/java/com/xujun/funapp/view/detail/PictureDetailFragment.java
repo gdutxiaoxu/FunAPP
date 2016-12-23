@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.xujun.funapp.beans.PictureDetailBean;
-import com.xujun.funapp.common.util.GlideUtils;
+import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.network.TnGouNet;
 
 /**
@@ -61,7 +61,7 @@ public class PictureDetailFragment extends Fragment {
         }
         PictureDetailBean.ListBean listBean = (PictureDetailBean.ListBean) mParcelable;
         String url = TnGouNet.mBaseImageUrl+ listBean.src;
-        GlideUtils.display(mContext,mImageView,url);
+       ImageRequestManager.getInstance().display(mContext,mImageView,url);
 
 
     }

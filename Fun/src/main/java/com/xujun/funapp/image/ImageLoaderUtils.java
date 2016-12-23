@@ -1,4 +1,4 @@
-package com.xujun.funapp.common.util;
+package com.xujun.funapp.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import com.xujun.funapp.R;
 
 /**
  * @ explain:
@@ -54,6 +55,22 @@ public class ImageLoaderUtils {
      */
     public static void loadImageViewCrop(Context mContext, String path, ImageView mImageView) {
         Picasso.with(mContext).load(path).transform(new CropImageView()).into(mImageView);
+    }
+
+    public static void display(Context context, ImageView imageView,String url,Object tag){
+        Picasso.with(context).load(url).tag(tag).fit().
+                error(R.drawable.ic_error).placeholder(R.drawable.ic_progress).into(imageView);
+    }
+
+    public static void display(Context context, ImageView imageView,String url){
+        Picasso.with(context).load(url).fit().
+                error(R.drawable.ic_error).placeholder(R.drawable.ic_progress).into(imageView);
+    }
+
+    public static void cancel(Context context){
+        Picasso picasso = Picasso.with(context);
+
+
     }
 
     /**

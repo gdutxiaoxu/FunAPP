@@ -7,8 +7,8 @@ import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.common.BindingBaseFragment;
 import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.mvp.BasePresenter;
-import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.databinding.FragmentImageBinding;
+import com.xujun.funapp.image.ImageRequestManager;
 
 import ru.xujun.touchgallery.TouchView.TouchImageView;
 
@@ -45,7 +45,7 @@ public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,Base
 
         String  imageURl= Constants.URLConstants.URL_IMAGE_BASE+mListBean.src;
 //        ImageUtils.display(mContext,mImage,imageURl);
-        GlideUtils.display(mContext,mImage,imageURl);
+       ImageRequestManager.getInstance().display(mContext,mImage,imageURl);
 
     }
 

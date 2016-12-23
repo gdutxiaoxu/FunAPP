@@ -17,8 +17,6 @@ import com.xujun.funapp.widget.divider.DividerItemDecoration;
  */
 public class RecyclerUtils {
 
-
-
     public static void init(RecyclerView recyclerView, LayoutMangerType type) {
         Context context = recyclerView.getContext();
         if (type == LayoutMangerType.Linear) {
@@ -46,8 +44,8 @@ public class RecyclerUtils {
             recyclerView.addItemDecoration(dividerItemDecoration);
             recyclerView.setLayoutManager(layoutManager);
         } else {
-            if (layoutManager instanceof LinearLayoutManager &&
-                    false == layoutManager instanceof GridLayoutManager) {
+            if (layoutManager instanceof LinearLayoutManager && false == layoutManager instanceof
+                    GridLayoutManager) {
                 DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(context,
                         LinearLayoutManager.VERTICAL);
                 recyclerView.addItemDecoration(dividerItemDecoration);

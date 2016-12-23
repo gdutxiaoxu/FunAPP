@@ -15,10 +15,10 @@ import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
-import com.xujun.funapp.common.util.GlideUtils;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.common.util.StringUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.funapp.image.ImageRequestManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,13 +93,14 @@ public class NewsGridAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
             WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
-                    GlideUtils.display(mContext, iv, picUrl);
+                    ImageRequestManager.getInstance().display(mContext,iv,picUrl);
+//                  ImageRequestManager.getInstance().display(mContext, iv, picUrl);
                 } else {
                     iv.setImageDrawable(new ColorDrawable(Color.GRAY));
                 }
 
             } else {
-                GlideUtils.display(mContext, iv, picUrl);
+              ImageRequestManager.getInstance().display(mContext, iv, picUrl);
             }
         } else if (mType == LayoutMangerType.Grid) {
 
@@ -119,13 +120,13 @@ public class NewsGridAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
             WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
-                    GlideUtils.display(mContext, iv, picUrl);
+                  ImageRequestManager.getInstance().display(mContext, iv, picUrl);
                 } else {
                     iv.setImageDrawable(new ColorDrawable(Color.GRAY));
                 }
 
             } else {
-                GlideUtils.display(mContext, iv, picUrl);
+              ImageRequestManager.getInstance().display(mContext, iv, picUrl);
             }
 
         }else{
@@ -147,13 +148,13 @@ public class NewsGridAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
             WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
-                    GlideUtils.display(mContext, iv, picUrl);
+                  ImageRequestManager.getInstance().display(mContext, iv, picUrl);
                 } else {
                     iv.setImageDrawable(new ColorDrawable(Color.GRAY));
                 }
 
             } else {
-                GlideUtils.display(mContext, iv, picUrl);
+              ImageRequestManager.getInstance().display(mContext, iv, picUrl);
             }
 
         }
