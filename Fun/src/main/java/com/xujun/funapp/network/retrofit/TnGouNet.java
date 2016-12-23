@@ -1,4 +1,7 @@
-package com.xujun.funapp.network;
+package com.xujun.funapp.network.retrofit;
+
+import com.xujun.funapp.network.INetwork;
+import com.xujun.funapp.network.NetworkConfig;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

@@ -1,8 +1,8 @@
 package com.xujun.funapp.model;
 
 import com.xujun.funapp.beans.PictureClassify;
-import com.xujun.funapp.network.TnGouNet;
-import com.xujun.funapp.network.TnGouAPi;
+import com.xujun.funapp.network.retrofit.TnGouNet;
+import com.xujun.funapp.network.retrofit.TnGouAPi;
 
 import org.simple.eventbus.EventBus;
 

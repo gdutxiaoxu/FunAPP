@@ -2,9 +2,9 @@ package com.xujun.funapp.model;
 
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureDetailBean;
-import com.xujun.funapp.network.TnGouNet;
+import com.xujun.funapp.network.retrofit.TnGouNet;
 import com.xujun.funapp.network.RequestListener;
-import com.xujun.funapp.network.TnGouAPi;
+import com.xujun.funapp.network.retrofit.TnGouAPi;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

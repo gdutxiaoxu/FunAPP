@@ -15,7 +15,7 @@ import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.common.util.StringUtils;
 import com.xujun.funapp.image.ImageRequestManager;
-import com.xujun.funapp.network.TnGouNet;
+import com.xujun.funapp.network.retrofit.TnGouNet;
 
 import java.util.List;
 

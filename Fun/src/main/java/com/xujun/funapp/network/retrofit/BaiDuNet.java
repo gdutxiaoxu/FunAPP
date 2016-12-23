@@ -1,7 +1,9 @@
-package com.xujun.funapp.network;
+package com.xujun.funapp.network.retrofit;
 
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.funapp.network.INetwork;
+import com.xujun.funapp.network.NetworkConfig;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

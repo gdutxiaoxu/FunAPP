@@ -17,7 +17,7 @@ import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
-import com.xujun.funapp.network.BaiDuNewsConfig;
+import com.xujun.funapp.network.retrofit.BaiDuNewsConfig;
 import com.xujun.funapp.view.detail.NewsDetailActivity;
 
 import java.util.ArrayList;

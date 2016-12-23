@@ -7,7 +7,7 @@ import com.xujun.funapp.beans.NewsClassify;
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
-import com.xujun.funapp.network.BaiDuNewsConfig;
+import com.xujun.funapp.network.retrofit.BaiDuNewsConfig;
 
 import java.util.ArrayList;
 import java.util.List;

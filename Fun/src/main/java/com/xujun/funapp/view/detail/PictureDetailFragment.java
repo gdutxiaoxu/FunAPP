@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.image.ImageRequestManager;
-import com.xujun.funapp.network.TnGouNet;
+import com.xujun.funapp.network.retrofit.TnGouNet;
 
 /**
  * @author xujun  on 2016/12/12.

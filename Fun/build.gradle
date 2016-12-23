@@ -68,4 +68,5 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile project(path: ':library')
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
 }

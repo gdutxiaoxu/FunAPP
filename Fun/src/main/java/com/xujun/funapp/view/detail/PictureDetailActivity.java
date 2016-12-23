@@ -11,7 +11,7 @@ import com.xujun.funapp.beans.PictureListBean.TngouBean;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.databinding.ActivityPictureDetailBinding;
-import com.xujun.funapp.network.TnGouNet;
+import com.xujun.funapp.network.retrofit.TnGouNet;
 import com.xujun.funapp.presenter.PictureDetailContract;
 import com.xujun.funapp.presenter.PictureDetailPresenter;
 

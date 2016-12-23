@@ -1,4 +1,4 @@
-package com.xujun.funapp.network;
+package com.xujun.funapp.network.retrofit;
 
 import com.xujun.funapp.common.util.WriteLogUtil;
 

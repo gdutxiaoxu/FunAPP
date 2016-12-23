@@ -1,8 +1,8 @@
 package com.xujun.funapp.model;
 
 import com.xujun.funapp.beans.News;
-import com.xujun.funapp.network.BaiDuApi;
-import com.xujun.funapp.network.BaiDuNet;
+import com.xujun.funapp.network.retrofit.BaiDuApi;
+import com.xujun.funapp.network.retrofit.BaiDuNet;
 import com.xujun.funapp.network.RequestListener;
 
 import rx.Observable;

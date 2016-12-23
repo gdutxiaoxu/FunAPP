@@ -1,4 +1,4 @@
-package com.xujun.funapp.network;
+package com.xujun.funapp.network.retrofit;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
