@@ -1,4 +1,4 @@
-package com.xujun.funapp.network.client;
+package com.xujun.funapp.network.retrofitclient;
 
 import android.content.Context;
 import android.util.Log;

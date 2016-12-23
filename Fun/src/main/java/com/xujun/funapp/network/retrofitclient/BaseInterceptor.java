@@ -1,4 +1,4 @@
-package com.xujun.funapp.network.client;
+package com.xujun.funapp.network.retrofitclient;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
