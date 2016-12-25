@@ -2,7 +2,7 @@
 
     <string name="load_error">点击重试</string>
     <string name="app_name">FunAPP</string>
-    <string name="news">新闻</string>
+    <string name="txNews">新闻</string>
     <string name="setting">设置</string>
     <string name="home">首页</string>
     <string name="picture">美图</string>

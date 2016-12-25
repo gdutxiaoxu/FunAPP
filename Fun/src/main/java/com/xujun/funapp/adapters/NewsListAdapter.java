@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.beans.News;
+import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
@@ -28,12 +28,12 @@ import java.util.List;
  * @ author：xujun on 2016/10/28 19:26
  * @ email：gdutxiaoxu@163.com
  */
-public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
+public class NewsListAdapter extends BaseRecyclerAdapter<TxNews.NewslistBean> {
     Object pictureTag;
     LayoutMangerType mType;
     private ArrayList<Integer> mHeights;
 
-    public void getRandomHeight(List<News.NewslistBean> mList){
+    public void getRandomHeight(List<TxNews.NewslistBean> mList){
         if(mHeights==null){
             mHeights = new ArrayList<>();
         }else{
@@ -66,7 +66,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
         }
     }
 
-    public NewsListAdapter(Context context, List<News.NewslistBean> datas, Object pictureTag,
+    public NewsListAdapter(Context context, List<TxNews.NewslistBean> datas, Object pictureTag,
                            LayoutMangerType type) {
 
         super(context, R.layout.item_news_list, datas);
@@ -77,7 +77,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
     }
 
     @Override
-    public void convert(BaseRecyclerHolder holder, News.NewslistBean item, int position) {
+    public void convert(BaseRecyclerHolder holder, TxNews.NewslistBean item, int position) {
         if (mType == LayoutMangerType.Linear) {
             TextView tvTime = holder.getView(R.id.tv_time);
             TextView tvTitle = holder.getView(R.id.tv_title);
@@ -135,7 +135,7 @@ public class NewsListAdapter extends BaseRecyclerAdapter<News.NewslistBean> {
         }else{
             View convertView = holder.getConvertView();
             ViewGroup.LayoutParams layoutParams = convertView.getLayoutParams();
-//            layoutParams.height=mHeights.get(position);
+//            layoutParams.height=mHeights.testUrl(position);
             layoutParams.height=getHeight();
             convertView.setLayoutParams(layoutParams);
             TextView tvTitle = holder.getView(R.id.tv_title);

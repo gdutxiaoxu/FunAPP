@@ -50,10 +50,13 @@ public class ListUtils {
             return;
         }
         Log.i(tag, "list.size()=" + list.size());
+        StringBuffer sb = new StringBuffer();
         Log.i(tag, "-----------------------------------------------------------");
         for (int i = 0; i < list.size(); i++) {
-            Log.i(tag, list.get(i).toString());
+            String msg = list.get(i).toString();
+            sb.append(msg).append("\n");
         }
+        Log.i(tag, "print list: =" +sb.toString());
         Log.i(tag, "-----------------------------------------------------------");
 
 
@@ -82,8 +85,20 @@ public class ListUtils {
         return list;
     }
 
+    public  static<V>  String[] listToArr( List<String> list){
+        if(list==null|| list.size()==0){
+            return null;
+        }
+        String[] arr=new String[list.size()];
+        for(int i=0;i<list.size();i++){
+            arr[i]=list.get(i);
+        }
+
+        return arr;
+    }
+
     /**
-     * get size of list
+     * testUrl size of list
      * <p>
      * <pre>
      * getSize(null)   =   0;

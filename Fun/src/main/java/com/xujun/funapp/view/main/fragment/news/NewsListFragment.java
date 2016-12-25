@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.adapters.NewsListAdapter;
-import com.xujun.funapp.beans.News;
+import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.RecyclerUtils;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
@@ -32,7 +32,7 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
 
     static final String type = "id";
     private String mType = "world";
-    private ArrayList<News.NewslistBean> mDatas;
+    private ArrayList<TxNews.NewslistBean> mDatas;
     private NewsListAdapter mAdapter;
     //    保存上一次的可见的第一个位置
     private int mLastPosition;
@@ -80,7 +80,7 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
 
                 //  将newslistBean传递过去
-                News.NewslistBean newslistBean = mDatas.get(position);
+                TxNews.NewslistBean newslistBean = mDatas.get(position);
                 readyGo(NewsDetailActivity.class, newslistBean);
             }
         });
@@ -128,11 +128,11 @@ public class NewsListFragment extends BaseListFragment<NewsListPresenter>
     }
 
     @Override
-    public void onReceiveNews(News news) {
-        if (false == ListUtils.isEmpty(news.newslist)) {
-            handleResult(news.newslist, RequestResult.success);
+    public void onReceiveNews(TxNews txNews) {
+        if (false == ListUtils.isEmpty(txNews.newslist)) {
+            handleResult(txNews.newslist, RequestResult.success);
         } else {
-            handleResult(news.newslist, RequestResult.empty);
+            handleResult(txNews.newslist, RequestResult.empty);
         }
 
 

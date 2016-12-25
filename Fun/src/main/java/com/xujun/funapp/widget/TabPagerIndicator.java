@@ -203,7 +203,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
                 dm);
         tabTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, tabTextSize, dm);
 
-        // get system attrs (android:textSize and android:textColor)
+        // testUrl system attrs (android:textSize and android:textColor)
 
         TypedArray a = context.obtainStyledAttributes(attrs, ATTRS);
 
@@ -213,7 +213,7 @@ public class TabPagerIndicator extends HorizontalScrollView {
 
         a.recycle();
 
-        // get custom attrs
+        // testUrl custom attrs
 
         a = context.obtainStyledAttributes(attrs, R.styleable.TabPagerIndicator);
 

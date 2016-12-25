@@ -1,6 +1,7 @@
 package com.xujun.funapp.image;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
 /**
@@ -17,4 +18,5 @@ public interface IimageListener {
     public  void display(Context context, ImageView imageView, String url,int progressId);
 
     public  void display(Context context, ImageView imageView, String url);
+    public  void display(Context context, ImageView imageView, Uri uri);
 }

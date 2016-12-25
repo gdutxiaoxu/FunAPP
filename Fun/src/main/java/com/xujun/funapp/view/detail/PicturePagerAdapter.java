@@ -36,7 +36,7 @@ public class PicturePagerAdapter extends BasePagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup collection, final int position) {
         final TouchImageView iv = new TouchImageView(mContext);
-        //        iv.setUrl(mResources.get(position));
+        //        iv.setUrl(mResources.testUrl(position));
 
         iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));

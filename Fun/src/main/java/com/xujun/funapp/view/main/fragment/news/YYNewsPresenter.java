@@ -14,12 +14,12 @@ import rx.Subscriber;
  * @ author：xujun on 2016/9/17 20:32
  * @ email：gdutxiaoxu@163.com
  */
-public class NewsPresenter extends DefaultContract.DefaultPresenter<DefaultContract.View>
+public class YYNewsPresenter extends DefaultContract.DefaultPresenter<DefaultContract.View>
    implements NewsContract.Presenter{
 
     private final NewsModel mNewsModel;
 
-    public NewsPresenter(DefaultContract.View view) {
+    public YYNewsPresenter(DefaultContract.View view) {
         super(view);
         mNewsModel = new NewsModel();
     }

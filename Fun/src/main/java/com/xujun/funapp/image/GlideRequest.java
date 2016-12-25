@@ -3,6 +3,7 @@ package com.xujun.funapp.image;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.DrawableTypeRequest;
@@ -61,5 +62,11 @@ public class GlideRequest implements IimageListener {
     @Override
     public void display(Context context, ImageView imageView, String url) {
         display(context, imageView, url, -1, -1, null);
+    }
+
+    @Override
+    public void display(Context context, ImageView imageView, Uri uri) {
+        DrawableTypeRequest<Uri> load = Glide.with(context).load(uri);
+        load.into(imageView);
     }
 }

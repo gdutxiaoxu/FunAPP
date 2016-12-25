@@ -3,6 +3,8 @@ package com.xujun.funapp.view.main.fragment.news;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.mvp.BaseView;
 
+import java.util.Map;
+
 /**
  * @ explain:
  * @ author：xujun on 2016/10/27 22:31
@@ -15,6 +17,8 @@ public class NewsContract {
     }
 
     public interface Presenter<V extends BaseView> extends BasePresenter<V>{
+
+        void getNewsClassify(String url, Map<String, String> paramsMap);
 
     }
 }

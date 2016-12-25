@@ -1,8 +1,8 @@
 package com.xujun.funapp.view.main.fragment.news;
 
-import com.xujun.funapp.beans.News;
+import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.common.mvp.DefaultContract;
-import com.xujun.funapp.model.NewsModel;
+import com.xujun.funapp.model.NewsListModel;
 import com.xujun.funapp.network.RequestListener;
 
 /**
@@ -14,21 +14,21 @@ public class NewsListPresenter
         extends DefaultContract.DefaultPresenter<NewsListContract.View>
         implements NewsListContract.Presenter {
 
-    private final NewsModel mNewsModel;
+    private final NewsListModel mNewsListModel;
 
     public NewsListPresenter(NewsListContract.View view) {
         super(view);
-        mNewsModel = new NewsModel();
+        mNewsListModel = new NewsListModel();
     }
 
     @Override
     public void getNews(String type, int page, int num) {
-        mNewsModel.getNews(type, page, num, new RequestListener<News>() {
+        mNewsListModel.getNews(type, page, num, new RequestListener<TxNews>() {
             @Override
-            public void onSuccess(News news) {
+            public void onSuccess(TxNews txNews) {
                 NewsListContract.View view = getView();
                 if(view!=null){
-                    view.onReceiveNews(news);
+                    view.onReceiveNews(txNews);
                 }
             }
 

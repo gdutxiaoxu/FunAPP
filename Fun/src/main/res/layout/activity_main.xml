@@ -37,7 +37,7 @@
                 android:id="@+id/rb_news"
                 style="@style/bottom_tab"
                 android:drawableTop="@drawable/sel_news"
-                android:text="@string/news"
+                android:text="@string/txNews"
                 />
 
             <RadioButton

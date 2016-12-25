@@ -100,7 +100,7 @@ public class PictureDetailActivity2 extends
       /*  ArrayList<String> source = new ArrayList<>();
 
         for(int i=0;i<data.size();i++){
-            PictureDetailBean.ListBean listBean = data.get(i);
+            PictureDetailBean.ListBean listBean = data.testUrl(i);
             String url = TnGouNet.mBaseImageUrl+ listBean.src;
             source.add(url);
 

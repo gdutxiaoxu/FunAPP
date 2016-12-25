@@ -1,6 +1,6 @@
 package com.xujun.funapp.network.retrofit;
 
-import com.xujun.funapp.beans.NewsClassify;
+import com.xujun.funapp.beans.TxNewsClassify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class BaiDuNewsConfig {
 
     static BaiDuNewsConfig mInstance;
 
-    List<NewsClassify> mList;
+    List<TxNewsClassify> mList;
 
     public static BaiDuNewsConfig getInstance(){
         if(mInstance==null){
@@ -32,12 +32,12 @@ public class BaiDuNewsConfig {
             "world","keji","tiyu"
     };
 
-    public List<NewsClassify> getList(){
+    public List<TxNewsClassify> getList(){
         if(mList==null){
             mList=new ArrayList<>();
             for(int i=0;i<mTitles.length;i++){
-                NewsClassify newsClassify = new NewsClassify(mTypes[i], mTitles[i]);
-                mList.add(newsClassify);
+                TxNewsClassify txNewsClassify = new TxNewsClassify(mTypes[i], mTitles[i]);
+                mList.add(txNewsClassify);
             }
 
         }

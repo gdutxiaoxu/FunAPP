@@ -10,7 +10,7 @@ import java.util.List;
  * @ author：xujun on 2016/10/28 15:20
  * @ email：gdutxiaoxu@163.com
  */
-public class News {
+public class TxNews {
 
     /**
      * code : 200

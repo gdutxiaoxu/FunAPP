@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface INetworkListener {
 
-    public <T> void getData(String url, Map paramsMap ,final RequestListener<T> requestListener);
-    public <T> void pushData(String url, Map paramsMap,final RequestListener<T> requestListener);
+    public <T> void excuteGet(String url, Map paramsMap , final RequestListener<T> requestListener);
+    public <T> void excutePush(String url, Map paramsMap, final RequestListener<T> requestListener);
     public <T> void json(String url,String jsonStr,final RequestListener<T> requestListener);
 }

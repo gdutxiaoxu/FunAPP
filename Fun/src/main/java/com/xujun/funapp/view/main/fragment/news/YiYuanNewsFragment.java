@@ -4,15 +4,16 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.xujun.funapp.beans.TxNewsClassify;
 import com.xujun.funapp.beans.YiYuanNewsClassify;
+import com.xujun.funapp.beans.YiYuanNewsClassify.ShowapiResBodyEntity.ChannelListEntity;
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
+import com.xujun.funapp.common.util.GsonManger;
 import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.common.util.MD5;
+import com.xujun.funapp.common.util.ResourceUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
-import com.xujun.funapp.network.retrofit.BaiDuNewsConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,14 +24,14 @@ import java.util.List;
  * @ author：xujun on 2016/9/16 23:47
  * @ email：gdutxiaoxu@163.com
  */
-public class NewsFragment extends BaseViewPagerFragemnt<NewsPresenter> implements DefaultContract
+public class YiYuanNewsFragment extends BaseViewPagerFragemnt<YYNewsPresenter> implements DefaultContract
         .View<YiYuanNewsClassify> {
 
-
+    public static final String YIYUAN_NEWS_CLASSIFY_JSON = "yiyuan_newsClassify.json";
     private ArrayList<Fragment> mFragments;
-    private static final String[] mTitles = BaiDuNewsConfig.mTitles;
+    private  ArrayList<String> mTitles =new ArrayList<>();
     private BaseFragmentAdapter mBaseFragmentAdapter;
-    private List<TxNewsClassify> mClassifyList;
+
     public static final String API_ID = "29571";
     private static final String  API_SECRET = "5bf00910e04a46998f6979f6da400f1e";
     private static final String  API_SIGN = MD5.encode(API_SECRET);
@@ -39,15 +40,28 @@ public class NewsFragment extends BaseViewPagerFragemnt<NewsPresenter> implement
     @Override
     protected BaseFragmentAdapter getViewPagerAdapter() {
         mFragments = new ArrayList<>();
-        mClassifyList = BaiDuNewsConfig.getInstance().getList();
-        for (int i = 0; i < mTitles.length; i++) {
-            TxNewsClassify txNewsClassify = mClassifyList.get(i);
-            String type = txNewsClassify.type;
-            NewsListFragment newsListFragment = NewsListFragment.newInstance(type);
-            mFragments.add(newsListFragment);
+        String result = ResourceUtils.getFromAssets(YIYUAN_NEWS_CLASSIFY_JSON);
+        WriteLogUtil.e(" result="+result);
+        YiYuanNewsClassify classify = GsonManger.getInstance().fromJson(result,
+                YiYuanNewsClassify.class);
+        List<ChannelListEntity> channelList = classify
+                .showapi_res_body.channelList;
+        int size = channelList.size();
+        if(size>4){
+            size=4;
         }
+        for(int i=0;i<size;i++){
+            ChannelListEntity channelListEntity = channelList.get(i);
+
+            mTitles.add(channelListEntity.name.substring(0,2));
+            YiYuanNewsListFragment fragment = YiYuanNewsListFragment.newInstance
+                    (channelListEntity, i);
+            mFragments.add(fragment);
+        }
+
+
         mBaseFragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(), mFragments,
-                mTitles);
+                ListUtils.listToArr(mTitles));
         return mBaseFragmentAdapter;
     }
 
@@ -67,8 +81,8 @@ public class NewsFragment extends BaseViewPagerFragemnt<NewsPresenter> implement
     }
 
     @Override
-    protected NewsPresenter setPresenter() {
-        return new NewsPresenter(this);
+    protected YYNewsPresenter setPresenter() {
+        return new YYNewsPresenter(this);
     }
 
     @Override
@@ -83,7 +97,7 @@ public class NewsFragment extends BaseViewPagerFragemnt<NewsPresenter> implement
 
     @Override
     public void onSuccess(YiYuanNewsClassify yiYuanNewsClassify) {
-        List<YiYuanNewsClassify.ShowapiResBodyEntity.ChannelListEntity> channelList =
+        List<ChannelListEntity> channelList =
                 yiYuanNewsClassify.showapi_res_body.channelList;
         ListUtils.print(channelList);
 
