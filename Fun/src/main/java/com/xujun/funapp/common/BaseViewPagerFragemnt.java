@@ -39,7 +39,7 @@ public abstract class BaseViewPagerFragemnt<P extends BasePresenter> extends
 
     /*ViewPager 保存的Fragment的数量*/
     protected int setOffscreenPageLimit() {
-        return mFragmentAdapter.getCount() - 1;
+        return 1;
     }
 
     /**

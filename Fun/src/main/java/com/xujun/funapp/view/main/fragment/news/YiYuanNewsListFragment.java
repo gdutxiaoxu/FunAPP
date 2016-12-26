@@ -3,8 +3,13 @@ package com.xujun.funapp.view.main.fragment.news;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.adapters.YYNewsListAdapter;
@@ -18,6 +23,7 @@ import com.xujun.funapp.common.util.ListUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.network.YiYuanApi;
 import com.xujun.funapp.network.retrofitclient.CustomIntercept;
+import com.xujun.mylibrary.widget.CarouselView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,10 +49,18 @@ import rx.schedulers.Schedulers;
 public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPresenter> implements
         YiYuanNewsListContract.View {
 
+    private int[] mImagesSrc = {
+            R.mipmap.tangyang7,
+            R.mipmap.tangyang7,
+            R.mipmap.tangyang7,
+            R.mipmap.tangyang7,
+            R.mipmap.tangyang7
+    };
+
     static final String KEY = "id";
     static final String KEY_POSITION = "KEY_POSITION";
     private YiYuanNewsClassify.ShowapiResBodyEntity.ChannelListEntity mChannelListEntity = null;
-    private ArrayList<ContentlistEntity> mDatas;
+    private ArrayList<ContentlistEntity> mDatas = new ArrayList<>();;
     private YYNewsListAdapter mAdapter;
     //    保存上一次的可见的第一个位置
     private int mLastPosition;
@@ -54,7 +68,7 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
     private String mChannelId;
     private String mName;
 
-    public static  final String TAG="xujun";
+    public static  final String TAG="YiYuanNewsListFragment";
 
     public static YiYuanNewsListFragment newInstance(Parcelable parcelable, int postion) {
         YiYuanNewsListFragment newsListFragment = new YiYuanNewsListFragment();
@@ -108,7 +122,7 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
     protected void initData() {
         super.initData();
         //  如果是第0个Item，初始化的时候主动去刷新，不是第0个Item，等到界面的时候会调用fetech方法手动去刷新
-        if (isFirstItem()) {
+        if (isFirstItem()&& isFirstPage()) {
             beginRefresh();
         }
     }
@@ -183,13 +197,37 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
 
     @Override
     protected BaseRecyclerAdapter getAdapter() {
-        mDatas = new ArrayList<>();
         mAdapter = new YYNewsListAdapter(mContext, mDatas, mPictureTag, LayoutMangerType.Linear);
 
-        View headerView = View.inflate(mContext, R.layout.header_view_yiyuan_news, null);
+        View headerView = initHeaderView();
 
         mAdapter.addHeaderView(headerView);
         return mAdapter;
+    }
+
+    private View initHeaderView() {
+        View view = View.inflate(mContext, R.layout.header_view_yiyuan_news, null);
+        CarouselView carouselView= (CarouselView) view.findViewById(R.id.carouselView);
+        carouselView.setAdapter(new CarouselView.Adapter() {
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public View getView(int position) {
+                View view = View.inflate(mContext,R.layout.item,null);
+                ImageView imageView = (ImageView) view.findViewById(R.id.image);
+                imageView.setImageResource(mImagesSrc[position]);
+                return view;
+            }
+
+            @Override
+            public int getCount() {
+                return mImagesSrc.length;
+            }
+        });
+        return view;
     }
 
     @Override
@@ -199,8 +237,9 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
 
     @Override
     public void onReceiveNews(YiYuanNews news) {
+        Log.i(TAG, "onReceiveNews: mItemPosition="+mItemPosition );
         List<ContentlistEntity> contentlist = news.showapi_res_body.pagebean.contentlist;
-        if(isRefresh()){
+        if(isFirstPage()){
 
         }
 
@@ -213,6 +252,7 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
 
     @Override
     public void onReceiveNewsError(Throwable error) {
+        Log.i(TAG, "onReceiveNewsError: +="+ mItemPosition);
         handleResult(null, RequestResult.error);
 
     }
@@ -242,5 +282,24 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
         }
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: mItemPosition=" +mItemPosition);
+        return super.onCreateView(inflater, container, savedInstanceState);
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onActivityCreated: mItemPosition=" +mItemPosition);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.i(TAG, "onDestroyView: mItemPosition=" +mItemPosition);
+        super.onDestroyView();
+    }
 }

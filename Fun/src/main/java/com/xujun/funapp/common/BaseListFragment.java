@@ -13,7 +13,6 @@ import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
 import com.xujun.funapp.widget.MutiLayout;
-import com.xujun.funapp.widget.MutiLayout.LoadResult;
 
 import java.util.List;
 
@@ -25,10 +24,9 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * @ author：xujun on 2016/10/17 19:26
  * @ email：gdutxiaoxu@163.com
  */
-public abstract class BaseListFragment<P extends BasePresenter>
-        extends BindingBaseFragment<FragmentBaseListBinding, P>
-        implements OnRefreshListener {
-
+public abstract class BaseListFragment<P extends BasePresenter> extends
+        BindingBaseFragment<FragmentBaseListBinding, P> implements OnRefreshListener {
+    //代表当前是第几页
     protected int mPage = 1;
     protected int mRows = 20;
     //记录请求结果的状态，有三种类型，success，error，empty
@@ -42,14 +40,14 @@ public abstract class BaseListFragment<P extends BasePresenter>
     OnRefreshListener mOnRefreshListener;
     //    加载图片的tag
     protected Object mPictureTag;
-    // 集成错误界面，空界面，加载中的界面在一起
-    private MutiLayout mMutiLayout;
+
     //    根布局
     private FrameLayout mFlRoot;
     protected FloatingActionButton mMenuItemLinear;
     protected FloatingActionButton mMenuItemGrid;
     protected FloatingActionButton mMenuItemStrag;
     protected FloatingActionMenu mMenu;
+    private MutiLayout mMultiLayout;
 
     //记录请求结果的状态，有三种类型，success，error，empty
     public enum RequestResult {
@@ -75,13 +73,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
         mMenuItemGrid = binding.menuItemGrid;
         mMenuItemStrag = binding.menuItemStrag;
         mMenu = binding.menu;
-
-
-        mMutiLayout = new MutiLayout(mContext);
-
-        mFlRoot.addView(mMutiLayout, ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-
+        //        mMultiLayout = binding.multiLayout;
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -89,23 +81,23 @@ public abstract class BaseListFragment<P extends BasePresenter>
         refreshViewHolder.setUltimateColor(R.color.colorPrimary);
         refreshViewHolder.setSpringDistanceScale(0.2f);
         refreshViewHolder.setLoadingMoreText("正在加载更多");
-
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
+        // mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
+
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
 
         RecyclerUtils.init(mRecyclerView);
         mPictureTag = this;
-
         mBaseAdapter = getAdapter();
         if (mBaseAdapter == null) {
             throw new IllegalStateException("You must init recycler adapter first");
         }
 
         mRecyclerView.setAdapter(mBaseAdapter);
-
-
-        // mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
-
-
     }
 
     protected abstract <V> BaseRecyclerAdapter<V> getAdapter();
@@ -131,19 +123,6 @@ public abstract class BaseListFragment<P extends BasePresenter>
         });
         setOnRefreshListner(this);
 
-        /**
-         * 当出现错误界面的时候，点击按钮，会调用下拉刷新，即重新获取第一页的数据
-         */
-
-        mMutiLayout.setOnRetryListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRefreshLayout.setVisibility(View.VISIBLE);
-                beginRefresh();
-                show(LoadResult.loading);
-            }
-        });
-
 
     }
 
@@ -152,11 +131,11 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
         // 请求成功的时候
         if (requestResult == RequestResult.success) {
-            if (isRefresh()) {
+            if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                show(LoadResult.noone);
+                //                show(LoadResult.noone);
                 mRefreshLayout.endRefreshing();
             } else {
                 mRefreshLayout.endLoadingMore();
@@ -166,11 +145,11 @@ public abstract class BaseListFragment<P extends BasePresenter>
             mBaseAdapter.addDates(data);
         } else if (requestResult == RequestResult.error) {
 
-            if (isRefresh()) {
+            if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                show(LoadResult.error);
+                //                show(LoadResult.error);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
@@ -185,11 +164,11 @@ public abstract class BaseListFragment<P extends BasePresenter>
             mPage--;
         } else {
 
-            if (isRefresh()) {
+            if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                show(LoadResult.empty);
+                //                show(LoadResult.empty);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
@@ -204,22 +183,21 @@ public abstract class BaseListFragment<P extends BasePresenter>
 
     }
 
-    protected void show(LoadResult loadResult) {
-        mMutiLayout.show(loadResult);
-    }
-
     @Override
     protected void initData() {
         //        显示加载中的界面
-        show(LoadResult.loading);
+        //        show(LoadResult.loading);
 
     }
 
-    // 等待界面可见的时候在去加载第一页数据
+    // 等待界面可见的时候,并且当前页面是第一页的时候，在去加载第一页数据
     @Override
     public void fetchData() {
         super.fetchData();
-        beginRefresh();
+        if(isFirstPage()){
+            beginRefresh();
+        }
+
 
     }
 
@@ -236,6 +214,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
     }
 
     protected void getFirstPageData() {
+        mPage = 1;
     }
 
     protected void getNextPageData() {
@@ -247,7 +226,7 @@ public abstract class BaseListFragment<P extends BasePresenter>
     }
 
     //  判断当前是否正在第一页
-    protected boolean isRefresh() {
+    protected boolean isFirstPage() {
         return mPage <= 1;
     }
 
