@@ -18,6 +18,11 @@ public class BaseFragmentAdapter extends FragmentPagerAdapter {
 
     protected String[] mTitles;
 
+    public void setData(List<Fragment> fragmentList,String[] mTitles){
+        this.fragmentList=fragmentList;
+        this.mTitles=mTitles;
+    }
+
     public BaseFragmentAdapter(FragmentManager fm) {
         this(fm, null, null);
     }

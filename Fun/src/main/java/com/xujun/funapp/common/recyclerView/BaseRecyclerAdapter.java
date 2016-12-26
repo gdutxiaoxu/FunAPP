@@ -1,7 +1,9 @@
 package com.xujun.funapp.common.recyclerView;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +19,113 @@ import java.util.List;
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerHolder> {
 
     protected Context mContext;
-    protected  int mItemLayoutId;
+    protected int mItemLayoutId;
     protected List<T> mDatas;
     protected BaseRecyclerAdapter.OnItemClickListener mOnItemClickListener;
     protected BaseRecyclerAdapter.OnLongItemClickListener mOnLongItemClickListener;
+    List<View> mHeaderView = new ArrayList<>();
+
+    /**
+     * HeaderView Type=TYPE_HEADER+position;
+     * Normal TYpe=TYPE_NORMAL;
+     */
+    public static final int TYPE_HEADER = 10000;
+    public static final int TYPE_NORMAL = 0;
+
+    public void addHeaderView(View view) {
+        mHeaderView.add(view);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (isHeaderPosition(position)) {
+            return getHeaderTypeFromPosition(position);
+        }
+        return TYPE_NORMAL;
+    }
+
+    @Override
+    public int getItemCount() {
+        return isEmpty() ? 0 : mDatas.size() + getHeaderViewCounts();
+    }
+
+    @Override
+    public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (getHeaderViewCounts() > 0 && isHeaderType(viewType)) {
+            int headerPosition = getHeaderPositionFromType(viewType);
+            View view = mHeaderView.get(headerPosition);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup
+                    .LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            view.setLayoutParams(layoutParams);
+            BaseRecyclerHolder holder = new BaseRecyclerHolder(view, mContext);
+            return holder;
+
+        }
+
+
+        BaseRecyclerHolder holder = new BaseRecyclerHolder(LayoutInflater.from(mContext).
+                inflate(mItemLayoutId, parent, false), mContext);
+        setListener(parent, holder, viewType);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(final BaseRecyclerHolder holder, int position) {
+        if (isHeaderType(getHeaderTypeFromPosition(position))) {
+            return;
+        }
+        position = position - getHeaderViewCounts();
+        BaseRecyclerHolder baseHolder = (BaseRecyclerHolder) holder;
+
+        convert(baseHolder, (T) mDatas.get(position), position);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if (manager instanceof GridLayoutManager) {
+            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
+            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+
+                    return isHeaderType(getItemViewType(position)) ? gridManager.getSpanCount() : 1;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(BaseRecyclerHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams)
+                    lp;
+            //当是Header的时候，设置setFullSpan
+            p.setFullSpan(isHeaderPosition(holder.getLayoutPosition()));
+        }
+    }
 
     public boolean isEmpty() {
         return mDatas == null || mDatas.size() == 0;
+    }
+
+    private int getHeaderTypeFromPosition(int position) {
+        return TYPE_HEADER + position;
+    }
+
+    private int getHeaderPositionFromType(int type) {
+        return type - TYPE_HEADER;
+    }
+
+    protected boolean isHeaderPosition(int position) {
+        return position < getHeaderViewCounts();
+    }
+
+    private int getHeaderViewCounts() {
+        return mHeaderView.size();
     }
 
     public BaseRecyclerAdapter(Context context, int itemLayoutId) {
@@ -38,22 +140,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         mDatas = datas;
     }
 
-    @Override
-    public BaseRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
-        BaseRecyclerHolder holder = new BaseRecyclerHolder(LayoutInflater.from
-                (mContext).
-                inflate(mItemLayoutId, parent, false));
-        setListener(parent, holder, viewType);
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(final BaseRecyclerHolder holder, int position) {
-        BaseRecyclerHolder baseHolder = (BaseRecyclerHolder) holder;
-
-        convert(baseHolder, (T) mDatas.get(position), position);
+    private boolean isHeaderType(int type) {
+        return type >= TYPE_HEADER && type < getHeaderViewCounts() + TYPE_HEADER;
     }
 
     /**
@@ -62,11 +150,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
      * @param position
      */
     public abstract void convert(BaseRecyclerHolder holder, T item, int position);
-
-    @Override
-    public int getItemCount() {
-        return isEmpty() ? 0 : mDatas.size();
-    }
 
     protected boolean isEnabled(int viewType) {
         return true;
@@ -161,15 +244,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     }
 
     public void addDates(List<T> dates, int position) {
-        if (dates == null || dates.size() == 0)
-            return;
+        if (dates == null || dates.size() == 0) return;
         mDatas.addAll(position, dates);
         notifyItemRangeInserted(position, dates.size());
     }
 
     public void removeDatas(List<T> dates, int position) {
-        if (dates == null || dates.size() == 0)
-            return;
+        if (dates == null || dates.size() == 0) return;
         mDatas.removeAll(dates);
         notifyItemRangeRemoved(position, dates.size());
     }

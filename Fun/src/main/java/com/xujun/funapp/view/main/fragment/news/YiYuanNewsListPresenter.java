@@ -17,6 +17,7 @@ public class YiYuanNewsListPresenter
 
     private final YYNewsListModel mYYNewsListModel;
 
+
     public YiYuanNewsListPresenter(YiYuanNewsListContract.View view) {
         super(view);
         mYYNewsListModel = new YYNewsListModel();
@@ -50,4 +51,7 @@ public class YiYuanNewsListPresenter
         };
         mYYNewsListModel.getNews(channelId,channelName,page,maxResult,subscriber);
     }
+
+
+
 }

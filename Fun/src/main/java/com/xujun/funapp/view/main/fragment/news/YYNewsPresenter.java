@@ -44,7 +44,7 @@ public class YYNewsPresenter extends DefaultContract.DefaultPresenter<DefaultCon
             @Override
             public void onNext(YiYuanNewsClassify yiYuanNewsClassify) {
                 DefaultContract.View view = getView();
-                WriteLogUtil.i(" 请求成功=");
+//                WriteLogUtil.i(" 请求成功=");
                 if(view!=null){
                     view.onSuccess(yiYuanNewsClassify);
                 }

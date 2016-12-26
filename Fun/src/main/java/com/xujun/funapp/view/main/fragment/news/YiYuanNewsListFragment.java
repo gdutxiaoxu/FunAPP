@@ -2,6 +2,7 @@ package com.xujun.funapp.view.main.fragment.news;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -14,9 +15,25 @@ import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.funapp.network.YiYuanApi;
+import com.xujun.funapp.network.retrofitclient.CustomIntercept;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @ explain:
@@ -36,6 +53,8 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
     private int mItemPosition = -1;
     private String mChannelId;
     private String mName;
+
+    public static  final String TAG="xujun";
 
     public static YiYuanNewsListFragment newInstance(Parcelable parcelable, int postion) {
         YiYuanNewsListFragment newsListFragment = new YiYuanNewsListFragment();
@@ -99,6 +118,60 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
         super.getFirstPageData();
         mPage = 1;
         mPresenter.getNews(mChannelId, mName, mPage, mRows);
+//        testResponeBody();
+
+
+
+    }
+
+    private void testResponeBody() {
+        final String url = "https://route.showapi.com/109-35/";
+        Retrofit retrofit = getRetrofit(url);
+        YiYuanApi yiYuanApi = retrofit.create(YiYuanApi.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(YiYuanApi.API_ID_KEY, YiYuanApi.API_ID);
+        map.put(YiYuanApi.API_SIGN_KEY, YiYuanApi.API_SIGN);
+        map.put("channelId",mChannelId);
+        map.put("channelName",mName);
+        map.put("page",mPage);
+        map.put("maxResult",mRecyclerView);
+
+        Observable<ResponseBody> observable = yiYuanApi.testResponse(url, map);
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseBody>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        WriteLogUtil.e(" e="+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        try {
+                            WriteLogUtil.i(" requestBody="+responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+    }
+
+    @NonNull
+    private Retrofit getRetrofit(String url) {
+        Interceptor interceptor = new CustomIntercept();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        return new Retrofit.Builder().baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                //使用自定义的mGsonConverterFactory
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).client(okHttpClient)
+                .build();
     }
 
     @Override
@@ -112,6 +185,10 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
     protected BaseRecyclerAdapter getAdapter() {
         mDatas = new ArrayList<>();
         mAdapter = new YYNewsListAdapter(mContext, mDatas, mPictureTag, LayoutMangerType.Linear);
+
+        View headerView = View.inflate(mContext, R.layout.header_view_yiyuan_news, null);
+
+        mAdapter.addHeaderView(headerView);
         return mAdapter;
     }
 
@@ -123,6 +200,10 @@ public class YiYuanNewsListFragment extends BaseListFragment<YiYuanNewsListPrese
     @Override
     public void onReceiveNews(YiYuanNews news) {
         List<ContentlistEntity> contentlist = news.showapi_res_body.pagebean.contentlist;
+        if(isRefresh()){
+
+        }
+
         if (false == ListUtils.isEmpty(contentlist)) {
             handleResult(contentlist, RequestResult.success);
         } else {

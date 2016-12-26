@@ -4,9 +4,12 @@ import com.xujun.funapp.beans.YiYuanNews;
 import com.xujun.funapp.network.ApiManger;
 import com.xujun.funapp.network.HttpManger;
 import com.xujun.funapp.network.YiYuanApi;
+import com.xujun.myrxretrofitlibrary.BaseFunc1;
+import com.xujun.myrxretrofitlibrary.YYHttpManger;
 
 import java.util.HashMap;
 
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -32,6 +35,33 @@ public class YYNewsListModel {
                 .subscribe(subscriber);
 
     }
+
+    public void getNews(String url,String channelId, String channelName, int page,
+                        int maxResult, BaseFunc1 baseFunc1) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
+        map.put(YiYuanApi.API_SIGN_KEY,YiYuanApi.API_SIGN);
+        map.put("channelId",channelId);
+        map.put("channelName",channelName);
+        map.put("page",page);
+        map.put("maxResult",maxResult);
+//        YYHttpManger.getInstance().testRequestBody(map,url,baseFunc1);
+    }
+
+    public void getNews(String url,String channelId, String channelName, int page,
+                        int maxResult, Subscriber<RequestBody> subscriber) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
+        map.put(YiYuanApi.API_SIGN_KEY,YiYuanApi.API_SIGN);
+        map.put("channelId",channelId);
+        map.put("channelName",channelName);
+        map.put("page",page);
+        map.put("maxResult",maxResult);
+        YYHttpManger.getInstance().excutePush(map,url,subscriber);
+    }
+
+
+
 
 
 }

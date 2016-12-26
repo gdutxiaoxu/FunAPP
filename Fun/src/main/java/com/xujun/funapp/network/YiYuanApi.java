@@ -5,8 +5,13 @@ import com.xujun.funapp.beans.YiYuanNewsClassify;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -20,7 +25,7 @@ public interface YiYuanApi {
     String API_ID_KEY = "showapi_appid";
     String API_SECRET = "5bf00910e04a46998f6979f6da400f1e";
     String API_SIGN_KEY = "showapi_sign";
-//    String API_SIGN = MD5.encode(API_SECRET);
+    //    String API_SIGN = MD5.encode(API_SECRET);
     String API_SIGN = API_SECRET;
 
     String mBaseUrl = "https://route.showapi.com/";
@@ -35,4 +40,22 @@ public interface YiYuanApi {
     // &title=足球&showapi_sign=99af1a0e6ad027c261b8965972b4e42b
     @POST("/109-35/")
     Observable<YiYuanNews> getNews(@QueryMap Map<String, Object> paramsMap);
+
+    @POST()
+    Observable<String> excutePush1(@Url String url, @QueryMap Map<String, Object> paramsMap);
+
+    @POST()
+    Observable<YiYuanNews> getNews(@Url String url, @QueryMap Map<String, Object> paramsMap);
+
+    @FormUrlEncoded
+    @POST()
+    Observable<RequestBody> testRequestBody(@Url String url, @FieldMap Map<String, Object> paramsMap);
+
+    @FormUrlEncoded
+    @POST()
+    Observable<ResponseBody> testResponse(@Url String url, @FieldMap Map<String, Object> paramsMap);
+
+    @FormUrlEncoded
+    @POST()
+    Observable<String> push(@Url String url, @FieldMap Map<String, Object> paramsMap);
 }

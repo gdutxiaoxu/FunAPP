@@ -3,16 +3,11 @@ package com.xujun.funapp.network.retrofitclient;
 import com.xujun.funapp.common.util.WriteLogUtil;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.concurrent.TimeUnit;
+import java.util.Locale;
 
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okio.Buffer;
-import okio.BufferedSource;
 
 /**
  * @author xujun  on 2016/12/23.
@@ -22,31 +17,25 @@ import okio.BufferedSource;
 public class CustomIntercept implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
-        WriteLogUtil.i("请求的url是" + request.url());
-
-        long startNs = System.nanoTime();
-        Response response = chain.proceed(request);
-        long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
-        ResponseBody responseBody = response.body();
-        long contentLength = responseBody.contentLength();
-                 /*   WriteLogUtil.w("TnGouNet ,intercept: 168  =" + "<-- " + response.code() + '
-                  ' +
-                            response
-                                    .message() + " (" + tookMs + "ms" +
-                            ')');*/
-
-        BufferedSource source = responseBody.source();
-        source.request(Long.MAX_VALUE);
-        Buffer buffer = source.buffer();
-        Charset charset = Charset.forName("UTF-8");
-        MediaType contentType = responseBody.contentType();
-        if (contentType != null) charset = contentType.charset(Charset.forName("UTF-8"));
-        if (contentLength != 0) {
-
-            //                        WriteLogUtil.json(buffer.clone().readString(charset));
+        Response response = null;
+        Request request = null;
+        try {
+            request = chain.request();
+            response=chain.proceed(request);
+            WriteLogUtil.i("请求的url是" + request.url());
+        } catch (IOException e) {
+            throw new HttpIOException(request, e);
         }
 
+
         return response;
+    }
+
+    private static class HttpIOException extends IOException {
+
+        HttpIOException(final Request request, final IOException e) {
+            super(String.format(Locale.US, "IOException during http request. Request= %s",
+                    request), e);
+        }
     }
 }

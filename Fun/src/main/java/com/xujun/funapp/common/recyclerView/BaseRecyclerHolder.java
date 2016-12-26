@@ -10,7 +10,6 @@ import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -28,9 +27,7 @@ public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
     private View mConvertView;
     Context mContext;
 
-    public BaseRecyclerHolder(View itemView) {
-        this(itemView,itemView.getContext());
-    }
+
 
     public BaseRecyclerHolder(View itemView,Context context) {
         super(itemView);
@@ -51,8 +48,7 @@ public class BaseRecyclerHolder extends RecyclerView.ViewHolder {
     }
 
     public static BaseRecyclerHolder createViewHolder(Context context,ViewGroup parent, int layoutId) {
-        View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
-                false);
+        View itemView = View.inflate(context,layoutId,null);
 
         return createViewHolder(context,itemView);
     }
