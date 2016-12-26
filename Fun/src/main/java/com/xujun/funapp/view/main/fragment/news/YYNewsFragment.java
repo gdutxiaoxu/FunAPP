@@ -28,7 +28,7 @@ import rx.schedulers.Schedulers;
  * @ author：xujun on 2016/9/16 23:47
  * @ email：gdutxiaoxu@163.com
  */
-public class YiYuanNewsFragment extends BaseViewPagerFragemnt<YYNewsPresenter> implements
+public class YYNewsFragment extends BaseViewPagerFragemnt<YYNewsPresenter> implements
         DefaultContract.View<YiYuanNewsClassify> {
 
     public static final String YIYUAN_NEWS_CLASSIFY_JSON = "yiyuan_newsClassify.json";
@@ -94,7 +94,7 @@ public class YiYuanNewsFragment extends BaseViewPagerFragemnt<YYNewsPresenter> i
                 for (int i = 0; i < size; i++) {
                     ChannelListEntity channelListEntity = channelList.get(i);
                     mTitles.add(channelListEntity.name.substring(0, 2));
-                    YiYuanNewsListFragment fragment = YiYuanNewsListFragment.newInstance
+                    YYNewsListFragment fragment = YYNewsListFragment.newInstance
                             (channelListEntity, i);
                     mFragments.add(fragment);
                 }

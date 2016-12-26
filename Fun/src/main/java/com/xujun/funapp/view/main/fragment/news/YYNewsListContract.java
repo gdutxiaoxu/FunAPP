@@ -1,6 +1,6 @@
 package com.xujun.funapp.view.main.fragment.news;
 
-import com.xujun.funapp.beans.YiYuanNews;
+import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.mvp.BaseView;
 
@@ -9,11 +9,11 @@ import com.xujun.funapp.common.mvp.BaseView;
  * @ author：xujun on 2016/10/27 23:40
  * @ email：gdutxiaoxu@163.com
  */
-public class YiYuanNewsListContract {
+public class YYNewsListContract {
 
     public interface View<T> extends BaseView<T> {
 
-        void onReceiveNews(YiYuanNews news);
+        void onReceiveNews(YYNews news);
         void onReceiveNewsError(Throwable error);
 
     }

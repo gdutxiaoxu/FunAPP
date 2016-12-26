@@ -17,13 +17,6 @@ import android.widget.LinearLayout;
 import com.xujun.mylibrary.ConvertUtils;
 import com.xujun.mylibrary.R;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-/**
- *
- */
-
 /**
  * user: yangqiangyu on 1/18/16 10:32
  * csdn: http://blog.csdn.net/yissan
@@ -31,40 +24,42 @@ import java.util.TimerTask;
 public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeListener {
 
     private Context context;
-    private int totalCount = 100;
-    private int showCount;
+
     private int currentPosition = 0;
-    private ViewPager viewPager;
-    private LinearLayout carouselLayout;
-    private Adapter adapter;
+    private ViewPager mViewPager;
+    private LinearLayout mCarouselLayout;
+    private CarouseAdapter mCarouseAdapter;
     private int pageItemWidth;
     private boolean isUserTouched = false;
-    private Timer mTimer = new Timer();
 
-    private TimerTask mTimerTask = new TimerTask() {
-        @Override
-        public void run() {
-            if (!isUserTouched) {
-                currentPosition = (currentPosition + 1) % totalCount;
-                handler.sendEmptyMessage(100);
-            }
-        }
-    };
+    private ViewPagerAdapter mAdapter;
+    private long mDelayMillis = 5000;
+    ;
+    private boolean isCanceld = false;
 
-    public void cancelTimer() {
-        if (this.mTimer != null) {
-            this.mTimer.cancel();
-        }
+    public static final String TAG = "xujun";
+
+    public void notifyDataChange() {
+        mAdapter.notifyDataSetChanged();
     }
 
     private Handler handler = new Handler() {
+
         @Override
         public void handleMessage(Message msg) {
-            if (currentPosition == totalCount - 1) {
-                viewPager.setCurrentItem(showCount - 1, false);
-            } else {
-                viewPager.setCurrentItem(currentPosition);
+            if (!isUserTouched) {//当前用户是否正在触摸
+               int  currentItem = mViewPager.getCurrentItem();
+                if (currentItem == mAdapter.getCount()-1) {
+                    mViewPager.setCurrentItem(0, false);
+                } else {
+                    mViewPager.setCurrentItem(currentItem + 1);
+                }
             }
+
+            if (!isCanceld) {
+                handler.sendEmptyMessageDelayed(0, mDelayMillis);
+            }
+
         }
     };
 
@@ -84,13 +79,13 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
     }
 
     private void init() {
-        viewPager.setAdapter(null);
-        carouselLayout.removeAllViews();
-        if (adapter.isEmpty()) {
+        mViewPager.setAdapter(null);
+        mCarouselLayout.removeAllViews();
+        if (mCarouseAdapter.isEmpty()) {
             return;
         }
-        int count = adapter.getCount();
-        showCount = adapter.getCount();
+        int count = mCarouseAdapter.getCount();
+
         for (int i = 0; i < count; i++) {
             View view = new View(context);
             if (currentPosition == i) {
@@ -107,33 +102,51 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
                 view.setLayoutParams(params);
             }
             view.setBackgroundResource(R.drawable.carousel_layout_page);
-            carouselLayout.addView(view);
+            mCarouselLayout.addView(view);
         }
-        viewPager.setAdapter(new ViewPagerAdapter());
-        viewPager.setCurrentItem(0);
-        this.viewPager.setOnTouchListener(new OnTouchListener() {
+        mAdapter = new ViewPagerAdapter();
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.setCurrentItem(0);
+        this.mViewPager.setOnTouchListener(new OnTouchListener() {
+            float lastX = 0;
+            float lastY = 0;
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //    这个方法是请求父亲不要拦截触摸事件
-                viewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                float y = event.getRawY();
+                float x = event.getRawX();
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                     case MotionEvent.ACTION_MOVE:
+                        float xDistance = x - lastX;
+                        float yDistance = y - lastY;
+                        Log.i(TAG, "onTouch: xDistance=" + xDistance);
+                        Log.i(TAG, "onTouch: yDistance=" + yDistance);
+                        if (Math.abs(xDistance) > Math.abs(yDistance)) {
+                            mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
+                        } else {
+                            mViewPager.getParent().requestDisallowInterceptTouchEvent(false);
+                        }
                         isUserTouched = true;
                         break;
                     case MotionEvent.ACTION_UP:
                         isUserTouched = false;
                         break;
                 }
+                lastX = x;
+                lastY = y;
                 return false;
             }
         });
-        mTimer.schedule(mTimerTask, 3000, 3000);
+        handler.sendEmptyMessageDelayed(0, 0);
+
     }
 
-    public void setAdapter(Adapter adapter) {
-        this.adapter = adapter;
-        if (adapter != null) {
+    public void setCarouseAdapter(CarouseAdapter carouseAdapter) {
+        this.mCarouseAdapter = carouseAdapter;
+        if (carouseAdapter != null) {
             init();
         }
     }
@@ -142,25 +155,25 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
     protected void onFinishInflate() {
         super.onFinishInflate();
         View view = LayoutInflater.from(context).inflate(R.layout.carousel_layout, null);
-        this.viewPager = (ViewPager) view.findViewById(R.id.gallery);
-        this.carouselLayout = (LinearLayout) view.findViewById(R.id.CarouselLayoutPage);
+        this.mViewPager = (ViewPager) view.findViewById(R.id.gallery);
+        this.mCarouselLayout = (LinearLayout) view.findViewById(R.id.CarouselLayoutPage);
         pageItemWidth = ConvertUtils.dip2px(context, 5);
-        this.viewPager.addOnPageChangeListener(this);
+        this.mViewPager.addOnPageChangeListener(this);
         addView(view);
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.d("CarouselView", "onPageScrolled was invoke()");
+        //        Log.d("CarouselView", "onPageScrolled was invoke()");
     }
 
     @Override
     public void onPageSelected(int position) {
         currentPosition = position;
-        int count = carouselLayout.getChildCount();
+        int count = mCarouselLayout.getChildCount();
         for (int i = 0; i < count; i++) {
-            View view = carouselLayout.getChildAt(i);
-            if (position % showCount == i) {
+            View view = mCarouselLayout.getChildAt(i);
+            if (position == i) {
                 view.setSelected(true);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageItemWidth +
                         ConvertUtils.dip2px(context, 3), pageItemWidth + ConvertUtils.dip2px
@@ -179,14 +192,14 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        Log.d("CarouselView", "onPageScrollStateChanged was invoke()");
+        //        Log.d("CarouselView", "onPageScrollStateChanged was invoke()");
     }
 
     class ViewPagerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
-            return totalCount;
+            return mCarouseAdapter.getCount();
         }
 
         @Override
@@ -196,8 +209,7 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            position %= showCount;
-            View view = adapter.getView(position);
+            View view = mCarouseAdapter.getView(position);
             container.addView(view);
             return view;
         }
@@ -215,18 +227,10 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
         @Override
         public void finishUpdate(ViewGroup container) {
             super.finishUpdate(container);
-            int position = viewPager.getCurrentItem();
-            if (position == 0) {
-                position = showCount;
-                viewPager.setCurrentItem(position, false);
-            } else if (position == totalCount - 1) {
-                position = showCount - 1;
-                viewPager.setCurrentItem(position, false);
-            }
         }
     }
 
-    public interface Adapter {
+    public interface CarouseAdapter {
         boolean isEmpty();
 
         View getView(int position);

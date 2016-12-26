@@ -1,6 +1,6 @@
 package com.xujun.funapp.model;
 
-import com.xujun.funapp.beans.YiYuanNews;
+import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.network.ApiManger;
 import com.xujun.funapp.network.HttpManger;
 import com.xujun.funapp.network.YiYuanApi;
@@ -21,7 +21,7 @@ import rx.Subscriber;
 public class YYNewsListModel {
 
     public void getNews(String channelId, String channelName, int page,
-                        int maxResult, Subscriber<YiYuanNews> subscriber) {
+                        int maxResult, Subscriber<YYNews> subscriber) {
         YiYuanApi api = ApiManger.getInstance().getApi(YiYuanApi.class, YiYuanApi.mBaseUrl);
         HashMap<String, Object> map = new HashMap<>();
         map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
@@ -30,8 +30,8 @@ public class YYNewsListModel {
         map.put("channelName",channelName);
         map.put("page",page);
         map.put("maxResult",maxResult);
-        Observable<YiYuanNews> observable = api.getNews(map);
-        observable.compose(new HttpManger.LiftAllTransformer<YiYuanNews,YiYuanNews>())
+        Observable<YYNews> observable = api.getNews(map);
+        observable.compose(new HttpManger.LiftAllTransformer<YYNews,YYNews>())
                 .subscribe(subscriber);
 
     }

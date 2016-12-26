@@ -169,6 +169,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
                 if (mOnItemClickListener != null) {
                     //这个方法是获取在holder里面真正的位置，而不是对应list的位置
                     int position = viewHolder.getAdapterPosition();
+                    position = position - getHeaderViewCounts();
                     T t = mDatas.get(position);
                     mOnItemClickListener.onClick(v, viewHolder, position);
                 }
@@ -293,10 +294,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     }
 
     public void addDates(List<T> dates) {
-        this.addDates(dates, false);
-        notifyDataSetChanged();
-
-
+        this.addDates(dates, true);
     }
 
     public void clearDates() {

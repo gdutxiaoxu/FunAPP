@@ -57,6 +57,10 @@
 
         </activity>
 
+        <activity android:name=".view.detail.YYNewsDetailActivity">
+
+        </activity>
+
         <receiver android:name=".network.NetworkChangeListener">
         </receiver>
         <receiver android:name=".network.NetworkConnectChangedReceiver">

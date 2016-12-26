@@ -1,6 +1,6 @@
 package com.xujun.funapp.network;
 
-import com.xujun.funapp.beans.YiYuanNews;
+import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.beans.YiYuanNewsClassify;
 
 import java.util.Map;
@@ -39,13 +39,13 @@ public interface YiYuanApi {
     // &needContent=0&needHtml=0&page=1&showapi_appid=29457&showapi_timestamp=20161225101701
     // &title=足球&showapi_sign=99af1a0e6ad027c261b8965972b4e42b
     @POST("/109-35/")
-    Observable<YiYuanNews> getNews(@QueryMap Map<String, Object> paramsMap);
+    Observable<YYNews> getNews(@QueryMap Map<String, Object> paramsMap);
 
     @POST()
     Observable<String> excutePush1(@Url String url, @QueryMap Map<String, Object> paramsMap);
 
     @POST()
-    Observable<YiYuanNews> getNews(@Url String url, @QueryMap Map<String, Object> paramsMap);
+    Observable<YYNews> getNews(@Url String url, @QueryMap Map<String, Object> paramsMap);
 
     @FormUrlEncoded
     @POST()

@@ -11,6 +11,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
 import com.xujun.funapp.widget.MutiLayout;
 
@@ -49,6 +50,8 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
     protected FloatingActionMenu mMenu;
     private MutiLayout mMultiLayout;
 
+    protected LayoutMangerType mLayoutMangerType=LayoutMangerType.Linear;
+
     //记录请求结果的状态，有三种类型，success，error，empty
     public enum RequestResult {
         success, error, empty;
@@ -73,7 +76,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         mMenuItemGrid = binding.menuItemGrid;
         mMenuItemStrag = binding.menuItemStrag;
         mMenu = binding.menu;
-        //        mMultiLayout = binding.multiLayout;
+        //  mMultiLayout = binding.multiLayout;
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -82,14 +85,12 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         refreshViewHolder.setSpringDistanceScale(0.2f);
         refreshViewHolder.setLoadingMoreText("正在加载更多");
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
-        // mRecyclerView.addOnScrollListener(new RecyclerScroller(mContext, mPictureTag));
 
     }
 
     @Override
     protected void initEvent() {
         super.initEvent();
-
         RecyclerUtils.init(mRecyclerView);
         mPictureTag = this;
         mBaseAdapter = getAdapter();
@@ -197,8 +198,6 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         if(isFirstPage()){
             beginRefresh();
         }
-
-
     }
 
     //    开始刷新，获取第一页的数据
@@ -234,5 +233,17 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         if (mMenu.isOpened()) {
             mMenu.close(true);
         }
+    }
+
+    public void switchRecyclerAdapter(LayoutMangerType type, BaseRecyclerAdapter adapter){
+        if(mLayoutMangerType==type){
+            return;
+        }
+        mLayoutMangerType=type;
+        this.mBaseAdapter=adapter;
+        RecyclerUtils.init(mRecyclerView,type);
+        mRecyclerView.setAdapter(adapter);
+
+
     }
 }

@@ -109,7 +109,7 @@ public class PictureDetailActivity2 extends
 
         PicturePagerAdapter picturePagerAdapter = new PicturePagerAdapter(mContext, source);
 
-        mViewPager.setAdapter(picturePagerAdapter);*/
+        mViewPager.setCarouseAdapter(picturePagerAdapter);*/
 
     }
 }

@@ -1,5 +1,8 @@
 package com.xujun.funapp.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -9,7 +12,7 @@ import java.util.List;
  * 易源新闻
  */
 
-public class YiYuanNews {
+public class YYNews {
 
     public int showapi_res_code;
     public String showapi_res_error;
@@ -28,7 +31,7 @@ public class YiYuanNews {
             public int maxResult;
             public List<ContentlistEntity> contentlist;
 
-            public static class ContentlistEntity {
+            public static class ContentlistEntity implements Parcelable {
                 /**
                  * pubDate : 2016-12-24 21:33:39
                  * havePic : true
@@ -52,6 +55,47 @@ public class YiYuanNews {
                 public String channelId;
                 public String link;
                 public List<ImageurlsEntity> imageurls;
+
+                protected ContentlistEntity(Parcel in) {
+                    pubDate = in.readString();
+                    havePic = in.readByte() != 0;
+                    title = in.readString();
+                    channelName = in.readString();
+                    desc = in.readString();
+                    source = in.readString();
+                    channelId = in.readString();
+                    link = in.readString();
+                }
+
+                public static final Creator<ContentlistEntity> CREATOR = new
+                        Creator<ContentlistEntity>() {
+                    @Override
+                    public ContentlistEntity createFromParcel(Parcel in) {
+                        return new ContentlistEntity(in);
+                    }
+
+                    @Override
+                    public ContentlistEntity[] newArray(int size) {
+                        return new ContentlistEntity[size];
+                    }
+                };
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(pubDate);
+                    dest.writeByte((byte) (havePic ? 1 : 0));
+                    dest.writeString(title);
+                    dest.writeString(channelName);
+                    dest.writeString(desc);
+                    dest.writeString(source);
+                    dest.writeString(channelId);
+                    dest.writeString(link);
+                }
 
                 public static class ImageurlsEntity {
                     /**

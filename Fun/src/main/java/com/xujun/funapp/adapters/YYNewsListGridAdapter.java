@@ -25,26 +25,20 @@ import java.util.List;
  * @ author：xujun on 2016/10/28 19:26
  * @ email：gdutxiaoxu@163.com
  */
-public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
+public class YYNewsListGridAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
     Object pictureTag;
 
-
-
-
-
-
-
-    public YYNewsListAdapter(Context context, List<ContentlistEntity> datas, Object pictureTag
-                             ) {
-        super(context, R.layout.item_news_list, datas);
+    public YYNewsListGridAdapter(Context context, List<ContentlistEntity> datas, Object
+            pictureTag) {
+        super(context, R.layout.item_yy_news_list_grid, datas);
         this.pictureTag = pictureTag;
+
+
     }
 
     @Override
     public void convert(BaseRecyclerHolder holder, ContentlistEntity item, int position) {
-        TextView tvTime = holder.getView(R.id.tv_time);
         TextView tvTitle = holder.getView(R.id.tv_title);
-        TextView tvSource = holder.getView(R.id.tv_source);
         ImageView iv = holder.getView(R.id.iv);
 
         String title = StringUtils.getStr(item.title);
@@ -57,10 +51,6 @@ public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
 
         }
 
-        String time = StringUtils.getStr(item.pubDate);
-        String source = StringUtils.getStr(item.source);
-        tvTime.setText(time);
-        tvSource.setText(source);
         tvTitle.setText(title);
         // 是否开启智能无图模式，true表示开启智能无图模式
         boolean isIntelligentNoPic = SPUtils.getBoolean(Constants.SPConstants.isIntelligentNoPic);
@@ -83,7 +73,7 @@ public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
             ImageRequestManager.getInstance().display(mContext, iv, picUrl);
         } else {
             ImageRequestManager.getInstance().display(mContext, iv, UriUtils.resourceIdToUri
-                    (mContext, R.mipmap.tangyang7));
+                    (mContext, R.mipmap.tangyang11));
         }
     }
 }

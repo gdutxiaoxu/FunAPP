@@ -38,22 +38,23 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     protected T mBind;
     protected E mPresenter;
     private Parcelable mParcelableExtra;
-    protected static final String  DEFAULT_PARCEABLE_NAME="DEFAULT_PARCEABLE_NAME";
-    protected static final String DEFAULT_PARCEABLE_LIST_NAME="DEFAULT_PARCEABLE_LIST_NAME";
+    protected static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
+    protected static final String DEFAULT_PARCEABLE_LIST_NAME = "DEFAULT_PARCEABLE_LIST_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initWindows();
+        // 切换夜间模式的
         boolean isNightMode = SPUtils.getBoolean(Constants.SPConstants.isNightMode);
-        if(false==isNightMode){
+        if (false == isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
 
-        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onCreate()");
+        LUtils.d(this.getClass().getSimpleName() + ">>>>>>>>>>>onCreate()");
         // base setup
         Intent intent = getIntent();
         if (intent != null) {
@@ -75,7 +76,7 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
                 mPresenter.start();
             }
             mBind = DataBindingUtil.setContentView(this, getContentViewLayoutID());
-            if(hasEventBus()){
+            if (hasEventBus()) {
                 EventBus.getDefault().register(this);
             }
             initView(mBind);
@@ -88,7 +89,7 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     }
 
     protected boolean hasEventBus() {
-       return false;
+        return false;
     }
 
     protected void initIntent(Intent intent) {
@@ -98,8 +99,8 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
 
     }
 
-    protected  <T>  T  checkNotNull(T t) {
-        if(t==null){
+    protected <T> T checkNotNull(T t) {
+        if (t == null) {
             throw new NullPointerException();
         }
         return t;
@@ -128,11 +129,11 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
         if (mPresenter != null) {
             mPresenter.stop();
         }
-        if(hasEventBus()){
+        if (hasEventBus()) {
             EventBus.getDefault().unregister(this);
         }
 
-        LUtils.d(this.getClass().getSimpleName()+">>>>>>>>>>>onDestroy()");
+        LUtils.d(this.getClass().getSimpleName() + ">>>>>>>>>>>onDestroy()");
     }
 
     /**
@@ -161,11 +162,8 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     }
 
     public void readyGo(Class<?> clazz, Parcelable parcelable) {
-        this.readyGo(clazz, DEFAULT_PARCEABLE_NAME,parcelable);
+        this.readyGo(clazz, DEFAULT_PARCEABLE_NAME, parcelable);
     }
-
-
-
 
     public void readyGo(Class<?> clazz, String name, Parcelable parcelable) {
         Intent intent = new Intent(this, clazz);
@@ -175,7 +173,7 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
         startActivity(intent);
     }
 
-    public void readyGo(Class<?> clazz, Parcelable parcelable,String action) {
+    public void readyGo(Class<?> clazz, Parcelable parcelable, String action) {
         Intent intent = new Intent(this, clazz);
         intent.setAction(action);
         if (null != parcelable) {
@@ -186,7 +184,7 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
 
     public void readyGo(Class<? extends Activity> clazz, ArrayList<? extends Parcelable>
             parcelableList) {
-        this.readyGo(clazz,DEFAULT_PARCEABLE_LIST_NAME,parcelableList);
+        this.readyGo(clazz, DEFAULT_PARCEABLE_LIST_NAME, parcelableList);
     }
 
     public void readyGo(Class<? extends Activity> clazz, String name, ArrayList<? extends

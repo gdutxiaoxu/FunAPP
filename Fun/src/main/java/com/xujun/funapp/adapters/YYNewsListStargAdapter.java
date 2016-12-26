@@ -3,8 +3,9 @@ package com.xujun.funapp.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xujun.funapp.R;
 import com.xujun.funapp.beans.YYNews.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity;
@@ -25,29 +26,32 @@ import java.util.List;
  * @ author：xujun on 2016/10/28 19:26
  * @ email：gdutxiaoxu@163.com
  */
-public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
+public class YYNewsListStargAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
     Object pictureTag;
 
+    private int getHeight() {
+        return (int) (350 + Math.random() * 300);
+    }
 
-
-
-
-
-
-    public YYNewsListAdapter(Context context, List<ContentlistEntity> datas, Object pictureTag
-                             ) {
-        super(context, R.layout.item_news_list, datas);
+    public YYNewsListStargAdapter(Context context, List<ContentlistEntity> datas, Object
+            pictureTag) {
+        super(context, R.layout.item_yy_news_list_starg, datas);
         this.pictureTag = pictureTag;
+
+
     }
 
     @Override
     public void convert(BaseRecyclerHolder holder, ContentlistEntity item, int position) {
-        TextView tvTime = holder.getView(R.id.tv_time);
-        TextView tvTitle = holder.getView(R.id.tv_title);
-        TextView tvSource = holder.getView(R.id.tv_source);
-        ImageView iv = holder.getView(R.id.iv);
+        int height = getHeight();
 
-        String title = StringUtils.getStr(item.title);
+
+        ImageView iv = holder.getView(R.id.iv);
+        View convertView = holder.getConvertView();
+        ViewGroup.LayoutParams layoutParams = convertView.getLayoutParams();
+        layoutParams.height=height;
+        convertView.setLayoutParams(layoutParams);
+
         List<ContentlistEntity.ImageurlsEntity> imageurls = item.imageurls;
         boolean havePic = item.havePic;
         String picUrl = null;
@@ -57,11 +61,7 @@ public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
 
         }
 
-        String time = StringUtils.getStr(item.pubDate);
-        String source = StringUtils.getStr(item.source);
-        tvTime.setText(time);
-        tvSource.setText(source);
-        tvTitle.setText(title);
+
         // 是否开启智能无图模式，true表示开启智能无图模式
         boolean isIntelligentNoPic = SPUtils.getBoolean(Constants.SPConstants.isIntelligentNoPic);
         //            WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
