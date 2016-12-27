@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.xujun.funapp.common.ActivityCollector;
 import com.xujun.funapp.common.Constants;
-import com.xujun.funapp.common.util.LUtils;
+import com.xujun.mylibrary.utils.LUtils;
 import com.xujun.funapp.common.util.SPUtils;
 
 import org.simple.eventbus.EventBus;

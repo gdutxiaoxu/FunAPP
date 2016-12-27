@@ -10,7 +10,7 @@ import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.funapp.common.util.MD5;
+import com.xujun.mylibrary.utils.MD5;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.network.retrofit.BaiDuNewsConfig;
 

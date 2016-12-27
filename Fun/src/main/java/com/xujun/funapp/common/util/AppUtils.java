@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.common.APP;
+import com.xujun.mylibrary.utils.LUtils;
 
 /**
  * Created by chenzhihui on 2016/5/18 0018.

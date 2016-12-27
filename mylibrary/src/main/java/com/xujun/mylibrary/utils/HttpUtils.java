@@ -1,16 +1,9 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary.utils;
 
-/**
- * @ explain:
- * @ author：xujun on 2016/5/10 09:39
- * @ email：gdutxiaoxu@163.com
- */
 
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-
-import com.orhanobut.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -31,12 +24,19 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-//Http请求的工具类
+/**
+ * @ explain:
+ * @ author：xujun on 2016/5/10 09:39
+ * @ email：gdutxiaoxu@163.com
+ */
+
 public class HttpUtils {
+
+    public static  final String TAG="xujun";
 
     private static final int TIMEOUT_IN_MILLIONS = 5000;
 
-    private static Handler mHandler=new Handler(Looper.getMainLooper());
+    private static Handler mHandler = new Handler(Looper.getMainLooper());
 
     public interface CallBack {
         void onRequestComplete(String result);
@@ -96,8 +96,8 @@ public class HttpUtils {
      * @param callBack
      * @throws Exception
      */
-    public static void doPostAsyn(final String urlStr, final String params,
-                                  final CallBack callBack) throws Exception {
+    public static void doPostAsyn(final String urlStr, final String params, final CallBack
+            callBack) throws Exception {
         new Thread() {
             public void run() {
                 try {
@@ -159,16 +159,14 @@ public class HttpUtils {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.i("Exception=" +e.getMessage());
+            Log.e(TAG,"Exception=" + e.getMessage());
         } finally {
             try {
-                if (is != null)
-                    is.close();
+                if (is != null) is.close();
             } catch (IOException e) {
             }
             try {
-                if (baos != null)
-                    baos.close();
+                if (baos != null) baos.close();
             } catch (IOException e) {
             }
             conn.disconnect();
@@ -189,18 +187,16 @@ public class HttpUtils {
     public static String doPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         try {
             URL realUrl = new URL(url);
             // 打开和URL之间的连接
-            HttpURLConnection conn = (HttpURLConnection) realUrl
-                    .openConnection();
+            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type",
-                    "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestProperty("charset", "utf-8");
             conn.setUseCaches(false);
             // 发送POST请求必须设置如下两行
@@ -218,8 +214,7 @@ public class HttpUtils {
                 out.flush();
             }
             // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
                 sb.append(line);
@@ -227,7 +222,7 @@ public class HttpUtils {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.i("Exception=" +e.getMessage());
+            Log.e(TAG, "doPost: =e" +e.getMessage());
         }
         // 使用finally块来关闭输出流、输入流
         finally {
@@ -241,8 +236,7 @@ public class HttpUtils {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
-        return sb.toString();
+        } return sb.toString();
     }
 
     public static String httpGet(String httpUrl) {
@@ -255,12 +249,12 @@ public class HttpUtils {
             try {
                 // trust all hosts
                 trustAllHosts();
-                HttpsURLConnection https = (HttpsURLConnection)url.openConnection();
+                HttpsURLConnection https = (HttpsURLConnection) url.openConnection();
                 if (url.getProtocol().toLowerCase().equals("https")) {
                     https.setHostnameVerifier(DO_NOT_VERIFY);
                     con = https;
                 } else {
-                    con = (HttpURLConnection)url.openConnection();
+                    con = (HttpURLConnection) url.openConnection();
                 }
                 input = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 sb = new StringBuilder();
@@ -282,7 +276,8 @@ public class HttpUtils {
                     e.printStackTrace();
                 }
             }
-            // disconnecting releases the resources held by a connection so they may be closed or reused
+            // disconnecting releases the resources held by a connection so they may be closed or
+            // reused
             if (con != null) {
                 con.disconnect();
             }
@@ -304,20 +299,22 @@ public class HttpUtils {
     private static void trustAllHosts() {
         final String TAG = "trustAllHosts";
         // Create a trust manager that does not validate certificate chains
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 
             public X509Certificate[] getAcceptedIssuers() {
-                return new X509Certificate[] {};
+                return new X509Certificate[]{};
             }
 
-            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            public void checkClientTrusted(X509Certificate[] chain, String authType) throws
+                    CertificateException {
                 Log.i(TAG, "checkClientTrusted");
             }
 
-            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            public void checkServerTrusted(X509Certificate[] chain, String authType) throws
+                    CertificateException {
                 Log.i(TAG, "checkServerTrusted");
             }
-        } };
+        }};
 
         // Install the all-trusting trust manager
         try {

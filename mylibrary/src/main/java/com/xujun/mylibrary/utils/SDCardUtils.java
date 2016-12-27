@@ -1,12 +1,10 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary.utils;
 
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.util.Log;
-
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +52,6 @@ public class SDCardUtils {
             return fileArrayList;
         }
         String storagePath = getStoragePath(context, true);
-        Logger.i(" storagePath= " + storagePath);
         if (storagePath != null) {
             fileArrayList.add(new File(storagePath));
         }

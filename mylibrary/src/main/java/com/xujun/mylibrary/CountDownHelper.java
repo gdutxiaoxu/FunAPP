@@ -1,6 +1,8 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary;
 
 import android.os.CountDownTimer;
+
+import com.xujun.mylibrary.utils.LUtils;
 
 /**
  * Created by chenzhihui on 2016/06/02 .

@@ -1,7 +1,7 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary.utils;
 
 /**
- * @explain
+ * @explain  日期工具类
  * @author xujun
  * @time 2016/6/16 16:57.
  */

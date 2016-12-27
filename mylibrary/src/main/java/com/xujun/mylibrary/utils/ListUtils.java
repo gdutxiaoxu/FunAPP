@@ -1,4 +1,4 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary.utils;
 
 import android.text.TextUtils;
 import android.util.Log;

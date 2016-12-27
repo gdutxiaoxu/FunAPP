@@ -1,4 +1,4 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

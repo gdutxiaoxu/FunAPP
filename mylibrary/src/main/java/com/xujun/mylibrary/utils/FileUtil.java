@@ -1,4 +1,4 @@
-package com.xujun.funapp.common.util;
+package com.xujun.mylibrary.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,14 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
+/**
+ * 博客地址：http://blog.csdn.net/gdutxiaoxu
+ *
+ * @author xujun
+ * @time 2016/12/27 23:50.
+ * <p>
+ * 文件工具类
+ */
 public class FileUtil {
 
     public static long fileSize(String pathAndFile) {
@@ -15,10 +23,8 @@ public class FileUtil {
 
     public static boolean fileExist(String pathAndFile) {
         File file = new File(pathAndFile);
-        if (file.exists())
-            return true;
-        else
-            return false;
+        if (file.exists()) return true;
+        else return false;
     }
 
     public static void fileRename(String fName, String nName) {

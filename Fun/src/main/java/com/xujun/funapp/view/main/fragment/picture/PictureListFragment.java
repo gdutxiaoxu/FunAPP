@@ -12,7 +12,7 @@ import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
-import com.xujun.funapp.common.util.LUtils;
+import com.xujun.mylibrary.utils.LUtils;
 import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.funapp.model.PictureListModel;
 import com.xujun.funapp.view.detail.PictureDetailActivity2;
