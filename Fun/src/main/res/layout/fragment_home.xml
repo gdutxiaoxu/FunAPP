@@ -25,44 +25,53 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    app:layout_collapseMode="parallax">
+                    app:layout_collapseMode="parallax"
+                    android:background="#fff"
+                    >
 
                     <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                        <com.xujun.funapp.widget.ImageButtonWithText
                             android:id="@+id/wechat"
                             style="@style/imageText"
-                            app:text="微信精选"/>
+                            app:text="微信精选"
+                            app:picture="@drawable/sel_wechat"/>
 
-                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                        <com.xujun.funapp.widget.ImageButtonWithText
                             android:id="@+id/joke"
                             style="@style/imageText"
-                            app:text="笑话大全"/>
+                            app:text="笑话大全"
+                            app:picture="@drawable/sel_xiaohua"/>
 
-                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                        <com.xujun.funapp.widget.ImageButtonWithText
                             android:id="@+id/fortune"
                             style="@style/imageText"
-                            app:text="星座运势"/>
+                            app:text="星座运势"
+                            app:picture="@drawable/sel_fortune"/>
                     </TableRow>
 
                     <TableRow>
 
-                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                        <com.xujun.funapp.widget.ImageButtonWithText
                             android:id="@+id/past_life"
                             style="@style/imageText"
-                            app:text="前世今生"/>
+                            app:text="前世今生"
+                            app:picture="@drawable/sel_shi"/>
 
-                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                        <com.xujun.funapp.widget.ImageButtonWithText
                             android:id="@+id/sport"
                             style="@style/imageText"
-                            app:text="体育赛事"/>
+                            app:text="体育赛事"
+                            app:picture="@drawable/sel_sport"
+                            />
 
-                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                        <com.xujun.funapp.widget.ImageButtonWithText
                             android:id="@+id/movie"
                             style="@style/imageText"
-                            app:text="电影票房"/>
+                            app:text="电影票房"
+                            app:picture="@drawable/sel_movie"/>
                     </TableRow>
 
 

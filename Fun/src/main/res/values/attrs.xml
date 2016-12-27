@@ -15,4 +15,9 @@
         <attr name="pstsTextAllCaps" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="ImageButtonWithText">
+        <attr name="picture" format="reference"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+
 </resources>

@@ -30,9 +30,7 @@ public class SettingSwitchItem extends RelativeLayout {
     int[] track = new int[]{android.R.attr.track};
     int[] thumb = new int[]
 
-            {
-                    android.R.attr.thumb
-            };
+            {android.R.attr.thumb};
     private String mDes;
     private String mOnDes;
     private String mOffDes;

@@ -1,4 +1,4 @@
-package com.xujun.mylibrary.widget;
+package com.xujun.funapp.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
