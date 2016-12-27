@@ -10,7 +10,7 @@ import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.common.util.GsonManger;
-import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.funapp.common.util.ResourceUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
 

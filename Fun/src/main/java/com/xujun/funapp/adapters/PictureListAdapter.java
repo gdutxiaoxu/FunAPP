@@ -13,7 +13,7 @@ import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.util.SPUtils;
-import com.xujun.funapp.common.util.StringUtils;
+import com.xujun.mylibrary.utils.StringUtils;
 import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.network.retrofit.TnGouNet;
 

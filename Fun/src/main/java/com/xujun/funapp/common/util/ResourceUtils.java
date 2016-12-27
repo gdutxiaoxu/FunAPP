@@ -1,6 +1,6 @@
 package com.xujun.funapp.common.util;
 
-import com.xujun.mylibrary.IOUtils;
+import com.xujun.mylibrary.utils.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

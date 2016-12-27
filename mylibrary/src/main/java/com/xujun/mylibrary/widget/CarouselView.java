@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.xujun.mylibrary.ConvertUtils;
+import com.xujun.mylibrary.utils.ConvertUtils;
 import com.xujun.mylibrary.R;
 
 /**

@@ -11,7 +11,7 @@ import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.databinding.ActivityMainBinding;
 import com.xujun.funapp.network.NetStateUtils;
-import com.xujun.mylibrary.ToastUtils;
+import com.xujun.mylibrary.utils.ToastUtils;
 
 import java.util.List;
 

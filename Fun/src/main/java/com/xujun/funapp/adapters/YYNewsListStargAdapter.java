@@ -13,11 +13,11 @@ import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
-import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.funapp.common.util.SPUtils;
-import com.xujun.funapp.common.util.StringUtils;
+import com.xujun.mylibrary.utils.StringUtils;
 import com.xujun.funapp.image.ImageRequestManager;
-import com.xujun.mylibrary.UriUtils;
+import com.xujun.mylibrary.utils.UriUtils;
 
 import java.util.List;
 

@@ -14,7 +14,7 @@ import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.RecyclerUtils;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
-import com.xujun.funapp.common.util.ListUtils;
+import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.network.retrofit.BaiDuNewsConfig;

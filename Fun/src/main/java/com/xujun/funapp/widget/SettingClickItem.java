@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.common.util.StringUtils;
+import com.xujun.mylibrary.utils.StringUtils;
 
 /**
  * @ explain:

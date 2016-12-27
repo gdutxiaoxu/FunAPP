@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xujun.funapp.common.mvp.BasePresenter;
-import com.xujun.funapp.common.util.ViewUtils;
+import com.xujun.mylibrary.utils.ViewUtils;
 
 import org.simple.eventbus.EventBus;
 
