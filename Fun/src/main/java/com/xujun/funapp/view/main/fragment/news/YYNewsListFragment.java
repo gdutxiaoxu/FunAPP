@@ -43,9 +43,11 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     static final String KEY = "id";
     static final String KEY_POSITION = "KEY_POSITION";
     private ChannelListEntity mChannelListEntity = null;
-    private ArrayList<ContentlistEntity> mDatas = new ArrayList<>();
-    ;
+
+
     private YYNewsListAdapter mAdapter;
+    private YYNewsListGridAdapter mYYNewsListGridAdapter;
+    private YYNewsListStargAdapter mYYNewsListStargAdapter;
     //  保存上一次的可见的第一个位置
     private int mLastPosition;
     private int mItemPosition = -1;
@@ -54,9 +56,10 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
 
     public static final String TAG = "YYNewsListFragment";
     private ArrayList<ContentlistEntity> mHeaderDatas = new ArrayList<>();
+    private ArrayList<ContentlistEntity> mDatas = new ArrayList<>();
     ;
     private CarouselView mCarouselView;
-    private View mHeadView;
+    private View mHeaderView;
 
     public static YYNewsListFragment newInstance(Parcelable parcelable, int postion) {
         YYNewsListFragment newsListFragment = new YYNewsListFragment();
@@ -93,8 +96,7 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
-                ContentlistEntity contentlistEntity = mDatas.get(position);
-                readyGo(YYNewsDetailActivity.class, contentlistEntity);
+                jump(position);
             }
         });
 
@@ -103,6 +105,11 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         mMenuItemGrid.setOnClickListener(menuItemListener);
         mMenuItemStrag.setOnClickListener(menuItemListener);
 
+    }
+
+    private void jump(int position) {
+        ContentlistEntity contentlistEntity = mDatas.get(position);
+        readyGo(YYNewsDetailActivity.class, contentlistEntity);
     }
 
     @Override
@@ -137,10 +144,13 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     }
 
     private View initHeaderView() {
-        mHeadView = View.inflate(mContext, R.layout.header_view_yiyuan_news, null);
-        mCarouselView = (CarouselView) mHeadView.findViewById(R.id.carouselView);
-        setHeaderData(mHeaderDatas);
-        return mHeadView;
+        if(mHeaderView ==null){
+            mHeaderView = View.inflate(mContext, R.layout.header_view_yiyuan_news, null);
+            mCarouselView = (CarouselView) mHeaderView.findViewById(R.id.carouselView);
+            setHeaderData(mHeaderDatas);
+        }
+
+        return mHeaderView;
     }
 
     @Override
@@ -163,6 +173,16 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         } else {
             handleResult(contentlist, RequestResult.empty);
         }
+    }
+
+
+
+    @Override
+    public void onReceiveNewsError(Throwable error) {
+        Log.i(TAG, "onReceiveNewsError: +=" + mItemPosition);
+        handleResult(null, RequestResult.error);
+        WriteLogUtil.e(" =" + error.getMessage());
+
     }
 
     private void setHeaderData(List<ContentlistEntity> contentlist) {
@@ -211,52 +231,61 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         });
     }
 
-    @Override
-    public void onReceiveNewsError(Throwable error) {
-        Log.i(TAG, "onReceiveNewsError: +=" + mItemPosition);
-        handleResult(null, RequestResult.error);
-        WriteLogUtil.e(" =" + error.getMessage());
-
-    }
-
     private class MenuItemListener implements View.OnClickListener {
-
-        private YYNewsListGridAdapter mYYNewsListGridAdapter;
-        private YYNewsListStargAdapter mYYNewsListStargAdapter;
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.menu_item_linear:
                     switchRecyclerAdapter(LayoutMangerType.Linear, mAdapter);
-
                     closeMenu();
                     break;
                 case R.id.menu_item_grid:
-                    if (mYYNewsListGridAdapter == null) {
-                        mYYNewsListGridAdapter = new YYNewsListGridAdapter(mContext, mDatas,
-                                mPictureTag);
-                        mYYNewsListGridAdapter.addHeaderView(mHeadView);
-                    }
+                    initGridAdapter();
                     switchRecyclerAdapter(LayoutMangerType.Grid, mYYNewsListGridAdapter);
-
                     closeMenu();
                     break;
                 case R.id.menu_item_strag:
-                    if (mYYNewsListStargAdapter == null) {
-                        mYYNewsListStargAdapter = new YYNewsListStargAdapter(mContext, mDatas,
-                                mPictureTag);
-                        mYYNewsListStargAdapter.addHeaderView(mHeadView);
-                    }
-
+                    initStragAdapter();
                     switchRecyclerAdapter(LayoutMangerType.Strag, mYYNewsListStargAdapter);
-
                     closeMenu();
                     break;
 
                 default:
                     break;
             }
+        }
+    }
+
+    private void initGridAdapter() {
+        if (mYYNewsListGridAdapter == null) {
+            mYYNewsListGridAdapter = new YYNewsListGridAdapter(mContext, mDatas,
+                    mPictureTag);
+            mYYNewsListGridAdapter.addHeaderView(mHeaderView);
+            mYYNewsListGridAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+
+
+                @Override
+                public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    jump(position);
+                }
+            });
+        }
+    }
+
+    private void initStragAdapter() {
+        if (mYYNewsListStargAdapter == null) {
+            mYYNewsListStargAdapter = new YYNewsListStargAdapter(mContext, mDatas,
+                    mPictureTag);
+            mYYNewsListStargAdapter.addHeaderView(mHeaderView);
+            mYYNewsListStargAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+
+
+                @Override
+                public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    jump(position);
+                }
+            });
         }
     }
 
