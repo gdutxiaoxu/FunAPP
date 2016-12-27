@@ -40,6 +40,8 @@ public class HomeFragment extends BindingBaseFragment<FragmentHomeBinding, HomeC
         mViewpager = binding.viewpager;
         mTablayout = binding.tablayout;
 
+
+
     }
 
     @Override

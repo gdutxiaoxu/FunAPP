@@ -7,6 +7,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.xujun.funapp.baiduMap.MyLocationListener;
 import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.mylibrary.ToastUtils;
 
 /**
  * Created by xujun、on 2016/4/20.
@@ -51,6 +52,8 @@ public class APP extends BaseApp {
         super.initData();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         app = this;
+
+        ToastUtils.init(this);
 
 
         WriteLogUtil.init(app);
