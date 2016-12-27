@@ -14,7 +14,7 @@ import rx.Subscriber;
  * @ author：xujun on 2016/9/17 20:32
  * @ email：gdutxiaoxu@163.com
  */
-public class YYNewsPresenter extends DefaultContract.DefaultPresenter<DefaultContract.View>
+public class YYNewsPresenter extends DefaultContract.Presenter<DefaultContract.View>
    implements NewsContract.Presenter{
 
     private final NewsModel mNewsModel;

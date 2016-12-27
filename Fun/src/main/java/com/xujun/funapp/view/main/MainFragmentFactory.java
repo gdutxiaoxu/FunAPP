@@ -2,7 +2,7 @@ package com.xujun.funapp.view.main;
 
 import android.support.v4.app.Fragment;
 
-import com.xujun.funapp.view.main.fragment.news.NewsFragment;
+import com.xujun.funapp.view.main.fragment.home.HomeFragment;
 import com.xujun.funapp.view.main.fragment.news.YYNewsFragment;
 import com.xujun.funapp.view.main.fragment.picture.PictureFragment;
 import com.xujun.funapp.view.main.fragment.setting.SettingFragment;
@@ -30,8 +30,8 @@ public class MainFragmentFactory {
     public Fragment get(int position) {
         if (mFragmentList == null) {
             mFragmentList = new ArrayList<>();
+            mFragmentList.add(new HomeFragment());
             mFragmentList.add(new YYNewsFragment());
-            mFragmentList.add(new NewsFragment());
             mFragmentList.add(new PictureFragment());
             mFragmentList.add(new SettingFragment());
         }

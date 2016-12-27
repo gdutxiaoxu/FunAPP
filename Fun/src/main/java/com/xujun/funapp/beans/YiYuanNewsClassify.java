@@ -126,6 +126,11 @@ public class YiYuanNewsClassify {
             public String channelId;
             public String name;
 
+            public ChannelListEntity(String channelId, String name) {
+                this.channelId = channelId;
+                this.name = name;
+            }
+
             protected ChannelListEntity(Parcel in) {
                 channelId = in.readString();
                 name = in.readString();

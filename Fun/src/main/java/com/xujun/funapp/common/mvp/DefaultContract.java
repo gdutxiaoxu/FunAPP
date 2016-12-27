@@ -26,7 +26,7 @@ public interface DefaultContract {
    }
 
 
-    public static class DefaultPresenter<V extends BaseView> implements BasePresenter {
+    public static class Presenter<V extends BaseView> implements BasePresenter {
 
         private final WeakReference<V> mBaseViewWeakReference;
 
@@ -42,7 +42,7 @@ public interface DefaultContract {
 
         }
 
-        public  DefaultPresenter(V view){
+        public Presenter(V view){
             mBaseViewWeakReference =  new WeakReference<>(view);
         }
 

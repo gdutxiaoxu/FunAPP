@@ -11,7 +11,7 @@ import com.xujun.funapp.network.RequestListener;
  * @ email：gdutxiaoxu@163.com
  */
 public class NewsListPresenter
-        extends DefaultContract.DefaultPresenter<NewsListContract.View>
+        extends DefaultContract.Presenter<NewsListContract.View>
         implements NewsListContract.Presenter {
 
     private final NewsListModel mNewsListModel;

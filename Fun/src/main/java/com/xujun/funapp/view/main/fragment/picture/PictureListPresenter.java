@@ -10,7 +10,7 @@ import com.xujun.funapp.network.RequestListener;
  * @ author：xujun on 2016/9/18 21:17
  * @ email：gdutxiaoxu@163.com
  */
-public class PictureListPresenter extends DefaultContract.DefaultPresenter<PictureListContract.View>
+public class PictureListPresenter extends DefaultContract.Presenter<PictureListContract.View>
         implements PictureListContract.Presenter {
 
 

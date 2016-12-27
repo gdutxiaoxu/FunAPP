@@ -21,4 +21,17 @@
         <item name="android:padding" >8dp</item>
         <item name="android:button" >@null</item>
     </style>
+
+   <!-- <com.xujun.mylibrary.widget.ImageButtonWithText
+        android:id="@+id/wechat"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:text="微信精选"/>-->
+
+    <style name="imageText">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

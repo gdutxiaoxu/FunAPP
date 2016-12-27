@@ -43,7 +43,7 @@ dependencies {
     // 添加依赖
 //    compile project(':commonlibrary')
 
-    compile project(':mylibrary')
+
 
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
@@ -75,4 +75,5 @@ dependencies {
 
     compile 'com.tamic.novate:novate:1.2.7.1'
     compile project(path: ':myrxretrofitlibrary')
+    compile project(path: ':mylibrary')
 }

@@ -12,7 +12,7 @@ import rx.Subscriber;
  * @ email：gdutxiaoxu@163.com
  */
 public class YYNewsListPresenter
-        extends DefaultContract.DefaultPresenter<YYNewsListContract.View>
+        extends DefaultContract.Presenter<YYNewsListContract.View>
         implements YYNewsListContract.Presenter {
 
     private final YYNewsListModel mYYNewsListModel;

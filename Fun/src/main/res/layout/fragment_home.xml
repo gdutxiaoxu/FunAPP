@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <android.support.design.widget.CoordinatorLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,53 +11,74 @@
         >
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/main.appbar"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:fitsSystemWindows="true"
+            android:layout_height="wrap_content"
             >
 
             <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/main.collapsing"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 >
 
-
-                <ImageView
-                    android:id="@+id/main.backdrop"
+                <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/tangyang7"
-                    app:layout_collapseMode="parallax"
-                    />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    app:layout_collapseMode="parallax">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:title="@string/home"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                            android:id="@+id/wechat"
+                            style="@style/imageText"
+                            app:text="微信精选"/>
+
+                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                            android:id="@+id/joke"
+                            style="@style/imageText"
+                            app:text="笑话大全"/>
+
+                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                            android:id="@+id/fortune"
+                            style="@style/imageText"
+                            app:text="星座运势"/>
+                    </TableRow>
+
+                    <TableRow>
+
+                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                            android:id="@+id/past_life"
+                            style="@style/imageText"
+                            app:text="前世今生"/>
+
+                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                            android:id="@+id/sport"
+                            style="@style/imageText"
+                            app:text="体育赛事"/>
+
+                        <com.xujun.mylibrary.widget.ImageButtonWithText
+                            android:id="@+id/movie"
+                            style="@style/imageText"
+                            app:text="电影票房"/>
+                    </TableRow>
+
+
+                </TableLayout>
+
             </android.support.design.widget.CollapsingToolbarLayout>
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
+                android:id="@+id/tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabIndicatorHeight="4dp"
-                app:tabSelectedTextColor="#000"
                 app:tabMode="scrollable"
+                app:tabSelectedTextColor="#000"
                 app:tabTextColor="#fff"/>
         </android.support.design.widget.AppBarLayout>
 
