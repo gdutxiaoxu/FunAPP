@@ -32,10 +32,10 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     private static final String ID = "id";
 
     private static String[] tags = PictureListModel.tags;
-    private ArrayList<PictureListBean.TngouBean> mDatas;
+    private ArrayList<PictureListBean.TngouBean>  mDatas = new ArrayList<>();;
     private PictureListAdapter mAdapter;
 
-    protected int mId = 0;
+    protected int mId = -1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
 
     @Override
     protected BaseRecyclerAdapter getAdapter() {
-        mDatas = new ArrayList<>();
+
         mAdapter = new PictureListAdapter(mContext, mDatas, this);
         return mAdapter;
     }
@@ -124,16 +124,16 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     }
 
     protected void getNextPageData() {
-        mPresenter.getPictureList(String.valueOf(++mPage), String.valueOf(mRows), mId);
+        mPresenter.getPictureList(String.valueOf(++mPage), String.valueOf(mRows), mId+1);
     }
 
     protected void getFirstPageData() {
         mPage = 1;
-        mPresenter.getPictureList(String.valueOf(mPage), String.valueOf(mRows), mId);
+        mPresenter.getPictureList(String.valueOf(mPage), String.valueOf(mRows), mId+1);
     }
 
     protected boolean isFirstItem(){
-        return mId==1;
+        return mId==0;
     }
 
     @Override

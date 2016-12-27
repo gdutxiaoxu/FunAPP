@@ -51,7 +51,9 @@
         </activity>
         <activity android:name=".view.detail.NewsDetailActivity">
         </activity>
-        <activity android:name=".view.location.CityPickerActivity"/>
+        <activity android:name=".view.location.CityPickerActivity"
+                  android:windowSoftInputMode="adjustPan">
+        </activity>
 
         <activity android:name=".view.detail.PictureDetailActivity2">
 

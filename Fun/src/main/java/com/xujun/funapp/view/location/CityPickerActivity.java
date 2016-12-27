@@ -26,11 +26,12 @@ import com.xujun.funapp.adapters.ResultListAdapter;
 import com.xujun.funapp.beans.City;
 import com.xujun.funapp.beans.LocateState;
 import com.xujun.funapp.common.Constants.IntentConstants;
-
 import com.xujun.funapp.db.DBManager;
 import com.xujun.funapp.widget.SideLetterBar;
 
 import java.util.List;
+
+import static com.xujun.funapp.R.id.side_letter_bar;
 
 /**
  * 博客地址：http://blog.csdn.net/gdutxiaoxu
@@ -217,7 +218,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         mListView.setAdapter(mCityAdapter);
 
         TextView overlay = (TextView) findViewById(R.id.tv_letter_overlay);
-        mLetterBar = (SideLetterBar) findViewById(R.id.side_letter_bar);
+        mLetterBar = (SideLetterBar) findViewById(side_letter_bar);
         mLetterBar.setOverlay(overlay);
         mLetterBar.setOnLetterChangedListener(new SideLetterBar.OnLetterChangedListener() {
             @Override
@@ -228,6 +229,9 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         });
 
         searchBox = (EditText) findViewById(R.id.et_search);
+        mLetterBar.requestFocus();
+
+
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

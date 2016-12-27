@@ -31,7 +31,7 @@ public class PictureFragment extends BaseViewPagerFragemnt<PicturePresenter>
         mFragments=new ArrayList<>();
         for(int i=0;i<mTitles.length;i++){
 //            传递过去分别是 1-7
-            PictureListFragment pictureListFragment = PictureListFragment.newInstance(mTitles[0],i+1);
+            PictureListFragment pictureListFragment = PictureListFragment.newInstance(mTitles[0],i);
             mFragments.add(pictureListFragment);
 
         }
