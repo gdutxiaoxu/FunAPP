@@ -64,6 +64,9 @@ public class YYHttpManger {
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.e(TAG, "call: =" + e.getMessage());
+                }catch (IllegalStateException e){//这个操作是捕获Gson转化错误的
+                    e.printStackTrace();
+                    Log.e(TAG, "Gson转化出错: =" + e.getMessage());
                 }
                 return "出错了，请查看";
             }
