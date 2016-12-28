@@ -67,23 +67,22 @@ public class MutiLayout extends FrameLayout {
     }
 
     private void initView() {
-        emptyView = createEmptyView();
+      /*  emptyView = createEmptyView();
         errorView = createErrorView();
         loadingView = createLoadingView();
-        removeView(emptyView);
-        removeView(errorView);
-        removeView(loadingView);
+        removeParent(emptyView);
+        removeParent(errorView);
+        removeParent(loadingView);
         add(emptyView);
         add(errorView);
-        add(loadingView);
+        add(loadingView);*/
         show(LoadResult.loading);
 
     }
 
     private void add(View view) {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams
-                .MATCH_PARENT, LayoutParams
-                .MATCH_PARENT);
+                .MATCH_PARENT, LayoutParams.MATCH_PARENT);
         addView(view, layoutParams);
     }
 
@@ -91,9 +90,13 @@ public class MutiLayout extends FrameLayout {
         TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.empty);
         mEmptyText = typedArray.getString(R.styleable.empty_emptyText);
         mEmptyIconId = typedArray.getResourceId(R.styleable.empty_emptyIcon, -1);
-        mErrorText = typedArray.getString(R.styleable.error_errorIcon);
-        mErrorIconId = typedArray.getResourceId(R.styleable.error_errorIcon, -1);
         typedArray.recycle();
+        //  错误界面的
+        TypedArray b = mContext.obtainStyledAttributes(attrs, R.styleable.error);
+        mErrorText = b.getString(R.styleable.error_errorText);
+        mErrorIconId = b.getResourceId(R.styleable.error_errorIcon, -1);
+        b.recycle();
+
 
     }
 
@@ -124,74 +127,104 @@ public class MutiLayout extends FrameLayout {
     public void hide() {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
-            view.setVisibility(View.INVISIBLE);
+            view.setVisibility(View.GONE);
         }
     }
 
     // 根据不同的状态显示不同的界面
     public void show(LoadResult loadResult) {
         state = loadResult.getValue();
-        if (state == STATE_NOONE) {
-            hide();
-        } else {
-            loadingView.setVisibility(state == STATE_LOADING ? View.VISIBLE : View.INVISIBLE);
+        switch (state) {
+            case STATE_LOADING:
+                loadingView = createLoadingView();
+                break;
+            case STATE_ERROR:
+                errorView = createErrorView();
+                break;
+            case STATE_EMPTY:
+                emptyView = createEmptyView();
+                break;
+            case STATE_NOONE:
+                hide();
+                break;
+            default:
+                break;
 
-            errorView.setVisibility(state == STATE_ERROR ? View.VISIBLE
-                    : View.INVISIBLE);
-
-            emptyView.setVisibility(state == STATE_EMPTY ? View.VISIBLE
-                    : View.INVISIBLE);
         }
+        if(loadingView!=null){
+            loadingView.setVisibility(state == STATE_LOADING ? View.VISIBLE : View.GONE);
+        }
+
+        if(errorView!=null){
+            errorView.setVisibility(state == STATE_ERROR ? View.VISIBLE : View.GONE);
+        }
+
+
+        if(emptyView!=null){
+            emptyView.setVisibility(state == STATE_EMPTY ? View.VISIBLE : View.GONE);
+        }
+
+
+
+
 
     }
 
     /* 创建了空的界面 */
     private View createEmptyView() {
-        View view = View.inflate(mContext, R.layout.loadpage_empty,
-                null);
-        mTvEmpty = (TextView) view.findViewById(R.id.tv_empty);
-        mIvEmpty = (ImageView) view.findViewById(R.id.iv_empty);
-        if (TextUtils.isEmpty(mEmptyText)) {
+        if (emptyView == null) {
+            emptyView = View.inflate(mContext, R.layout.loadpage_empty, null);
+            mTvEmpty = (TextView) emptyView.findViewById(R.id.tv_empty);
+            mIvEmpty = (ImageView) emptyView.findViewById(R.id.iv_empty);
+            if (TextUtils.isEmpty(mEmptyText)) {
+                mEmptyText = "";
+            }
             mTvEmpty.setText(mEmptyText);
+
+            if (mEmptyIconId != -1) {
+                mIvEmpty.setImageResource(mEmptyIconId);
+            }
         }
 
-        if (mEmptyIconId != -1) {
-            mIvEmpty.setImageResource(mEmptyIconId);
-        }
-        return view;
+        return emptyView;
     }
 
     /* 创建了错误界面 */
     private View createErrorView() {
-        View view = View.inflate(mContext, R.layout.loadpage_error,
-                null);
-        mBtnError = (Button) view.findViewById(page_bt);
-        mIvError = (ImageView) view.findViewById(R.id.page_iv);
-        if (!TextUtils.isEmpty(mEmptyText)) {
-            mBtnError.setText(mErrorText);
-        }
-
-        if (mErrorIconId != -1) {
-            mIvError.setImageResource(mErrorIconId);
-        }
-
-        mBtnError.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mRetryListener != null) {
-                    mRetryListener.onClick(v);
-                }
+        if (errorView == null) {
+            errorView = View.inflate(mContext, R.layout.loadpage_error, null);
+            mBtnError = (Button) errorView.findViewById(page_bt);
+            mIvError = (ImageView) errorView.findViewById(R.id.page_iv);
+            if (TextUtils.isEmpty(mErrorText)) {
+                mErrorText = "";
             }
-        });
-        return view;
+            mBtnError.setText(mErrorText);
+
+            if (mErrorIconId != -1) {
+                mIvError.setImageResource(mErrorIconId);
+            }
+
+            mBtnError.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (mRetryListener != null) {
+                        mRetryListener.onClick(v);
+                    }
+                }
+            });
+        }
+
+        return errorView;
     }
 
     /* 创建加载中的界面 */
     private View createLoadingView() {
-        View view = View.inflate(mContext,
-                R.layout.loadpage_loading, null);
-        return view;
+        if (loadingView == null) {
+            loadingView = View.inflate(mContext, R.layout.loadpage_loading, null);
+        }
+
+        return loadingView;
     }
 
     public void removeParent(View view) {

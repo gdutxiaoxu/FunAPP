@@ -18,7 +18,6 @@ import com.xujun.funapp.widget.divider.DividerItemDecoration;
 public class RecyclerUtils {
 
 
-
     public static void init(RecyclerView recyclerView, LayoutMangerType type) {
         Context context = recyclerView.getContext();
         if (type == LayoutMangerType.Linear) {

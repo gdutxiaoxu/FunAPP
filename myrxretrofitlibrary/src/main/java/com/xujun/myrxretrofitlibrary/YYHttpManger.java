@@ -1,13 +1,18 @@
 package com.xujun.myrxretrofitlibrary;
 
+import android.util.Log;
+
+import java.io.IOException;
 import java.util.HashMap;
 
-import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
 
 /**
  * @author xujun  on 2016/12/24.
@@ -15,6 +20,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class YYHttpManger {
+
+    public static  final String TAG="YYHttpManger";
 
     private YYHttpManger() {
 
@@ -38,7 +45,25 @@ public class YYHttpManger {
                 .observeOn(AndroidSchedulers.mainThread()).subscribe();
     }*/
 
-    public void excutePush(HashMap<String,Object> map,String url,Subscriber<RequestBody> subscriber){
+    public void Push(HashMap<String,Object> map,String url,Subscriber<String> subscriber){
+        Observable<ResponseBody> observable = getApi().excutePush(url, map);
+        observable.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).map(new Func1<ResponseBody, String>() {
+            @Override
+            public String call(ResponseBody responseBody) {
+                try {
+                    return responseBody.string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "call: =" + e.getMessage());
+                }
+                return "出错了，请查看";
+            }
+        }).subscribe(subscriber);
+
+    }
+
+    public void excutePush(HashMap<String,Object> map,String url,Subscriber<ResponseBody> subscriber){
         /*Observable<RequestBody> observable = getApi().excutePush(url, map);
         observable.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).map(new Func1<RequestBody, String>() {
@@ -48,7 +73,7 @@ public class YYHttpManger {
                 return s;
             }
         }).subscribe(subscriber);*/
-        Observable<RequestBody> observable = getApi().excutePush(url, map);
+        Observable<ResponseBody> observable = getApi().excutePush(url, map);
         observable.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
 

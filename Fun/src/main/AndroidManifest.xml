@@ -51,8 +51,9 @@
         </activity>
         <activity android:name=".view.detail.NewsDetailActivity">
         </activity>
-        <activity android:name=".view.location.CityPickerActivity"
-                  android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".view.location.CityPickerActivity"
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <activity android:name=".view.detail.PictureDetailActivity2">
@@ -60,6 +61,10 @@
         </activity>
 
         <activity android:name=".view.detail.YYNewsDetailActivity">
+
+        </activity>
+
+        <activity android:name=".view.wechat.WechatActivity">
 
         </activity>
 

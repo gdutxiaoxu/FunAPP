@@ -1,29 +1,25 @@
 package com.xujun.funapp.common;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xujun.funapp.BaseFragment;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.mylibrary.utils.ViewUtils;
 
 import org.simple.eventbus.EventBus;
 
-import static com.xujun.funapp.common.Constants.IntentConstants.DEFAULT_PARCEABLE_NAME;
-
 /**
  * Created by xujun、on 2016/4/26.
  */
 public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends BasePresenter>
-        extends Fragment {
+        extends BaseFragment {
 
     protected V mBinding;
     protected P mPresenter;
@@ -160,28 +156,7 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
     }
 
 
-    public void readyGo(Class<?> clazz) {
-        this.readyGo(clazz, null, null);
-    }
 
-    public void readyGo(Class<?> clazz, Parcelable parcelable) {
-        this.readyGo(clazz, DEFAULT_PARCEABLE_NAME, parcelable);
-    }
-
-    public void readyGo(Class<?> clazz, String name, Parcelable parcelable) {
-        Intent intent = new Intent(getActivity(), clazz);
-        if (null != parcelable) {
-            intent = intent.putExtra(name, parcelable);
-        }
-        startActivity(intent);
-    }
-
-    protected <T> T checkNotNull(T t) {
-        if (t == null) {
-            throw new NullPointerException();
-        }
-        return t;
-    }
 
     protected abstract int getContentViewLayoutID();
 
