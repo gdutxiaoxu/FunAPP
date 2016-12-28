@@ -9,7 +9,7 @@ public class BaseYYEntity {
 
     public int showapi_res_code;
     public String showapi_res_error;
-    public String showapi_res_body;
+    public Object showapi_res_body;
 
     public int getShowapi_res_code() {
         return showapi_res_code;
@@ -28,7 +28,7 @@ public class BaseYYEntity {
     }
 
     public String getShowapi_res_body() {
-        return showapi_res_body;
+        return showapi_res_body.toString();
     }
 
     public void setShowapi_res_body(String showapi_res_body) {

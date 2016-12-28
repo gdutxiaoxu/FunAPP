@@ -28,14 +28,7 @@ import java.util.List;
 public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
     Object pictureTag;
 
-
-
-
-
-
-
-    public YYNewsListAdapter(Context context, List<ContentlistEntity> datas, Object pictureTag
-                             ) {
+    public YYNewsListAdapter(Context context, List<ContentlistEntity> datas, Object pictureTag) {
         super(context, R.layout.item_news_list, datas);
         this.pictureTag = pictureTag;
     }

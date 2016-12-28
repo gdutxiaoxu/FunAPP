@@ -9,7 +9,7 @@ import com.xujun.myrxretrofitlibrary.YYHttpManger;
 
 import java.util.HashMap;
 
-import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -49,7 +49,7 @@ public class YYNewsListModel {
     }
 
     public void getNews(String url,String channelId, String channelName, int page,
-                        int maxResult, Subscriber<RequestBody> subscriber) {
+                        int maxResult, Subscriber<ResponseBody> subscriber) {
         HashMap<String, Object> map = new HashMap<>();
         map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
         map.put(YiYuanApi.API_SIGN_KEY,YiYuanApi.API_SIGN);

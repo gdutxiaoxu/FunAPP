@@ -30,7 +30,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
     //代表当前是第几页
     protected int mPage = 1;
     protected int mRows = 20;
-    //记录请求结果的状态，有三种类型，success，error，empty
+    //记录请求结果的状态，有三种类型，success，onError，empty
     protected RequestResult mRequestResult;
 
     protected RecyclerView mRecyclerView;
@@ -52,7 +52,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
 
     protected LayoutMangerType mLayoutMangerType=LayoutMangerType.Linear;
 
-    //记录请求结果的状态，有三种类型，success，error，empty
+    //记录请求结果的状态，有三种类型，success，onError，empty
     public enum RequestResult {
         success, error, empty;
     }
@@ -150,7 +150,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.error);
+                //                show(LoadResult.onError);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();

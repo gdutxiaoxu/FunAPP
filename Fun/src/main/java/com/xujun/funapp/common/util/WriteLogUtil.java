@@ -58,7 +58,7 @@ public class WriteLogUtil {
 
     }
 
-    public static final void json(String msg){
+    public static final void json(String msg) {
         Logger.json(msg);
     }
 
@@ -71,14 +71,17 @@ public class WriteLogUtil {
     public final static void e(String TAG, String msg) {
         if (isEShow) {
             Logger.t(TAG).e(msg);
-            if (LOG_WRITE_TO_FILE)
-                writeLogtoFile("e", TAG, msg);
+            if (LOG_WRITE_TO_FILE) writeLogtoFile("e", TAG, msg);
         }
 
     }
 
     public final static void e(String msg) {
-        e(TAG, msg);
+        if (!isWShow) {
+            return;
+        }
+        Logger.t(TAG).e(msg);
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("w", TAG, msg);
 
 
     }
@@ -94,12 +97,15 @@ public class WriteLogUtil {
             return;
         }
         Logger.t(TAG).w(msg);
-        if (LOG_WRITE_TO_FILE)
-            writeLogtoFile("w", TAG, msg);
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("w", TAG, msg);
     }
 
     public final static void w(String msg) {
-        w(TAG, msg);
+        if (!isWShow) {
+            return;
+        }
+        Logger.t(TAG).w(msg);
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("w", TAG, msg);
     }
 
     /**
@@ -113,12 +119,15 @@ public class WriteLogUtil {
             return;
         }
         Logger.t(TAG).d(msg);
-        if (LOG_WRITE_TO_FILE)
-            writeLogtoFile("d", TAG, msg);
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("d", TAG, msg);
     }
 
     public final static void d(String msg) {
-        d(TAG, msg);
+        if (!isDShow) {
+            return;
+        }
+        Logger.t(TAG).d(msg);
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("d", TAG, msg);
     }
 
     /**
@@ -133,14 +142,18 @@ public class WriteLogUtil {
         if (!isIShow) {
             return;
         }
-//        Logger.t(TAG).i(msg);
-        Logger.i(msg);
-        if (LOG_WRITE_TO_FILE)
-            writeLogtoFile("i", TAG, msg);
+        Logger.t(TAG).i(msg);
+
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("i", TAG, msg);
     }
 
     public final static void i(String msg) {
-        i(TAG, msg);
+        if (!isIShow) {
+            return;
+        }
+        //        Logger.t(TAG).i(msg);
+        Logger.i(msg);
+        if (LOG_WRITE_TO_FILE) writeLogtoFile("i", TAG, msg);
     }
 
     /**
@@ -153,14 +166,8 @@ public class WriteLogUtil {
     private static void writeLogtoFile(String logType, String tag, String msg) {
         isExist(PATH);
         //isDel();
-        String needWriteMessage = "\r\n"
-                + TimeUtil.getNowMDHMSTime()
-                + "\r\n"
-                + logType
-                + "    "
-                + tag
-                + "\r\n"
-                + msg;
+        String needWriteMessage = "\r\n" + TimeUtil.getNowMDHMSTime() + "\r\n" + logType + "    "
+                + tag + "\r\n" + msg;
         File parent = new File(PATH);
         if (!parent.exists()) {
             parent.mkdirs();

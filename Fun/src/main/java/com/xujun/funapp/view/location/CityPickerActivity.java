@@ -133,7 +133,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
             StringBuffer sb = new StringBuffer(256);
             sb.append("time : ");
             sb.append(location.getTime());
-            sb.append("\nerror code : ");
+            sb.append("\nonError code : ");
             sb.append(location.getLocType());
             sb.append("\nlatitude : ");
             sb.append(location.getLatitude());

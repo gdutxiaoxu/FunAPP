@@ -18,7 +18,7 @@ public class NetworkUtil {
     public static int NET_CNNT_BAIDU_OK = 1; // NetworkAvailable
     public static int NET_CNNT_BAIDU_TIMEOUT = 2; // no NetworkAvailable
     public static int NET_NOT_PREPARE = 3; // Net no ready
-    public static int NET_ERROR = 4; //net error
+    public static int NET_ERROR = 4; //net onError
     private static int TIMEOUT = 3000; // TIMEOUT
 
 

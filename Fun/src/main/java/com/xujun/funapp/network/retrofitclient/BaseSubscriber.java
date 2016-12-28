@@ -22,7 +22,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         Log.e("Tamic", e.getMessage());
-        // todo error somthing
+        // todo onError somthing
 
         if(e instanceof ExceptionHandle.ResponeThrowable){
             onError((ExceptionHandle.ResponeThrowable)e);

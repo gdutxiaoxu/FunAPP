@@ -39,11 +39,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.main.MainActivity">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".view.main.TestActivity">
         </activity>
@@ -65,6 +65,12 @@
         </activity>
 
         <activity android:name=".view.wechat.WechatActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity>
 
