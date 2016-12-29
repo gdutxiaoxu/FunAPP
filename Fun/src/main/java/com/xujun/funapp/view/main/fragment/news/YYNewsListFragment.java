@@ -11,19 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.adapters.YYNewsListAdapter;
 import com.xujun.funapp.adapters.YYNewsListGridAdapter;
 import com.xujun.funapp.adapters.YYNewsListStargAdapter;
+import com.xujun.funapp.adapters.MultiYYNewsListAdapter;
 import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.beans.YYNews.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity;
 import com.xujun.funapp.beans.YiYuanNewsClassify.ShowapiResBodyEntity.ChannelListEntity;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
-import com.xujun.mylibrary.utils.ListUtils;
+import com.xujun.funapp.common.recyclerView.MultiItemTypeSupport;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.view.detail.YYNewsDetailActivity;
+import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.mylibrary.widget.CarouselView;
 
 import java.util.ArrayList;
@@ -45,7 +46,6 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     private ChannelListEntity mChannelListEntity = null;
 
 
-    private YYNewsListAdapter mAdapter;
     private YYNewsListGridAdapter mYYNewsListGridAdapter;
     private YYNewsListStargAdapter mYYNewsListStargAdapter;
     //  保存上一次的可见的第一个位置
@@ -60,6 +60,7 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     ;
     private CarouselView mCarouselView;
     private View mHeaderView;
+    private MultiYYNewsListAdapter mMultiListAdapter;
 
     public static YYNewsListFragment newInstance(Parcelable parcelable, int postion) {
         YYNewsListFragment newsListFragment = new YYNewsListFragment();
@@ -93,7 +94,7 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     @Override
     protected void initListener() {
         super.initListener();
-        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        mMultiListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
                 jump(position);
@@ -137,10 +138,26 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
 
     @Override
     protected BaseRecyclerAdapter getAdapter() {
-        mAdapter = new YYNewsListAdapter(mContext, mDatas, mPictureTag);
+        mMultiListAdapter = new MultiYYNewsListAdapter(mContext, mDatas, new MultiItemTypeSupport<ContentlistEntity>() {
+            @Override
+            public int getItemType(ContentlistEntity contentlistEntity, int position) {
+                if (contentlistEntity.havePic) {
+                    return MultiYYNewsListAdapter.TYPE_ONE;
+                }
+                return MultiYYNewsListAdapter.TYPE_TWO;
+            }
+
+            @Override
+            public int getLayoutId(int itemType) {
+                if (itemType == MultiYYNewsListAdapter.TYPE_ONE) {
+                    return R.layout.item_yy_news_list_one;
+                }
+                return R.layout.item_yy_news_list_two;
+            }
+        });
         View headerView = initHeaderView();
-        mAdapter.addHeaderView(headerView);
-        return mAdapter;
+        mMultiListAdapter.addHeaderView(headerView);
+        return mMultiListAdapter;
     }
 
     private View initHeaderView() {
@@ -237,7 +254,7 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.menu_item_linear:
-                    switchRecyclerAdapter(LayoutMangerType.Linear, mAdapter);
+                    switchRecyclerAdapter(LayoutMangerType.Linear, mMultiListAdapter);
                     closeMenu();
                     break;
                 case R.id.menu_item_grid:

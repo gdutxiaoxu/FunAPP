@@ -65,7 +65,8 @@ public class WechatActivity extends BaseListActivity<WeChatPresenter> implements
     public void onReveive(String s) {
         WriteLogUtil.i("s =" + s);
         WeChatJingXuan weChatJingXuan = GsonManger.getInstance().fromJson(s, WeChatJingXuan.class);
-        List<PagebeanEntity.ContentlistEntity> contentlist = weChatJingXuan.showapi_res_body.pagebean.contentlist;
+        List<PagebeanEntity.ContentlistEntity> contentlist = weChatJingXuan.showapi_res_body
+                .pagebean.contentlist;
         if (false == ListUtils.isEmpty(contentlist)) {
             handleResult(contentlist, BaseListFragment.RequestResult.success);
         } else {

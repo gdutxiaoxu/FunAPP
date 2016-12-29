@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginBottom="@dimen/yy_news_root_margin"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/yy_news_root_margin"
+        android:layout_marginRight="10dp"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_title"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="哈哈，索隆的绝招，三刀流，二刀流，大神卷，烦恼"
+            android:textColor="#000"
+            android:textSize="23sp"/>
+
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_alignLeft="@id/tv_title"
+            android:layout_alignRight="@id/tv_title"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="哈哈，索隆的绝招，三刀流，二刀流，大神卷，烦恼"
+            android:textColor="#8666"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_title"
+            android:layout_alignRight="@id/tv_title"
+            android:layout_alignParentBottom="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="凤凰新闻"
+            android:textSize="15sp"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_source"
+            android:layout_alignParentRight="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingRight="10dp"
+            android:text="2016：10"
+            android:textSize="15sp"
+            />
+
+    </RelativeLayout>
+
+</FrameLayout>

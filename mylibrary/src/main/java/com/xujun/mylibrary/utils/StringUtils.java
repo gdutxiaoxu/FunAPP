@@ -25,6 +25,9 @@ public class StringUtils {
     }
 
     public static String getStr(String str){
-       return getStr(str,"null");
+        if(str==null){
+            return "null";
+        }
+        return str;
     }
 }
