@@ -51,6 +51,10 @@ public class YYNewsListAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
         }
 
         String time = StringUtils.getStr(item.pubDate);
+        int length = time.length();
+        if(length >5){
+            time=time.substring(5,length);
+        }
         String source = StringUtils.getStr(item.source);
         tvTime.setText(time);
         tvSource.setText(source);

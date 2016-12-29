@@ -2,10 +2,16 @@ package com.xujun.funapp;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
+import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.databinding.ActivityBaseListBinding;
+
+import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
@@ -19,19 +25,20 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
         BaseMVPActivity<ActivityBaseListBinding, P> {
 
     private RecyclerView mRecyclerView;
-    private BGARefreshLayout mBGARefreshLayout;
-    private RecyclerView.Adapter mAdapter;
-    private boolean  mEnableLoadMore = true;
+    private BGARefreshLayout mRefreshLayout;
+    private BaseRecyclerAdapter mBaseAdapter;
+    private boolean mEnableLoadMore = true;
 
-    protected int mPage=1;
+    protected int mPage = 1;
+    private BaseListFragment.RequestResult mRequestResult;
 
     @Override
     protected void initView(ActivityBaseListBinding bind) {
         mRecyclerView = bind.recyclerView;
-        mBGARefreshLayout = bind.BGARefreshLayout;
+        mRefreshLayout = bind.BGARefreshLayout;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = getAdapter();
-        mRecyclerView.setAdapter(mAdapter);
+        mBaseAdapter = getBaseAdapter();
+        mRecyclerView.setAdapter(mBaseAdapter);
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -39,14 +46,14 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
         refreshViewHolder.setUltimateColor(R.color.colorPrimary);
         refreshViewHolder.setSpringDistanceScale(0.2f);
         refreshViewHolder.setLoadingMoreText("正在加载更多");
-        mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
+        mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        mBGARefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
+        mRefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 getFirstPageData();
@@ -65,17 +72,78 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
     }
 
     protected void getFirstPageData() {
-        mPage=1;
+        mPage = 1;
     }
 
-    public void setEnableLoadMore(Boolean enableLoadMore){
-        mEnableLoadMore=enableLoadMore;
+    public void setEnableLoadMore(Boolean enableLoadMore) {
+        mEnableLoadMore = enableLoadMore;
     }
 
-    protected abstract RecyclerView.Adapter getAdapter();
+    protected abstract BaseRecyclerAdapter getBaseAdapter();
 
     @Override
     protected int getContentViewLayoutID() {
         return R.layout.activity_base_list;
+    }
+
+    protected <V> void handleResult(List<V> data, BaseListFragment.RequestResult requestResult) {
+        mRequestResult = requestResult;
+
+        // 请求成功的时候
+        if (requestResult == BaseListFragment.RequestResult.success) {
+            if (isFirstPage()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                //                show(LoadResult.noone);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRefreshLayout.endLoadingMore();
+            }
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mRefreshLayout.setVisibility(View.VISIBLE);
+            mBaseAdapter.addDates(data);
+        } else if (requestResult == BaseListFragment.RequestResult.error) {
+
+            if (isFirstPage()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                //                show(LoadResult.onError);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mRefreshLayout.setVisibility(View.INVISIBLE);
+                mRefreshLayout.endRefreshing();
+                mBaseAdapter.clearDates();
+            } else {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mRefreshLayout.setVisibility(View.VISIBLE);
+                mRefreshLayout.endLoadingMore();
+                Toast.makeText(mContext, "网络加载错误", Toast.LENGTH_SHORT).show();
+            }
+
+            mPage--;
+        } else {
+
+            if (isFirstPage()) {
+                /**
+                 * 在第一页刷新结束的要隐藏mMultiLayout
+                 */
+                //                show(LoadResult.empty);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                mRefreshLayout.setVisibility(View.INVISIBLE);
+                mRefreshLayout.endRefreshing();
+            } else {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mRefreshLayout.setVisibility(View.VISIBLE);
+                mRefreshLayout.endLoadingMore();
+            }
+            mPage--;
+        }
+
+
+    }
+
+    private boolean isFirstPage() {
+        return mPage <= 1;
     }
 }

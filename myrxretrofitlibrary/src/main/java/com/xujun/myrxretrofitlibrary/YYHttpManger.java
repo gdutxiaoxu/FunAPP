@@ -60,7 +60,7 @@ public class YYHttpManger {
                     if (baseYYEntity.getShowapi_res_code() != 0) {
                         Log.i(TAG, "call: =" + baseYYEntity.getShowapi_res_error());
                     }
-                    return baseYYEntity.getShowapi_res_body();
+                    return result;
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.e(TAG, "call: =" + e.getMessage());
