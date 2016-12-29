@@ -23,14 +23,14 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     protected List<T> mDatas;
     protected BaseRecyclerAdapter.OnItemClickListener mOnItemClickListener;
     protected BaseRecyclerAdapter.OnLongItemClickListener mOnLongItemClickListener;
-    List<View> mHeaderView = new ArrayList<>();
+    protected List<View> mHeaderView = new ArrayList<>();
 
     /**
      * HeaderView Type=TYPE_HEADER+position;
      * Normal TYpe=TYPE_NORMAL;
      */
-    public static final int TYPE_HEADER = 10000;
-    public static final int TYPE_NORMAL = 0;
+    private static final int TYPE_HEADER = 10000;
+    private static final int TYPE_NORMAL = 0;
 
     public void addHeaderView(View view) {
         mHeaderView.add(view);
@@ -71,7 +71,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     @Override
     public void onBindViewHolder(final BaseRecyclerHolder holder, int position) {
-        if (isHeaderType(getHeaderTypeFromPosition(position))) {
+        if (isHeaderType(holder.getItemViewType())) {
             return;
         }
         position = position - getHeaderViewCounts();
@@ -112,11 +112,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         return mDatas == null || mDatas.size() == 0;
     }
 
-    private int getHeaderTypeFromPosition(int position) {
+    protected int getHeaderTypeFromPosition(int position) {
         return TYPE_HEADER + position;
     }
 
-    private int getHeaderPositionFromType(int type) {
+    protected int getHeaderPositionFromType(int type) {
         return type - TYPE_HEADER;
     }
 
@@ -124,7 +124,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         return position < getHeaderViewCounts();
     }
 
-    private int getHeaderViewCounts() {
+    protected int getHeaderViewCounts() {
         return mHeaderView.size();
     }
 
@@ -140,7 +140,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         mDatas = datas;
     }
 
-    private boolean isHeaderType(int type) {
+    protected boolean isHeaderType(int type) {
         return type >= TYPE_HEADER && type < getHeaderViewCounts() + TYPE_HEADER;
     }
 
@@ -181,6 +181,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
             public boolean onLongClick(View v) {
                 if (mOnLongItemClickListener != null) {
                     int position = viewHolder.getAdapterPosition();
+                    position = position - getHeaderViewCounts();
                     return mOnLongItemClickListener.onItemLongClick(v, viewHolder, position);
                 }
                 return false;

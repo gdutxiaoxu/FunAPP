@@ -115,6 +115,8 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
                 return R.layout.item_picture_list_two;
             }
         });
+        View headerView = View.inflate(mContext, R.layout.header_view_test, null);
+        mMultiPictureListAdapter.addHeaderView(headerView);
         return mMultiPictureListAdapter;
     }
 

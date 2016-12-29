@@ -12,14 +12,14 @@
         android:background="@android:color/holo_green_light">
 
 
-        <com.xujun.mylibrary.widget.CarouselView
-            android:id="@+id/carouselView"
+        <ImageView
+            android:id="@+id/iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="fitXY"
             android:layout_gravity="center"
+            android:src="@mipmap/tangyang7"
             />
-
-
 
     </FrameLayout>
 </FrameLayout>
