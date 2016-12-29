@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:padding="@dimen/mei_tu_toor_padding"
+    >
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bga_refresh_loading01"/>
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/iv"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="哈哈，我是唐嫣大美女的粉丝"
+        android:textColor="#000"
+        android:textSize="20sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_image_nums"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="20dp"
+        android:text="图片数量：20"
+        android:textSize="15sp"
+        />
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/iv"
+        android:layout_below="@+id/tv_image_nums"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/darker_gray"/>-->
+
+</RelativeLayout>

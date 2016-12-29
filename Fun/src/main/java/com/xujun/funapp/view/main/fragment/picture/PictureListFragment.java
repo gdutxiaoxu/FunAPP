@@ -7,15 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xujun.funapp.R;
+import com.xujun.funapp.adapters.MultiPictureListAdapter;
 import com.xujun.funapp.adapters.PictureListAdapter;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
-import com.xujun.mylibrary.utils.LUtils;
-import com.xujun.mylibrary.utils.ListUtils;
+import com.xujun.funapp.common.recyclerView.MultiItemTypeSupport;
 import com.xujun.funapp.model.PictureListModel;
 import com.xujun.funapp.view.detail.PictureDetailActivity2;
+import com.xujun.mylibrary.utils.LUtils;
+import com.xujun.mylibrary.utils.ListUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     private PictureListAdapter mAdapter;
 
     protected int mId = -1;
+    private MultiPictureListAdapter mMultiPictureListAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,14 +95,33 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
     @Override
     protected BaseRecyclerAdapter getAdapter() {
 
-        mAdapter = new PictureListAdapter(mContext, mDatas, this);
-        return mAdapter;
+        mMultiPictureListAdapter = new MultiPictureListAdapter(mContext, mDatas, new MultiItemTypeSupport<PictureListBean.TngouBean>() {
+
+            @Override
+            public int getItemType(PictureListBean.TngouBean tngouBean, int position) {
+                if (position % 5 == 0) {
+                    return MultiPictureListAdapter.TYPE_TWO;
+                } else {
+                    return MultiPictureListAdapter.TYPE_ONE;
+                }
+
+            }
+
+            @Override
+            public int getLayoutId(int itemType) {
+                if (itemType == MultiPictureListAdapter.TYPE_ONE) {
+                    return R.layout.item_picture_list_one;
+                }
+                return R.layout.item_picture_list_two;
+            }
+        });
+        return mMultiPictureListAdapter;
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        mMultiPictureListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
                 PictureListBean.TngouBean tngouBean = mDatas.get(position);

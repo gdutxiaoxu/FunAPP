@@ -11,4 +11,5 @@
     <dimen name="city_text_size">16sp</dimen>
     <dimen name="setting_icon">30dp</dimen>
     <dimen name="setting_icon_padding">6dp</dimen>
+    <dimen name="mei_tu_toor_padding">10dp</dimen>
 </resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/mei_tu_toor_padding"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="哈哈，我是唐嫣大美女的粉丝"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_alignLeft="@+id/iv"/>
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/tv_des"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/tangyang7"/>
+
+
+    <TextView
+        android:id="@+id/tv_image_nums"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/iv"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="20dp"
+        android:text="图片数量：20"
+        android:textSize="15sp"
+        android:layout_alignRight="@+id/iv"
+        />
+
+</RelativeLayout>
