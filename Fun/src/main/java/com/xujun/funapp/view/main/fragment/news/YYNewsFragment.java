@@ -88,8 +88,8 @@ public class YYNewsFragment extends BaseViewPagerFragemnt<YYNewsPresenter> imple
             @Override
             public void onNext(List<ChannelListEntity> channelList) {
                 int size = channelList.size();
-                if (size > 4) {
-                    size = 4;
+                if (size > 7) {
+                    size = 7;
                 }
                 for (int i = 0; i < size; i++) {
                     ChannelListEntity channelListEntity = channelList.get(i);

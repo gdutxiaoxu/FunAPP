@@ -11,7 +11,7 @@ import com.xujun.funapp.R;
 import com.xujun.funapp.adapters.NewsListAdapter;
 import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.common.BaseListFragment;
-import com.xujun.funapp.common.RecyclerUtils;
+import com.xujun.funapp.common.recyclerView.RecyclerUtils;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.mylibrary.utils.ListUtils;

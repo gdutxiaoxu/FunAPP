@@ -13,10 +13,12 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/colorAccent"
+            android:background="?attr/colorPrimary"
+            app:tabIndicatorColor="?attr/colorPrimary"
             app:tabIndicatorHeight="4dp"
-            app:tabSelectedTextColor="#f00"
-            app:tabTextColor="#000"/>/>
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="#000"
+            app:tabTextColor="#fff"/>/>
 
         <android.support.v4.view.ViewPager
             android:layout_weight="1"

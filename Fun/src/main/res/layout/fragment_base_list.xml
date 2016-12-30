@@ -8,6 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.xujun.funapp.widget.MutiLayout
+            android:visibility="gone"
+            android:id="@+id/multiLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.xujun.funapp.widget.MutiLayout>
+
         <cn.bingoogolapple.refreshlayout.BGARefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"

@@ -10,6 +10,8 @@ import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.databinding.ActivityBaseListBinding;
+import com.xujun.funapp.widget.MutiLayout;
+import com.xujun.funapp.widget.MutiLayout.LoadResult;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
 
     protected int mPage = 1;
     private BaseListFragment.RequestResult mRequestResult;
+    private MutiLayout mMultiLayout;
 
     @Override
     protected void initView(ActivityBaseListBinding bind) {
@@ -39,6 +42,7 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mBaseAdapter = getBaseAdapter();
         mRecyclerView.setAdapter(mBaseAdapter);
+        mMultiLayout = bind.multiLayout;
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -64,6 +68,12 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 getNextPageData();
                 return mEnableLoadMore;
+            }
+        });
+        mMultiLayout.setOnRetryListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFirstPageData();
             }
         });
     }
@@ -95,11 +105,12 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.noone);
+                show(LoadResult.noone);
                 mRefreshLayout.endRefreshing();
             } else {
                 mRefreshLayout.endLoadingMore();
             }
+            mMultiLayout.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
             mRefreshLayout.setVisibility(View.VISIBLE);
             mBaseAdapter.addDates(data);
@@ -109,7 +120,8 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.onError);
+                mMultiLayout.setVisibility(View.VISIBLE);
+                show(LoadResult.error);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
@@ -128,7 +140,8 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.empty);
+                mMultiLayout.setVisibility(View.VISIBLE);
+                show(LoadResult.empty);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
@@ -136,11 +149,17 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRefreshLayout.setVisibility(View.VISIBLE);
                 mRefreshLayout.endLoadingMore();
+//                设置不能加载更多了
+                setEnableLoadMore(false);
             }
             mPage--;
         }
 
 
+    }
+
+    private void show(LoadResult loadResult) {
+        mMultiLayout.show(loadResult);
     }
 
     private boolean isFirstPage() {

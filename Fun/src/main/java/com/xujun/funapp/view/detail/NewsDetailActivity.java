@@ -91,14 +91,31 @@ public class NewsDetailActivity extends BaseMVPActivity<ActivityNewsDetailBindin
         WebSettings settings = mWebView.getSettings();
         // 设置是够支持js脚本
         settings.setJavaScriptEnabled(true);
-        // 设置是否支持画面缩放
+      /*  // 设置是否支持画面缩放
         settings.setBuiltInZoomControls(true);
 
-        settings.setSupportZoom(true);
+
         // 设置是否显示缩放器
-        settings.setDisplayZoomControls(false);
+        settings.setDisplayZoomControls(false);*/
         //  设置字体的大小
         settings.setTextZoom(120);
+
+//        第一个方法设置webview推荐使用的窗口，设置为true。
+        // 第二个方法是设置webview加载的页面的模式，也设置为true。
+        settings.setSupportZoom(true);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+
+        // 设置可以支持缩放
+        settings.setSupportZoom(true);
+        // 设置出现缩放工具
+        settings.setBuiltInZoomControls(true);
+        //设置可在大视野范围内上下左右拖动，并且可以任意比例缩放
+        settings.setUseWideViewPort(true);
+        //设置默认加载的可视范围是大视野范围
+        settings.setLoadWithOverviewMode(true);
+        //自适应屏幕
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
 
         //优先使用缓存:

@@ -3,7 +3,6 @@ package com.xujun.funapp.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,21 +150,18 @@ public class MutiLayout extends FrameLayout {
                 break;
 
         }
-        if(loadingView!=null){
+        if (loadingView != null) {
             loadingView.setVisibility(state == STATE_LOADING ? View.VISIBLE : View.GONE);
         }
 
-        if(errorView!=null){
+        if (errorView != null) {
             errorView.setVisibility(state == STATE_ERROR ? View.VISIBLE : View.GONE);
         }
 
 
-        if(emptyView!=null){
+        if (emptyView != null) {
             emptyView.setVisibility(state == STATE_EMPTY ? View.VISIBLE : View.GONE);
         }
-
-
-
 
 
     }
@@ -176,14 +172,15 @@ public class MutiLayout extends FrameLayout {
             emptyView = View.inflate(mContext, R.layout.loadpage_empty, null);
             mTvEmpty = (TextView) emptyView.findViewById(R.id.tv_empty);
             mIvEmpty = (ImageView) emptyView.findViewById(R.id.iv_empty);
-            if (TextUtils.isEmpty(mEmptyText)) {
-                mEmptyText = "";
+            if (mEmptyText!=null) {
+                mTvEmpty.setText(mEmptyText);
             }
-            mTvEmpty.setText(mEmptyText);
+
 
             if (mEmptyIconId != -1) {
                 mIvEmpty.setImageResource(mEmptyIconId);
             }
+            this.addView(emptyView);
         }
 
         return emptyView;
@@ -195,10 +192,10 @@ public class MutiLayout extends FrameLayout {
             errorView = View.inflate(mContext, R.layout.loadpage_error, null);
             mBtnError = (Button) errorView.findViewById(page_bt);
             mIvError = (ImageView) errorView.findViewById(R.id.page_iv);
-            if (TextUtils.isEmpty(mErrorText)) {
-                mErrorText = "";
+            if (mEmptyText!=null) {
+                mBtnError.setText(mErrorText);
             }
-            mBtnError.setText(mErrorText);
+
 
             if (mErrorIconId != -1) {
                 mIvError.setImageResource(mErrorIconId);
@@ -211,8 +208,17 @@ public class MutiLayout extends FrameLayout {
                     if (mRetryListener != null) {
                         mRetryListener.onClick(v);
                     }
+                    //设置两秒之后才能重新点击
+                    mBtnError.setEnabled(false);
+                    mBtnError.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mBtnError.setEnabled(true);
+                        }
+                    }, 2000);
                 }
             });
+            addView(errorView);
         }
 
         return errorView;
@@ -222,7 +228,9 @@ public class MutiLayout extends FrameLayout {
     private View createLoadingView() {
         if (loadingView == null) {
             loadingView = View.inflate(mContext, R.layout.loadpage_loading, null);
+            this.addView(loadingView);
         }
+
 
         return loadingView;
     }

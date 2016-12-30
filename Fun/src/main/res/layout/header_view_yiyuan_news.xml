@@ -12,7 +12,7 @@
         android:background="@android:color/holo_green_light">
 
 
-        <com.xujun.mylibrary.widget.CarouselView
+        <com.xujun.funapp.widget.CarouselView
             android:id="@+id/carouselView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

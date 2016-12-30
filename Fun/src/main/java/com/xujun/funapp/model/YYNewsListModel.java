@@ -2,7 +2,6 @@ package com.xujun.funapp.model;
 
 import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.network.ApiManger;
-import com.xujun.funapp.network.HttpManger;
 import com.xujun.funapp.network.YiYuanApi;
 import com.xujun.myrxretrofitlibrary.BaseFunc1;
 import com.xujun.myrxretrofitlibrary.YYHttpManger;
@@ -12,6 +11,8 @@ import java.util.HashMap;
 import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @ explain:
@@ -31,8 +32,10 @@ public class YYNewsListModel {
         map.put("page",page);
         map.put("maxResult",maxResult);
         Observable<YYNews> observable = api.getNews(map);
-        observable.compose(new HttpManger.LiftAllTransformer<YYNews,YYNews>())
-                .subscribe(subscriber);
+        observable.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
+//        observable.compose(new HttpManger.LiftAllTransformer<YYNews,YYNews>())
+//                .subscribe(subscriber);
 
     }
 

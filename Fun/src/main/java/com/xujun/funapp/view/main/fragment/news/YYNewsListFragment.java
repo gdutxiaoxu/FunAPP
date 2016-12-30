@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.xujun.funapp.R;
+import com.xujun.funapp.adapters.MultiYYNewsListAdapter;
 import com.xujun.funapp.adapters.YYNewsListGridAdapter;
 import com.xujun.funapp.adapters.YYNewsListStargAdapter;
-import com.xujun.funapp.adapters.MultiYYNewsListAdapter;
 import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.beans.YYNews.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity;
 import com.xujun.funapp.beans.YiYuanNewsClassify.ShowapiResBodyEntity.ChannelListEntity;
@@ -24,8 +24,8 @@ import com.xujun.funapp.common.recyclerView.MultiItemTypeSupport;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.view.detail.YYNewsDetailActivity;
+import com.xujun.funapp.widget.CarouselView;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.mylibrary.widget.CarouselView;
 
 import java.util.ArrayList;
 import java.util.List;

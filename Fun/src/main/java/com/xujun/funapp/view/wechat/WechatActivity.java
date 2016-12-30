@@ -7,11 +7,11 @@ import com.xujun.funapp.beans.WeChatJingXuan.ShowapiResBodyEntity.PagebeanEntity
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.YiYuanConstants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.util.GsonManger;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.presenter.WeChatContract;
 import com.xujun.funapp.presenter.WeChatPresenter;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.myrxretrofitlibrary.GsonManger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +72,19 @@ public class WechatActivity extends BaseListActivity<WeChatPresenter> implements
         } else {
             handleResult(contentlist, BaseListFragment.RequestResult.empty);
         }
+      /*  handleResult(null, BaseListFragment.RequestResult.error);
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        };
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handleResult(null, BaseListFragment.RequestResult.empty);
+            }
+        },1000);*/
     }
 
     @Override

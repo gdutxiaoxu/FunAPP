@@ -33,6 +33,7 @@ public class YYNewsListPresenter
 
             @Override
             public void onError(Throwable e) {
+                e.printStackTrace();
                 YYNewsListContract.View view = getView();
                 if(view!=null){
                     view.onReceiveNewsError(e);

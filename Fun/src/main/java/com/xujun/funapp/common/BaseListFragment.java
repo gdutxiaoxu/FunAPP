@@ -12,6 +12,7 @@ import com.xujun.funapp.R;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
+import com.xujun.funapp.common.recyclerView.RecyclerUtils;
 import com.xujun.funapp.databinding.FragmentBaseListBinding;
 import com.xujun.funapp.widget.MutiLayout;
 
@@ -50,7 +51,8 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
     protected FloatingActionMenu mMenu;
     private MutiLayout mMultiLayout;
 
-    protected LayoutMangerType mLayoutMangerType=LayoutMangerType.Linear;
+    protected LayoutMangerType mLayoutMangerType = LayoutMangerType.Linear;
+    private Boolean mEnableLoadMore=true;
 
     //记录请求结果的状态，有三种类型，success，onError，empty
     public enum RequestResult {
@@ -76,7 +78,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         mMenuItemGrid = binding.menuItemGrid;
         mMenuItemStrag = binding.menuItemStrag;
         mMenu = binding.menu;
-        //  mMultiLayout = binding.multiLayout;
+        mMultiLayout = binding.multiLayout;
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -105,6 +107,13 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
 
     @Override
     protected void initListener() {
+
+        mMultiLayout.setOnRetryListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRefreshLayout.beginRefreshing();
+            }
+        });
         mRefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
@@ -119,7 +128,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
                 if (mOnRefreshListener != null) {
                     mOnRefreshListener.onLoadMore(refreshLayout);
                 }
-                return true;
+                return mEnableLoadMore;
             }
         });
         setOnRefreshListner(this);
@@ -131,26 +140,28 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         mRequestResult = requestResult;
 
         // 请求成功的时候
-        if (requestResult == RequestResult.success) {
+        if (requestResult == BaseListFragment.RequestResult.success) {
             if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.noone);
+                show(MutiLayout.LoadResult.noone);
                 mRefreshLayout.endRefreshing();
             } else {
                 mRefreshLayout.endLoadingMore();
             }
+            mMultiLayout.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
             mRefreshLayout.setVisibility(View.VISIBLE);
             mBaseAdapter.addDates(data);
-        } else if (requestResult == RequestResult.error) {
+        } else if (requestResult == BaseListFragment.RequestResult.error) {
 
             if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.onError);
+                mMultiLayout.setVisibility(View.VISIBLE);
+                show(MutiLayout.LoadResult.error);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
@@ -159,7 +170,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRefreshLayout.setVisibility(View.VISIBLE);
                 mRefreshLayout.endLoadingMore();
-                Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "网络加载错误", Toast.LENGTH_SHORT).show();
             }
 
             mPage--;
@@ -169,7 +180,8 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
-                //                show(LoadResult.empty);
+                mMultiLayout.setVisibility(View.VISIBLE);
+                show(MutiLayout.LoadResult.empty);
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
@@ -177,11 +189,20 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRefreshLayout.setVisibility(View.VISIBLE);
                 mRefreshLayout.endLoadingMore();
+                // 设置不能加载更多了
+                setEnableLoadMore(false);
             }
             mPage--;
         }
 
 
+    }
+    public void setEnableLoadMore(Boolean enableLoadMore) {
+        mEnableLoadMore = enableLoadMore;
+    }
+
+    public void show(MutiLayout.LoadResult loadResult) {
+        mMultiLayout.show(loadResult);
     }
 
     @Override
@@ -195,7 +216,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
     @Override
     public void fetchData() {
         super.fetchData();
-        if(isFirstPage()){
+        if (isFirstPage()) {
             beginRefresh();
         }
     }
@@ -235,13 +256,13 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         }
     }
 
-    public void switchRecyclerAdapter(LayoutMangerType type, BaseRecyclerAdapter adapter){
-        if(mLayoutMangerType==type){
+    public void switchRecyclerAdapter(LayoutMangerType type, BaseRecyclerAdapter adapter) {
+        if (mLayoutMangerType == type) {
             return;
         }
-        mLayoutMangerType=type;
-        this.mBaseAdapter=adapter;
-        RecyclerUtils.init(mRecyclerView,type);
+        mLayoutMangerType = type;
+        this.mBaseAdapter = adapter;
+        RecyclerUtils.init(mRecyclerView, type);
         mRecyclerView.setAdapter(adapter);
 
 

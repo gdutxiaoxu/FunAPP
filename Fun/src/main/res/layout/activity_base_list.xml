@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <FrameLayout
@@ -8,6 +9,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
+        <com.xujun.funapp.widget.MutiLayout
+            android:id="@+id/multiLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:emptyText="数据源为空"
+            app:errorText="加载错误，请点击重试">
+
+        </com.xujun.funapp.widget.MutiLayout>
 
         <cn.bingoogolapple.refreshlayout.BGARefreshLayout
             android:id="@+id/BGARefreshLayout"

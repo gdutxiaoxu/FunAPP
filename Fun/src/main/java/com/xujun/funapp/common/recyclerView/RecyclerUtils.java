@@ -1,4 +1,4 @@
-package com.xujun.funapp.common;
+package com.xujun.funapp.common.recyclerView;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.widget.divider.DividerGridItemDecoration;
 import com.xujun.funapp.widget.divider.DividerItemDecoration;
 
