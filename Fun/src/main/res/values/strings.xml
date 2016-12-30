@@ -6,6 +6,7 @@
     <string name="setting">设置</string>
     <string name="home">首页</string>
     <string name="picture">美图</string>
+    <string name="weChat_jinxuan">微信精选</string>
 
     <string-array name="bottom_tab_array">
         <item>首页</item>

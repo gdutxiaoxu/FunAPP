@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+    >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#fff"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.xujun.funapp.widget.ImageButtonWithText
+                android:id="@+id/wechat"
+                style="@style/imageText"
+                app:picture="@drawable/sel_wechat"
+                app:text="微信精选"/>
+
+            <com.xujun.funapp.widget.ImageButtonWithText
+                android:id="@+id/joke"
+                style="@style/imageText"
+                app:picture="@drawable/sel_xiaohua"
+                app:text="笑话大全"/>
+
+            <com.xujun.funapp.widget.ImageButtonWithText
+                android:id="@+id/fortune"
+                style="@style/imageText"
+                app:picture="@drawable/sel_fortune"
+                app:text="星座运势"/>
+        </TableRow>
+
+        <TableRow>
+
+            <com.xujun.funapp.widget.ImageButtonWithText
+                android:id="@+id/past_life"
+                style="@style/imageText"
+                app:picture="@drawable/sel_shi"
+                app:text="前世今生"/>
+
+            <com.xujun.funapp.widget.ImageButtonWithText
+                android:id="@+id/sport"
+                style="@style/imageText"
+                app:picture="@drawable/sel_sport"
+                app:text="体育赛事"
+                />
+
+            <com.xujun.funapp.widget.ImageButtonWithText
+                android:id="@+id/movie"
+                style="@style/imageText"
+                app:picture="@drawable/sel_movie"
+                app:text="电影票房"/>
+        </TableRow>
+
+
+    </TableLayout>
+</FrameLayout>
+

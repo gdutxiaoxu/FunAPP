@@ -2,14 +2,23 @@
 <resources>
 
     <declare-styleable name="SettingSwitchItem">
-        <attr name="des"  format="string"/>
+        <attr name="des" format="string"/>
         <attr name="on_des" format="string"/>
         <attr name="off_des" format="string"/>
     </declare-styleable>
 
+    <attr name="title" format="string"/>
+    <attr name="backId" format="reference"/>
+
+    <declare-styleable name="TitleView">
+        <attr name="title"/>
+        <attr name="backId"/>
+
+    </declare-styleable>
+
     <declare-styleable name="SettingClickItem">
-        <attr name="content"  format="string"/>
-        <attr name="icon"  format="reference"/>
-        </declare-styleable>
+        <attr name="content" format="string"/>
+        <attr name="icon" format="reference"/>
+    </declare-styleable>
 
 </resources>

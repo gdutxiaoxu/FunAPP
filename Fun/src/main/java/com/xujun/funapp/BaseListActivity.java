@@ -1,14 +1,17 @@
 package com.xujun.funapp;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.util.AnimationUtil;
 import com.xujun.funapp.databinding.ActivityBaseListBinding;
 import com.xujun.funapp.widget.MutiLayout;
 import com.xujun.funapp.widget.MutiLayout.LoadResult;
@@ -34,15 +37,21 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
     protected int mPage = 1;
     private BaseListFragment.RequestResult mRequestResult;
     private MutiLayout mMultiLayout;
+    private FloatingActionButton mFloatActionButton;
+    private LinearLayoutManager mLinearLayoutManager;
+
+    public static  final String TAG="xujun";
 
     @Override
     protected void initView(ActivityBaseListBinding bind) {
         mRecyclerView = bind.recyclerView;
         mRefreshLayout = bind.BGARefreshLayout;
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mBaseAdapter = getBaseAdapter();
         mRecyclerView.setAdapter(mBaseAdapter);
         mMultiLayout = bind.multiLayout;
+        mFloatActionButton = bind.floatActionButton;
 
         BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder
                 (mContext, true);
@@ -52,11 +61,30 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
         refreshViewHolder.setLoadingMoreText("正在加载更多");
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
+        mFloatActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+
+            @Override
+            public void onGlobalLayout() {
+                mFloatActionButton.setTranslationX(200);
+                mFloatActionButton.setVisibility(View.GONE);
+                mFloatActionButton.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            }
+        });
+
     }
 
     @Override
     protected void initListener() {
         super.initListener();
+        mFloatActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 没有动画效果
+                // mRecyclerView.scrollToPosition(0);
+                mRecyclerView.smoothScrollToPosition(0);
+            }
+        });
         mRefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
@@ -74,6 +102,30 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
             @Override
             public void onClick(View v) {
                 getFirstPageData();
+            }
+        });
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstVisibleItemPosition = mLinearLayoutManager
+                        .findFirstVisibleItemPosition();
+                if(dy>0){
+                    if(firstVisibleItemPosition>=15  && mFloatActionButton.getVisibility()!=View.VISIBLE){
+                        AnimationUtil.translateXInt(mFloatActionButton, (int) mFloatActionButton.getTranslationX(),0);
+                    }
+                }else{
+                    if(firstVisibleItemPosition<12&&mFloatActionButton.getVisibility()==View.VISIBLE){
+                        AnimationUtil.translateXOut(mFloatActionButton,0,200);
+                    }
+                }
+            }
+        });
+        mBind.titleView.setOnBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -149,7 +201,7 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRefreshLayout.setVisibility(View.VISIBLE);
                 mRefreshLayout.endLoadingMore();
-//                设置不能加载更多了
+                //                设置不能加载更多了
                 setEnableLoadMore(false);
             }
             mPage--;

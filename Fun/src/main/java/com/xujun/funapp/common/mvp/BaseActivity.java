@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.xujun.funapp.common.ActivityCollector;
+import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.PermissonListener;
 
 import java.util.ArrayList;
@@ -108,6 +109,18 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void readyGo(Class<?> clazz) {
         Intent intent = new Intent(this, clazz);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 启动Activity并传递数据
+     */
+    public void readyGo(Class<?> clazz, String extraString) {
+        Intent intent = new Intent(this, clazz);
+        if (null != extraString) {
+            intent.putExtra(Constants.IntentConstants.DEFAULT_STRING_NAME,extraString);
+        }
         startActivity(intent);
     }
 

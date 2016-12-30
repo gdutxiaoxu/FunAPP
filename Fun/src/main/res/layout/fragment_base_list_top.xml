@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/fl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.xujun.funapp.widget.MutiLayout
+            android:visibility="gone"
+            android:id="@+id/multiLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.xujun.funapp.widget.MutiLayout>
+
+        <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+            />
+        </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+
+
+
+       <android.support.design.widget.FloatingActionButton
+           android:id="@+id/floatActionButton"
+          style="@style/FloatingActionButton_top"
+          app:backgroundTint="#fff"
+          app:rippleColor="#7fff"/>
+
+    </FrameLayout>
+
+</layout>

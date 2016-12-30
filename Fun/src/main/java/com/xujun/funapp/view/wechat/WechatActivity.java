@@ -1,5 +1,8 @@
 package com.xujun.funapp.view.wechat;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
 import com.xujun.funapp.BaseListActivity;
 import com.xujun.funapp.adapters.WeChatJingXuanAdapter;
 import com.xujun.funapp.beans.WeChatJingXuan;
@@ -11,6 +14,7 @@ import com.xujun.funapp.common.util.GsonManger;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.presenter.WeChatContract;
 import com.xujun.funapp.presenter.WeChatPresenter;
+import com.xujun.funapp.view.detail.UrlDetailActivity;
 import com.xujun.mylibrary.utils.ListUtils;
 
 import java.util.ArrayList;
@@ -41,6 +45,20 @@ public class WechatActivity extends BaseListActivity<WeChatPresenter> implements
     @Override
     protected WeChatPresenter setPresenter() {
         return new WeChatPresenter(this);
+    }
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
+                PagebeanEntity.ContentlistEntity contentlistEntity = mData.get(position);
+                String url = contentlistEntity.url;
+                readyGo(UrlDetailActivity.class,url);
+
+            }
+        });
     }
 
     @Override

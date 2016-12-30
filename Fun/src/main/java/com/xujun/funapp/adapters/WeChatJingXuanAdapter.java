@@ -41,6 +41,9 @@ public class WeChatJingXuanAdapter extends BaseRecyclerAdapter<WeChatJingXuan.Sh
         }
         String imageUrl = StringUtils.getStr(item.contentImg);
         String source = StringUtils.getStr(item.userName);
+        if(source.length()>5){
+            source=source.substring(0,5);
+        }
         String readNum = StringUtils.getStr(item.read_num+"");
         String likeNum = StringUtils.getStr(item.like_num+"");
 

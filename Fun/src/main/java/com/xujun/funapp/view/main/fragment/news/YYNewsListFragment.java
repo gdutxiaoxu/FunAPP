@@ -30,6 +30,7 @@ import com.xujun.mylibrary.utils.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @ explain:
  * @ author：xujun on 2016/10/27 23:46
@@ -138,7 +139,8 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
 
     @Override
     protected BaseRecyclerAdapter getAdapter() {
-        mMultiListAdapter = new MultiYYNewsListAdapter(mContext, mDatas, new MultiItemTypeSupport<ContentlistEntity>() {
+        mMultiListAdapter = new MultiYYNewsListAdapter(mContext, mDatas,
+                new MultiItemTypeSupport<ContentlistEntity>() {
             @Override
             public int getItemType(ContentlistEntity contentlistEntity, int position) {
                 if (contentlistEntity.havePic) {

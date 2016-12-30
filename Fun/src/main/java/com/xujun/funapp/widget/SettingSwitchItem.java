@@ -12,7 +12,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.common.util.WriteLogUtil;
 
 /**
  * @ explain:
@@ -71,7 +70,6 @@ public class SettingSwitchItem extends RelativeLayout {
                     mOnChangeListener.onChange(!checked);
                 }
 
-                WriteLogUtil.d("!checked=" + !checked);
             }
         });
     }

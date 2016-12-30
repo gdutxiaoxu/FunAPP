@@ -8,13 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-    >
+        >
 
         <com.xujun.funapp.widget.SettingSwitchItem
             android:id="@+id/ssi_isIntelligentNoPic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:des="智能无图">
+
 
         </com.xujun.funapp.widget.SettingSwitchItem>
 
@@ -27,8 +28,6 @@
         </com.xujun.funapp.widget.SettingSwitchItem>
 
 
-
-
         <com.xujun.funapp.widget.SettingClickItem
             android:id="@+id/sci_location"
             android:layout_width="match_parent"
@@ -36,7 +35,7 @@
             app:content="北京"
             app:des="我的位置"
             app:icon="@mipmap/area"
-        >
+            >
 
         </com.xujun.funapp.widget.SettingClickItem>
 
@@ -48,7 +47,6 @@
             app:icon="@mipmap/area">
 
         </com.xujun.funapp.widget.SettingClickItem>
-
 
 
     </LinearLayout>

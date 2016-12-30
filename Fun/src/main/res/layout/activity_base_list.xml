@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,10 +19,21 @@
 
         </com.xujun.funapp.widget.MutiLayout>
 
+
+        <com.xujun.funapp.widget.TitleView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/weChat_jinxuan">
+
+        </com.xujun.funapp.widget.TitleView>
+
+
         <cn.bingoogolapple.refreshlayout.BGARefreshLayout
             android:id="@+id/BGARefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/title_view">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -35,12 +46,18 @@
         </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/top"
+            app:backgroundTint="#fff"
+            app:rippleColor="#7fff"/>
 
 
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

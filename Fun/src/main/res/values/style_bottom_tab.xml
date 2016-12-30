@@ -2,7 +2,7 @@
 <resources>
 
 
-  /*  android:layout_width="0dp"
+    /* android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:text="新闻"
@@ -11,27 +11,68 @@
     android:padding="8dp"
     android:button="@null"
     android:drawableTop="@drawable/sel_news"*/
+
     <style name="bottom_tab">
-        <item name="android:layout_width" >0dp</item>
-        <item name="android:layout_height" >wrap_content</item>
-        <item name="android:layout_weight" >1</item>
-        <item name="android:text" >0dp</item>
-        <item name="android:gravity" >center</item>
-        <item name="android:textColor" >@drawable/sel_bottom_tab_text</item>
-        <item name="android:padding" >8dp</item>
-        <item name="android:button" >@null</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:text">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/sel_bottom_tab_text</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:button">@null</item>
     </style>
 
-   <!-- <com.xujun.mylibrary.widget.ImageButtonWithText
-        android:id="@+id/wechat"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:text="微信精选"/>-->
+    <!-- <com.xujun.mylibrary.widget.ImageButtonWithText
+         android:id="@+id/wechat"
+         android:layout_weight="1"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         app:text="微信精选"/>-->
 
     <style name="imageText">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:background="@android:color/darker_gray"
+        android:layout_height="1dp"/>-->
+
+    >
+
+    <style name="underLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
+    <!-- <android.support.design.widget.FloatingActionButton
+       android:id="@+id/floatActionButton"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom|right"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentRight="true"
+       android:layout_marginBottom="20dp"
+       android:layout_marginRight="20dp"
+       android:src="@mipmap/top"
+       app:backgroundTint="#fff"
+       app:rippleColor="#7fff"/> -->
+   <style name="FloatingActionButton_top">
+       <item name="android:layout_width">wrap_content</item>
+       <item name="android:layout_height">wrap_content</item>
+       <item name="android:layout_alignParentBottom">true</item>
+       <item name="android:layout_gravity">bottom|right</item>
+       <item name="android:layout_alignParentRight">true</item>
+       <item name="android:layout_marginBottom">20dp</item>
+       <item name="android:layout_marginRight">20dp</item>
+       <item name="android:src">@mipmap/top</item>
+
+
+   </style>
+
+
 </resources>
