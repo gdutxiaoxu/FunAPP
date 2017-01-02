@@ -25,12 +25,13 @@ import java.util.List;
  */
 
 public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> implements
-        YYNewsListContract.View ,View.OnClickListener{
+        YYNewsListContract.View, View.OnClickListener {
 
     List<PagebeanEntity.ContentlistEntity> mData = new ArrayList<>();
     private MultiYYNewsListAdapter mMultiYYNewsListAdapter;
-    private String mChannelId;
-    private String mChannelName;
+    private String mChannelId = "5572a108b3cdc86cf39001d9";
+    private String mChannelName = "科技焦点";
+
     private View mHeaderView;
 
     private ImageButtonWithText mWechat;
@@ -97,9 +98,8 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
         super.initData();
       /*  "channelId": "5572a108b3cdc86cf39001d9",
                 "name": "科技焦点"*/
-        mChannelId = "5572a108b3cdc86cf39001d9";
-        mChannelName = "科技焦点";
-        mPresenter.getNews(mChannelId, mChannelName, mPage, mRows);
+
+
     }
 
     @Override
@@ -134,7 +134,7 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.wechat:
                 readyGo(WechatActivity.class);
                 break;

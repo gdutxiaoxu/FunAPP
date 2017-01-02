@@ -23,6 +23,10 @@ public class GsonManger {
         private static final GsonManger mInstance=new GsonManger();
     }
 
+    public String toJson(Object src){
+        return mGson.toJson(src);
+    }
+
 
     public  <T>  T  fromJson(String json,Class<T> clz){
         return mGson.fromJson(json,clz);

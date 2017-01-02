@@ -249,6 +249,7 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
     protected void initData() {
         //        显示加载中的界面
         //        show(LoadResult.loading);
+        mRefreshLayout.beginRefreshing();
 
     }
 

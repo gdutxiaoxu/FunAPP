@@ -130,6 +130,12 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
         });
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        mRefreshLayout.beginRefreshing();
+    }
+
     protected void getNextPageData() {
     }
 
