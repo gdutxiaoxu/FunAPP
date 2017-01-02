@@ -1,5 +1,8 @@
 package com.xujun.myrxretrofitlibrary;
 
+import android.os.Looper;
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -22,6 +25,8 @@ import rx.schedulers.Schedulers;
 public class JuHeApiManger {
 
     private HashMap<String, Object> mMap = new HashMap<>();
+
+    public static  final String TAG="xujun";
 
     public static JuHeApiManger getInstance() {
         return Holder.mInstance;
@@ -71,6 +76,8 @@ public class JuHeApiManger {
                             String json = responseBody.string();
                             BaseJuheEntity baseJuheEntity = GsonManger.getInstance().fromJson
                                     (json, BaseJuheEntity.class);
+                            boolean b = Looper.getMainLooper() == Looper.myLooper();
+                            Log.i(TAG, "excutePush :是否是主线程 =" +b);
                             return (T)baseJuheEntity.result;
 
                         } catch (IOException e) {
@@ -93,6 +100,8 @@ public class JuHeApiManger {
                             BaseJuheEntity baseJuheEntity = GsonManger.getInstance().fromJson
                                     (json, BaseJuheEntity.class);
                             String s = GsonManger.getInstance().toJson(baseJuheEntity.result);
+                            boolean b = Looper.getMainLooper() == Looper.myLooper();
+                            Log.i(TAG, "excutePushString :是否是主线程 =" +b);
                             return s;
 
                         } catch (IOException e) {
