@@ -34,11 +34,11 @@ public class PictureClassify {
     public List<TngouBean> tngou;
 
     public static class TngouBean {
-        public String description;
+        public YYNews description;
         public int id;
-        public String keywords;
-        public String name;
+        public YYNews keywords;
+        public YYNews name;
         public int seq;
-        public String title;
+        public YYNews title;
     }
 }

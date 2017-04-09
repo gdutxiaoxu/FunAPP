@@ -1,1 +1,1 @@
-include ':Fun', ':library', ':mylibrary', ':rxretrofitlibrary', ':myrxretrofitlibrary'
+include ':app', ':myrxretrofitlibrary', ':mylibrary', ':library', ':Fun'

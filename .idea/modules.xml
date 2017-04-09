@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Fun/Fun.iml" filepath="$PROJECT_DIR$/Fun/Fun.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FunAPP.iml" filepath="$PROJECT_DIR$/FunAPP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Fun.iml" filepath="$PROJECT_DIR$/Fun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Fun/Fun-Fun.iml" filepath="$PROJECT_DIR$/Fun/Fun-Fun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mylibrary/mylibrary.iml" filepath="$PROJECT_DIR$/mylibrary/mylibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/myrxretrofitlibrary/myrxretrofitlibrary.iml" filepath="$PROJECT_DIR$/myrxretrofitlibrary/myrxretrofitlibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxretrofitlibrary/rxretrofitlibrary.iml" filepath="$PROJECT_DIR$/rxretrofitlibrary/rxretrofitlibrary.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,6 @@
 package com.xujun.funapp.model;
 
-import com.xujun.myrxretrofitlibrary.YYHttpManger;
+import com.xujun.myrxretrofitlibrary.yiyuan.YYHttpManger;
 
 import java.util.Map;
 

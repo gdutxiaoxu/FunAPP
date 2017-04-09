@@ -17,12 +17,35 @@ public class DateUtils {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
+    static final String juhe_formatPattern = "MM/dd";
+
     static final String formatPattern = "yyyy-MM-dd";
     static final String DateAndTimePattern = "yyyy-MM-dd HH:mm:ss";
     static final String DateAndTimePatternWithWeek = "yyyy-MM-dd HH:mm:ss EEEE";
 
     static final String formatPattern_Short = "yyyy-MM-dd";
     static String[] weekOfDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+
+    /**
+     * 获取当前日期
+     *
+     * @return
+     */
+    public static String getJuheDate() {
+        SimpleDateFormat format = new SimpleDateFormat(juhe_formatPattern);
+        String date = format.format(new Date());
+        String front = date.substring(0, 2);
+        String behind = date.substring(3, 5);
+        if(front.startsWith("0")){
+            front=front.substring(1,front.length());
+        }
+        if(behind.startsWith("0")){
+           behind= behind.substring(1,behind.length());
+        }
+        return String.valueOf(front+"/"+behind);
+
+
+    }
 
     /**
      * 获取当前日期

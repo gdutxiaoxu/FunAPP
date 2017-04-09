@@ -20,13 +20,42 @@
         </com.xujun.funapp.widget.MutiLayout>
 
 
-        <com.xujun.funapp.widget.TitleView
+        <RelativeLayout
             android:id="@+id/title_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/weChat_jinxuan">
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorAccent"
+            android:orientation="vertical">
 
-        </com.xujun.funapp.widget.TitleView>
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:padding="10dp"
+                android:src="@drawable/sel_back"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:maxLength="10"
+                android:maxLines="1"
+                />
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/sel_search"
+                android:padding="10dp"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
 
         <cn.bingoogolapple.refreshlayout.BGARefreshLayout
@@ -49,9 +78,9 @@
             android:id="@+id/floatActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|right"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
             android:src="@mipmap/top"

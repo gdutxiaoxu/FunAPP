@@ -17,25 +17,13 @@ import com.xujun.funapp.R;
 
 public class GlideRequest implements IimageListener {
 
-    static GlideRequest mInstance;
-
-    private GlideRequest(){
-
-    }
-
-    public static GlideRequest getInstance(){
-        if(mInstance==null){
-            mInstance=new GlideRequest();
-        }
-        return mInstance;
-    }
 
     @Override
     public void display(Context context, ImageView imageView, String url, int progressId, int
             errorId, Object tag) {
         DrawableTypeRequest<String> load = Glide.with(context).load(url);
         if (progressId != -1) {
-            load.placeholder(progressId);
+            load.placeholder(progressId).centerCrop();
         } else {
             load.placeholder(new ColorDrawable(Color.GRAY));
         }

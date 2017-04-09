@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_text"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.xujun.funapp.TextActivity">
+
+    <com.xujun.mylibrary.widget.TitleView
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="xujun"
+        app:rightIcon="@drawable/ic_launcher"
+        app:leftIcon="@drawable/sel_back"
+    >
+
+    </com.xujun.mylibrary.widget.TitleView>
+
+</RelativeLayout>

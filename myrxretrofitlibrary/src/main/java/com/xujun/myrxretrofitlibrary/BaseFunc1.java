@@ -1,5 +1,7 @@
 package com.xujun.myrxretrofitlibrary;
 
+import com.xujun.myrxretrofitlibrary.yiyuan.BaseYYEntity;
+
 import rx.Subscriber;
 import rx.functions.Func1;
 

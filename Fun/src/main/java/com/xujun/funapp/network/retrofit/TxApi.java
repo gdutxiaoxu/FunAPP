@@ -18,8 +18,8 @@ public interface TxApi {
    /* http://apis.baidu.com/txapi/social/social*/
 
 
-    @GET("txapi/{type}/{type}")
-    Observable<TxNews> getNews(@Path("type") String type, @Query("num") int num,
+    @GET("txapi/{type_default}/{type_default}")
+    Observable<TxNews> getNews(@Path("type_default") String type, @Query("num") int num,
                                @Query("page") int page);
 
 

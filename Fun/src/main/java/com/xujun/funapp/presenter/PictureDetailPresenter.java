@@ -2,8 +2,8 @@ package com.xujun.funapp.presenter;
 
 import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.common.mvp.DefaultContract;
-import com.xujun.funapp.model.PictureDetailModel;
-import com.xujun.funapp.network.RequestListener;
+import com.xujun.funapp.model.PictureDetailMOdel;
+import com.xujun.myrxretrofitlibrary.RequestListener;
 
 /**
  * @ explain:图片详情的Presenter
@@ -15,7 +15,7 @@ public class PictureDetailPresenter extends DefaultContract.Presenter<PictureDet
 
 
 
-    PictureDetailModel mModel=new PictureDetailModel();
+    PictureDetailMOdel mModel=new PictureDetailMOdel();
 
     public PictureDetailPresenter(PictureDetailContract.View view) {
         super(view);

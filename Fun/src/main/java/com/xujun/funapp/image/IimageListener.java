@@ -11,12 +11,16 @@ import android.widget.ImageView;
 
 public interface IimageListener {
 
-    public  void display(Context context, ImageView imageView, String url, int progressId,int errorId,Object tag);
 
-    public  void display(Context context, ImageView imageView, String url, int progressId,int errorId);
 
-    public  void display(Context context, ImageView imageView, String url,int progressId);
+    void display(Context context, ImageView imageView, String url, int progressId, int errorId,
+                 Object tag);
 
-    public  void display(Context context, ImageView imageView, String url);
-    public  void display(Context context, ImageView imageView, Uri uri);
+    void display(Context context, ImageView imageView, String url, int progressId, int errorId);
+
+    void display(Context context, ImageView imageView, String url, int progressId);
+
+    void display(Context context, ImageView imageView, String url);
+
+    void display(Context context, ImageView imageView, Uri uri);
 }

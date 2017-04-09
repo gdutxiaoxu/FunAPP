@@ -1,0 +1,79 @@
+ext {
+    // Sdk and tools
+    minSdkVersion = 15
+    targetSdkVersion = 24
+    compileSdkVersion = 24
+    buildToolsVersion = '25.0.2'
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+    okhttp3Version = '3.0.1'
+    supportLibrariesVersion = '25.0.2'
+
+    // App dependencies
+    supportLibraryVersion = '24.2.0'
+    guavaVersion = '18.0'
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    powerMockito = '1.6.2'
+    hamcrestVersion = '1.3'
+    runnerVersion = '0.5'
+    rulesVersion = '0.5'
+    espressoVersion = '2.2.2'
+
+
+    dep = [
+            androidPlugin        : 'com.android.tools.build:gradle:2.1.3',
+            okhttp               : 'com.squareup.okhttp:okhttp:2.7.1',
+            okhttp3              : "com.squareup.okhttp3:okhttp:$okhttp3Version",
+            mockWebServer        : "com.squareup.okhttp3:mockwebserver:$okhttp3Version",
+            pollexor             : 'com.squareup:pollexor:2.0.0',
+            supportV4            : "com.android.support:support-v4:$supportLibrariesVersion",
+            supportAnnotations   : "com.android.support:support-annotations:$supportLibrariesVersion",
+            junit                : 'junit:junit:4.10',
+            fest                 : 'org.easytesting:fest-assert-core:2.0M10',
+            festAndroid          : 'com.squareup:fest-android:1.0.6',
+            robolectric          : 'org.robolectric:robolectric:3.1',
+            mockito              : 'org.mockito:mockito-core:1.9.5',
+            // Android support 相关库
+            "appcompat-v7"       : "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion",
+            "cardview-v7"        : "com.android.support:cardview-v7:$rootProject.supportLibraryVersion",
+            "design"             : "com.android.support:design:$rootProject.supportLibraryVersion",
+            "recyclerview-v7"    : "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion",
+            "support-v4"         : "com.android.support:support-v4:$rootProject.supportLibraryVersion",
+
+            // 网络与rxjava
+            "retrofit"           : 'com.squareup.retrofit2:retrofit:2.1.0',
+            "converter-gson"     : 'com.squareup.retrofit2:converter-gson:2.1.0',
+            "adapter-rxjava"     : 'com.squareup.retrofit2:adapter-rxjava:2.1.0',
+            "converter-gson"     : 'com.squareup.retrofit2:converter-gson:2.1.0',
+            "okhttp3:interceptor": 'com.squareup.okhttp3:logging-interceptor:3.3.1',
+            "rxjava"             : 'io.reactivex:rxjava:1.1.0',
+            "rxandroid"          : 'io.reactivex:rxandroid:1.1.0',
+            // 图片加载
+            "picasso"            : 'com.squareup.picasso:picasso:2.5.2',
+            "glide"              : 'com.github.bumptech.glide:glide:3.7.0',
+            "glide:okhttp3"      : 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar',
+
+            "gson"               : 'com.google.code.gson:gson:2.8.0',
+
+            // 事件总线
+            "androideventbus"    : 'org.simple:androideventbus:1.0.5.1',
+
+            // 数据库
+
+//            compile 'org.litepal.android:core:1.5.1'
+            "litepal"            : 'org.litepal.android:core:1.5.1',
+
+
+            "fab"                : 'com.github.clans:fab:1.6.4',
+            // 动画兼容
+            "nineoldandroids"    : 'com.nineoldandroids:library:2.4.0',
+            // 下拉刷新
+            "refreshlayout"      : 'cn.bingoogolapple:bga-refreshlayout:1.1.6@aar',
+            "logger"             : 'com.orhanobut:logger:1.15',
+
+
+    ]
+
+    isCi = "true".equals(System.getenv('CI'))
+}

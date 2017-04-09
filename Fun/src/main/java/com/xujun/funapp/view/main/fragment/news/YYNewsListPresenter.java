@@ -1,6 +1,5 @@
 package com.xujun.funapp.view.main.fragment.news;
 
-import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.model.YYNewsListModel;
 
@@ -24,8 +23,8 @@ public class YYNewsListPresenter
     }
 
     @Override
-    public void getNews(String channelId, String channelName, int page, int maxResult) {
-        Subscriber<YYNews> subscriber = new Subscriber<YYNews>() {
+    public void getNews(String channelId, String channelName, final int page, int maxResult) {
+        Subscriber<String> subscriber = new Subscriber<String>() {
             @Override
             public void onCompleted() {
 
@@ -41,11 +40,13 @@ public class YYNewsListPresenter
             }
 
             @Override
-            public void onNext(YYNews yiYuanNews) {
+            public void onNext(String result) {
                 YYNewsListContract.View view = getView();
                 if(view!=null){
-                    view.onReceiveNews(yiYuanNews);
+                    view.onReceiveNews(result);
                 }
+
+
             }
 
 

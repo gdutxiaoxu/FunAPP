@@ -1,14 +1,16 @@
 package com.xujun.funapp.view.main;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.widget.RadioGroup;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.ActivityCollector;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
+import com.xujun.funapp.common.util.DialogUtils;
+import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.databinding.ActivityMainBinding;
 import com.xujun.funapp.network.NetStateUtils;
 import com.xujun.mylibrary.utils.ToastUtils;
@@ -77,10 +79,10 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding, BasePrese
     @Override
     protected void initData() {
       /*  if(false==NetStateUtils.isMobileConnected(this) &&false==NetStateUtils.isWifi(this)){
-            APP.getInstance().showWifiDlg(this);
+            APP.getRequest().showWifiDlg(this);
         }*/
         if (false == NetStateUtils.isNetworkConnected(this)) {
-            APP.getInstance().showWifiDlg(this);
+           DialogUtils.showWifiDlg(this);
         }
 
         mCurrentFragemnt = MainFragmentFactory.getInstance().get(0);
@@ -107,6 +109,12 @@ public class MainActivity extends BaseMVPActivity<ActivityMainBinding, BasePrese
                 //android.os.Process.killProcess(android.os.Process.myPid());
             }
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        WriteLogUtil.d(" onConfigurationChanged=");
     }
 
     /**

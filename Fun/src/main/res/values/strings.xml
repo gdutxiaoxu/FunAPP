@@ -33,6 +33,7 @@
     <string name="locating">正在定位…</string>
     <string name="located_failed">定位失败</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share_view">sharedView</string>
 </resources>

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
  * @ author：xujun on 2016/10/17 20:23
  * @ email：gdutxiaoxu@163.com
  */
-public interface OnRefreshListener {
+public interface onRefreshListener {
 
     void onRefresh(ViewGroup viewGroup);
     void onLoadMore(ViewGroup viewGroup);

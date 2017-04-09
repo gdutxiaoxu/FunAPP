@@ -12,8 +12,8 @@ public class Test {
    public List<Text2> para;
 
     public static class Text2{
-        public String action;
-        public String timestamp;
-        public String token;
+        public YYNews action;
+        public YYNews timestamp;
+        public YYNews token;
     }
 }

@@ -9,10 +9,10 @@ import com.xujun.funapp.beans.YiYuanNewsClassify.ShowapiResBodyEntity.ChannelLis
 import com.xujun.funapp.common.BaseFragmentAdapter;
 import com.xujun.funapp.common.BaseViewPagerFragemnt;
 import com.xujun.funapp.common.mvp.DefaultContract;
-import com.xujun.funapp.common.util.GsonManger;
-import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.funapp.common.util.ResourceUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.mylibrary.utils.ListUtils;
+import com.xujun.myrxretrofitlibrary.GsonManger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

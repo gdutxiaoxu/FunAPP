@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.beans.YYNews.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity;
+import com.xujun.funapp.beans.NewsContentlistEntity;
 import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.Constants;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
@@ -26,14 +26,14 @@ import java.util.List;
  * @ author：xujun on 2016/10/28 19:26
  * @ email：gdutxiaoxu@163.com
  */
-public class YYNewsListStargAdapter extends BaseRecyclerAdapter<ContentlistEntity> {
+public class YYNewsListStargAdapter extends BaseRecyclerAdapter<NewsContentlistEntity> {
     Object pictureTag;
 
     private int getHeight() {
         return (int) (350 + Math.random() * 300);
     }
 
-    public YYNewsListStargAdapter(Context context, List<ContentlistEntity> datas, Object
+    public YYNewsListStargAdapter(Context context, List<NewsContentlistEntity> datas, Object
             pictureTag) {
         super(context, R.layout.item_yy_news_list_starg, datas);
         this.pictureTag = pictureTag;
@@ -42,17 +42,17 @@ public class YYNewsListStargAdapter extends BaseRecyclerAdapter<ContentlistEntit
     }
 
     @Override
-    public void convert(BaseRecyclerHolder holder, ContentlistEntity item, int position) {
+    public void convert(BaseRecyclerHolder holder, NewsContentlistEntity item, int position) {
         int height = getHeight();
 
 
         ImageView iv = holder.getView(R.id.iv);
         View convertView = holder.getConvertView();
         ViewGroup.LayoutParams layoutParams = convertView.getLayoutParams();
-        layoutParams.height=height;
+        layoutParams.height = height;
         convertView.setLayoutParams(layoutParams);
 
-        List<ContentlistEntity.ImageurlsEntity> imageurls = item.imageurls;
+        List<NewsContentlistEntity.ImageurlsEntity> imageurls = item.imageurls;
         boolean havePic = item.havePic;
         String picUrl = null;
         if (!ListUtils.isEmpty(imageurls)) {//有图片
@@ -80,9 +80,9 @@ public class YYNewsListStargAdapter extends BaseRecyclerAdapter<ContentlistEntit
 
     private void display(ImageView iv, boolean havePic, String picUrl) {
         if (havePic) {
-            ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+            ImageRequestManager.getRequest().display(mContext, iv, picUrl);
         } else {
-            ImageRequestManager.getInstance().display(mContext, iv, UriUtils.resourceIdToUri
+            ImageRequestManager.getRequest().display(mContext, iv, UriUtils.resourceIdToUri
                     (mContext, R.mipmap.tangyang7));
         }
     }

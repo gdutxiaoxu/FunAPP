@@ -59,7 +59,7 @@ public class APP extends BaseApp {
         WriteLogUtil.init(app);
         //        initLocation();
 
-        // Thread.setDefaultUncaughtExceptionHandler(UnCatchExceptionHandler.getInstance());
+        // Thread.setDefaultUncaughtExceptionHandler(UnCatchExceptionHandler.getRequest());
 
 
     }

@@ -22,7 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xujun.funapp.R;
-import com.xujun.funapp.beans.YYNews.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity;
+import com.xujun.funapp.beans.NewsContentlistEntity;
 import com.xujun.funapp.common.APP;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
@@ -39,7 +39,7 @@ public class YYNewsDetailActivity extends BaseMVPActivity<ActivityYyNewsDetailBi
     private ImageView mIvBack;
     private WebView mWebView;
 
-    ContentlistEntity mNewsListBean;
+    NewsContentlistEntity mNewsListBean;
     private String mUrl;
     private ProgressBar mProgressBar;
     private TextView mTvTitle;

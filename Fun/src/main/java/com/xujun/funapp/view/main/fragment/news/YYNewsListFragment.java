@@ -1,8 +1,10 @@
 package com.xujun.funapp.view.main.fragment.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,21 +17,24 @@ import com.xujun.funapp.adapters.MultiYYNewsListAdapter;
 import com.xujun.funapp.adapters.YYNewsListGridAdapter;
 import com.xujun.funapp.adapters.YYNewsListStargAdapter;
 import com.xujun.funapp.beans.YYNews;
-import com.xujun.funapp.beans.YYNews.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity;
+import com.xujun.funapp.beans.NewsContentlistEntity;
 import com.xujun.funapp.beans.YiYuanNewsClassify.ShowapiResBodyEntity.ChannelListEntity;
 import com.xujun.funapp.common.BaseListFragment;
+import com.xujun.funapp.common.Constants;
+import com.xujun.funapp.common.RequestResult;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
+import com.xujun.funapp.common.recyclerView.BaseRecyclerHolder;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.recyclerView.MultiItemTypeSupport;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.image.ImageRequestManager;
-import com.xujun.funapp.view.detail.YYNewsDetailActivity;
+import com.xujun.funapp.view.detail.WebViewActivity;
 import com.xujun.funapp.widget.CarouselView;
 import com.xujun.mylibrary.utils.ListUtils;
+import com.xujun.myrxretrofitlibrary.GsonManger;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * @ explain:
@@ -42,22 +47,21 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     private int[] mImagesSrc = {R.mipmap.tangyang7, R.mipmap.tangyang7, R.mipmap.tangyang7, R
             .mipmap.tangyang7, R.mipmap.tangyang7};
 
-    static final String KEY = "id";
-    static final String KEY_POSITION = "KEY_POSITION";
+    static final java.lang.String KEY = "id";
+    static final java.lang.String KEY_POSITION = "KEY_POSITION";
     private ChannelListEntity mChannelListEntity = null;
-
 
     private YYNewsListGridAdapter mYYNewsListGridAdapter;
     private YYNewsListStargAdapter mYYNewsListStargAdapter;
     //  保存上一次的可见的第一个位置
     private int mLastPosition;
     private int mItemPosition = -1;
-    private String mChannelId;
-    private String mName;
+    private java.lang.String mChannelId;
+    private java.lang.String mName;
 
-    public static final String TAG = "YYNewsListFragment";
-    private ArrayList<ContentlistEntity> mHeaderDatas = new ArrayList<>();
-    private ArrayList<ContentlistEntity> mDatas = new ArrayList<>();
+    public static final java.lang.String TAG = "YYNewsListFragment";
+    private ArrayList<NewsContentlistEntity> mHeaderDatas = new ArrayList<>();
+    private ArrayList<NewsContentlistEntity> mDatas = new ArrayList<>();
     ;
     private CarouselView mCarouselView;
     private View mHeaderView;
@@ -98,7 +102,7 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         mMultiListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
-                jump(position);
+                jump(holder, position);
             }
         });
 
@@ -109,9 +113,26 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
 
     }
 
-    private void jump(int position) {
-        ContentlistEntity contentlistEntity = mDatas.get(position);
-        readyGo(YYNewsDetailActivity.class, contentlistEntity);
+    private void jump(RecyclerView.ViewHolder holder, int position) {
+        BaseRecyclerHolder recyclerHolder = (BaseRecyclerHolder) holder;
+        View titleView = recyclerHolder.getView(R.id.tv_title);
+        NewsContentlistEntity newsContentlistEntity = mDatas.get(position);
+        java.lang.String title = newsContentlistEntity.title;
+        java.lang.String link = newsContentlistEntity.link;
+        Intent intent = new Intent(mContext, WebViewActivity.class);
+        intent.putExtra(Constants.IntentConstants.DEFAULT_STRING_NAME, link);
+        intent.putExtra(Constants.IntentConstants.TITLE_NAME, title);
+        if (android.os.Build.VERSION.SDK_INT >= 22) {
+            if(titleView!=null){
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                        titleView, mContext.getString(R.string.share_view)).toBundle();
+                mContext.startActivity(intent, bundle);
+            }
+            mContext.startActivity(intent);
+
+        } else {
+            mContext.startActivity(intent);
+        }
     }
 
     @Override
@@ -140,30 +161,30 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     @Override
     protected BaseRecyclerAdapter getAdapter() {
         mMultiListAdapter = new MultiYYNewsListAdapter(mContext, mDatas,
-                new MultiItemTypeSupport<ContentlistEntity>() {
-            @Override
-            public int getItemType(ContentlistEntity contentlistEntity, int position) {
-                if (contentlistEntity.havePic) {
-                    return MultiYYNewsListAdapter.TYPE_ONE;
-                }
-                return MultiYYNewsListAdapter.TYPE_TWO;
-            }
+                new MultiItemTypeSupport<NewsContentlistEntity>() {
+                    @Override
+                    public int getItemType(NewsContentlistEntity newsContentlistEntity, int position) {
+                        if (newsContentlistEntity.havePic) {
+                            return MultiYYNewsListAdapter.TYPE_ONE;
+                        }
+                        return MultiYYNewsListAdapter.TYPE_TWO;
+                    }
 
-            @Override
-            public int getLayoutId(int itemType) {
-                if (itemType == MultiYYNewsListAdapter.TYPE_ONE) {
-                    return R.layout.item_yy_news_list_one;
-                }
-                return R.layout.item_yy_news_list_two;
-            }
-        });
+                    @Override
+                    public int getLayoutId(int itemType) {
+                        if (itemType == MultiYYNewsListAdapter.TYPE_ONE) {
+                            return R.layout.item_yy_news_list_one;
+                        }
+                        return R.layout.item_yy_news_list_two;
+                    }
+                });
         View headerView = initHeaderView();
         mMultiListAdapter.addHeaderView(headerView);
         return mMultiListAdapter;
     }
 
     private View initHeaderView() {
-        if(mHeaderView ==null){
+        if (mHeaderView == null) {
             mHeaderView = View.inflate(mContext, R.layout.header_view_yiyuan_news, null);
             mCarouselView = (CarouselView) mHeaderView.findViewById(R.id.carouselView);
             setHeaderData(mHeaderDatas);
@@ -178,10 +199,11 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
     }
 
     @Override
-    public void onReceiveNews(YYNews news) {
+    public void onReceiveNews(String result) {
         Log.i(TAG, "onReceiveNews: mItemPosition=" + mItemPosition);
+        YYNews yyNews = GsonManger.getInstance().fromJson(result, YYNews.class);
 
-        List<ContentlistEntity> contentlist = news.showapi_res_body.pagebean.contentlist;
+        List<NewsContentlistEntity> contentlist = yyNews.pagebean.contentlist;
 
         if (isFirstPage() && !ListUtils.isEmpty(contentlist)) {
             setHeaderData(contentlist);
@@ -194,8 +216,6 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         }
     }
 
-
-
     @Override
     public void onReceiveNewsError(Throwable error) {
         Log.i(TAG, "onReceiveNewsError: +=" + mItemPosition);
@@ -204,10 +224,10 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
 
     }
 
-    private void setHeaderData(List<ContentlistEntity> contentlist) {
+    private void setHeaderData(List<NewsContentlistEntity> contentlist) {
         int size = Math.min(4, contentlist.size());
         mHeaderDatas.clear();
-        if(contentlist!=null && contentlist.size()>0){
+        if (contentlist != null && contentlist.size() > 0) {
             for (int i = 0; i < size; i++) {
                 mHeaderDatas.add(contentlist.get(i));
             }
@@ -224,18 +244,18 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
             public View getView(int position) {
                 View view = View.inflate(mContext, R.layout.item, null);
                 ImageView imageView = (ImageView) view.findViewById(R.id.image);
-                if(!ListUtils.isEmpty(mHeaderDatas)){
-                    ContentlistEntity contentlistEntity = mHeaderDatas.get(position);
-                    if (contentlistEntity.havePic) {
-                        ContentlistEntity.ImageurlsEntity imageurlsEntity = contentlistEntity
+                if (!ListUtils.isEmpty(mHeaderDatas)) {
+                    NewsContentlistEntity newsContentlistEntity = mHeaderDatas.get(position);
+                    if (newsContentlistEntity.havePic) {
+                        NewsContentlistEntity.ImageurlsEntity imageurlsEntity = newsContentlistEntity
                                 .imageurls.get(0);
-                        ImageRequestManager.getInstance().display(mContext, imageView,
+                        ImageRequestManager.getRequest().display(mContext, imageView,
                                 imageurlsEntity.url);
 
                     } else {
                         imageView.setImageResource(R.mipmap.tangyang7);
                     }
-                }else{
+                } else {
                     imageView.setImageResource(R.mipmap.tangyang7);
                 }
 
@@ -245,7 +265,7 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
 
             @Override
             public int getCount() {
-                return ListUtils.isEmpty(mHeaderDatas)?0:mHeaderDatas.size();
+                return ListUtils.isEmpty(mHeaderDatas) ? 0 : mHeaderDatas.size();
             }
         });
     }
@@ -281,12 +301,12 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
             mYYNewsListGridAdapter = new YYNewsListGridAdapter(mContext, mDatas,
                     mPictureTag);
             mYYNewsListGridAdapter.addHeaderView(mHeaderView);
-            mYYNewsListGridAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-
+            mYYNewsListGridAdapter.setOnItemClickListener(new BaseRecyclerAdapter
+                    .OnItemClickListener() {
 
                 @Override
                 public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    jump(position);
+                    jump(holder, position);
                 }
             });
         }
@@ -297,12 +317,12 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
             mYYNewsListStargAdapter = new YYNewsListStargAdapter(mContext, mDatas,
                     mPictureTag);
             mYYNewsListStargAdapter.addHeaderView(mHeaderView);
-            mYYNewsListStargAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-
+            mYYNewsListStargAdapter.setOnItemClickListener(new BaseRecyclerAdapter
+                    .OnItemClickListener() {
 
                 @Override
                 public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    jump(position);
+                    jump(holder, position);
                 }
             });
         }

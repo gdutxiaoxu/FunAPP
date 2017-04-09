@@ -3,7 +3,7 @@ package com.xujun.funapp.model;
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.network.retrofit.TnGouNet;
-import com.xujun.funapp.network.RequestListener;
+import com.xujun.myrxretrofitlibrary.RequestListener;
 import com.xujun.funapp.network.retrofit.TnGouAPi;
 
 import rx.Observable;
@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
  * @ author：xujun on 2016/10/19 23:39
  * @ email：gdutxiaoxu@163.com
  */
-public class PictureDetailModel {
+public class PictureDetailMOdel {
 
     public  void  getPictureList(int id, final RequestListener listener){
 

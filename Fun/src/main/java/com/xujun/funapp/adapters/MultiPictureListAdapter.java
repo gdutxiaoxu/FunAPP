@@ -68,13 +68,13 @@ public class MultiPictureListAdapter extends MultiItemAdapter<PictureListBean.Tn
 
         if (isIntelligentNoPic) {
             if (APP.getInstance().isWifi()) {
-                ImageRequestManager.getInstance().display(mContext, imageView, imageUrl);
+                ImageRequestManager.getRequest().display(mContext, imageView, imageUrl);
             } else {
                 imageView.setImageDrawable(new ColorDrawable(Color.GRAY));
             }
 
         } else {
-            ImageRequestManager.getInstance().display(mContext, imageView, imageUrl);
+            ImageRequestManager.getRequest().display(mContext, imageView, imageUrl);
         }
     }
 }

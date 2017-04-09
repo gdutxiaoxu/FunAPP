@@ -1,6 +1,5 @@
 package com.xujun.funapp.view.main.fragment.news;
 
-import com.xujun.funapp.beans.YYNews;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.mvp.BaseView;
 
@@ -13,14 +12,14 @@ public class YYNewsListContract {
 
     public interface View<T> extends BaseView<T> {
 
-        void onReceiveNews(YYNews news);
+        void onReceiveNews(String result);
         void onReceiveNewsError(Throwable error);
 
     }
 
     public interface Presenter extends BasePresenter {
 
-        void getNews(String channelId, String channelName,int page, int maxResult);
+        void getNews(String channelId, String channelName, int page, int maxResult);
 
     }
 }

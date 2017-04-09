@@ -27,7 +27,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
  * @ email：gdutxiaoxu@163.com
  */
 public abstract class BaseListFragment<P extends BasePresenter> extends
-        BindingBaseFragment<FragmentBaseListBinding, P> implements OnRefreshListener {
+        BindingBaseFragment<FragmentBaseListBinding, P> implements onRefreshListener {
     //代表当前是第几页
     protected int mPage = 1;
     protected int mRows = 20;
@@ -39,7 +39,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
     //    recyclerView 的Adapter
     private BaseRecyclerAdapter mBaseAdapter;
     //下拉刷新，上拉加载更多的接口
-    OnRefreshListener mOnRefreshListener;
+    onRefreshListener mOnRefreshListener;
     //    加载图片的tag
     protected Object mPictureTag;
 
@@ -54,12 +54,9 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
     protected LayoutMangerType mLayoutMangerType = LayoutMangerType.Linear;
     private Boolean mEnableLoadMore=true;
 
-    //记录请求结果的状态，有三种类型，success，onError，empty
-    public enum RequestResult {
-        success, error, empty;
-    }
 
-    protected void setOnRefreshListner(OnRefreshListener OnRefreshListener) {
+
+    protected void setOnRefreshListner(onRefreshListener OnRefreshListener) {
         this.mOnRefreshListener = OnRefreshListener;
     }
 
@@ -140,7 +137,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
         mRequestResult = requestResult;
 
         // 请求成功的时候
-        if (requestResult == BaseListFragment.RequestResult.success) {
+        if (requestResult == RequestResult.success) {
             if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
@@ -154,7 +151,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
             mRecyclerView.setVisibility(View.VISIBLE);
             mRefreshLayout.setVisibility(View.VISIBLE);
             mBaseAdapter.addDates(data);
-        } else if (requestResult == BaseListFragment.RequestResult.error) {
+        } else if (requestResult == RequestResult.error) {
 
             if (isFirstPage()) {
                 /**

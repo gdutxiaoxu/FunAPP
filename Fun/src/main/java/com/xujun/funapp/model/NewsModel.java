@@ -3,14 +3,12 @@ package com.xujun.funapp.model;
 import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.beans.YiYuanNewsClassify;
 import com.xujun.funapp.beans.YiYuanResponse;
-import com.xujun.funapp.network.ApiManger;
-import com.xujun.funapp.network.HttpManger;
-import com.xujun.funapp.network.YiYuanApi;
-import com.xujun.funapp.network.retrofitclient.NetworkApi;
-import com.xujun.funapp.network.RequestListener;
+import com.xujun.myrxretrofitlibrary.RequestListener;
 import com.xujun.funapp.network.retrofit.ApiNet;
 import com.xujun.funapp.network.retrofit.TxApi;
 import com.xujun.funapp.network.retrofit.TxNet;
+import com.xujun.funapp.network.retrofitclient.NetworkApi;
+import com.xujun.myrxretrofitlibrary.yiyuan.YYHttpManger;
 
 import java.util.Map;
 
@@ -53,12 +51,8 @@ public class NewsModel {
     }
 
     public void getNewsClassify(String url, Map<String, Object> paramsMap,
-                                Subscriber<YiYuanNewsClassify> subscriber) {
-        ApiManger instance = ApiManger.getInstance();
-        YiYuanApi api = instance.getApi(YiYuanApi.class, YiYuanApi.mBaseUrl);
-        Observable<YiYuanNewsClassify> observable = api.getNewsClassify(paramsMap);
-
-        HttpManger.getInstance().doHttpDeal(observable,subscriber);
+                                Subscriber<String> subscriber) {
+        YYHttpManger.getInstance().push(url,paramsMap,subscriber);
 
 
     }

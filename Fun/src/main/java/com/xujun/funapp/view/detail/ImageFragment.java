@@ -45,7 +45,7 @@ public class ImageFragment extends BindingBaseFragment<FragmentImageBinding,Base
 
         String  imageURl= Constants.URLConstants.URL_IMAGE_BASE+mListBean.src;
 //        ImageUtils.display(mContext,mImage,imageURl);
-       ImageRequestManager.getInstance().display(mContext,mImage,imageURl);
+       ImageRequestManager.getRequest().display(mContext,mImage,imageURl);
 
     }
 

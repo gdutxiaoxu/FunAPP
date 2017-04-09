@@ -8,6 +8,6 @@ package com.xujun.funapp.beans;
 public class YiYuanResponse<T> {
 
     public int showapi_res_code;
-    public String showapi_res_error;
+    public YYNews showapi_res_error;
     public T showapi_res_body;
 }

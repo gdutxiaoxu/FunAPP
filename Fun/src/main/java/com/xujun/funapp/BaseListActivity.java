@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
-import com.xujun.funapp.common.BaseListFragment;
+import com.xujun.funapp.common.RequestResult;
 import com.xujun.funapp.common.mvp.BaseMVPActivity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
@@ -35,12 +35,17 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
     private boolean mEnableLoadMore = true;
 
     protected int mPage = 1;
-    private BaseListFragment.RequestResult mRequestResult;
+    private RequestResult mRequestResult;
     private MutiLayout mMultiLayout;
     private FloatingActionButton mFloatActionButton;
     private LinearLayoutManager mLinearLayoutManager;
 
     public static  final String TAG="xujun";
+
+    @Override
+    protected int getContentViewLayoutID() {
+        return R.layout.activity_base_list;
+    }
 
     @Override
     protected void initView(ActivityBaseListBinding bind) {
@@ -122,12 +127,21 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
                 }
             }
         });
-        mBind.titleView.setOnBackListener(new View.OnClickListener() {
+        mBind.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        mBind.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpSearch();
+            }
+        });
+    }
+
+    protected void jumpSearch() {
     }
 
     @Override
@@ -149,16 +163,13 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
 
     protected abstract BaseRecyclerAdapter getBaseAdapter();
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.activity_base_list;
-    }
 
-    protected <V> void handleResult(List<V> data, BaseListFragment.RequestResult requestResult) {
+
+    protected <V> void handleResult(List<V> data, RequestResult requestResult) {
         mRequestResult = requestResult;
 
         // 请求成功的时候
-        if (requestResult == BaseListFragment.RequestResult.success) {
+        if (requestResult == RequestResult.success) {
             if (isFirstPage()) {
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
@@ -172,7 +183,7 @@ public abstract class BaseListActivity<P extends BasePresenter> extends
             mRecyclerView.setVisibility(View.VISIBLE);
             mRefreshLayout.setVisibility(View.VISIBLE);
             mBaseAdapter.addDates(data);
-        } else if (requestResult == BaseListFragment.RequestResult.error) {
+        } else if (requestResult == RequestResult.error) {
 
             if (isFirstPage()) {
                 /**

@@ -3,6 +3,7 @@ package com.xujun.funapp.common.mvp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -36,6 +37,12 @@ public class BaseActivity extends AppCompatActivity {
     protected ProgressDialog dialog;
 
     private static PermissonListener mPermissonListener;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
 
     public static void requestPermissions(String[] permissions, PermissonListener
             perissonListener) {

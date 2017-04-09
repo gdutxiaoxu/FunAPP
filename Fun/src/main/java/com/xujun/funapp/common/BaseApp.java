@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import com.xujun.funapp.R;
 import com.xujun.funapp.network.NetworkConnectChangedReceiver;
 
+import org.litepal.LitePalApplication;
+
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
@@ -19,7 +21,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
  * @ author：xujun on 2016/10/31 22:44
  * @ email：gdutxiaoxu@163.com
  */
-public class BaseApp extends Application {
+public class BaseApp extends LitePalApplication {
 
     private static AlertDialog mAlertDialog;
     private static AlertDialog mWifiDialog;

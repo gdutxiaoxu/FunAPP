@@ -18,7 +18,8 @@ import java.util.List;
  * @email gdutxiaoxu@163.com
  */
 
-public class WeChatJingXuanAdapter extends BaseRecyclerAdapter<WeChatJingXuan.ShowapiResBodyEntity.PagebeanEntity.ContentlistEntity> {
+public class WeChatJingXuanAdapter extends BaseRecyclerAdapter<WeChatJingXuan.PagebeanEntity.ContentlistEntity> {
+
 
     public WeChatJingXuanAdapter(Context context, List datas) {
         super(context, R.layout.item_wechat_jingxuan, datas);
@@ -26,8 +27,7 @@ public class WeChatJingXuanAdapter extends BaseRecyclerAdapter<WeChatJingXuan.Sh
 
 
     @Override
-    public void convert(BaseRecyclerHolder holder, WeChatJingXuan.ShowapiResBodyEntity.PagebeanEntity
-            .ContentlistEntity item, int position) {
+    public void convert(BaseRecyclerHolder holder, WeChatJingXuan.PagebeanEntity.ContentlistEntity item, int position) {
         ImageView imageView=holder.getView(R.id.iv);
         TextView tvTitle=holder.getView(R.id.tv_title);
         TextView tvTime=holder.getView(R.id.tv_time);
@@ -47,10 +47,14 @@ public class WeChatJingXuanAdapter extends BaseRecyclerAdapter<WeChatJingXuan.Sh
         String readNum = StringUtils.getStr(item.read_num+"");
         String likeNum = StringUtils.getStr(item.like_num+"");
 
-        ImageRequestManager.getInstance().display(mContext,imageView,imageUrl);
+        ImageRequestManager.getRequest().display(mContext,imageView,imageUrl);
         tvTime.setText(time);
         tvTitle.setText(title);
         tvSource.setText(source);
 
     }
+
+
+
+
 }

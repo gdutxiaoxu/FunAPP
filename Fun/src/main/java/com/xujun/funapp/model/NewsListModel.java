@@ -3,7 +3,7 @@ package com.xujun.funapp.model;
 import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.beans.YiYuanNewsClassify;
 import com.xujun.funapp.network.NetworkManager;
-import com.xujun.funapp.network.RequestListener;
+import com.xujun.myrxretrofitlibrary.RequestListener;
 import com.xujun.funapp.network.retrofit.TxApi;
 import com.xujun.funapp.network.retrofit.TxNet;
 

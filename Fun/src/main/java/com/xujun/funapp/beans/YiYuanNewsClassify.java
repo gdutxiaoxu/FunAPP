@@ -110,7 +110,10 @@ public class YiYuanNewsClassify {
          * {"channelId":"5572a10ab3cdc86cf39001f2","name":"情感两性最新"},
          * {"channelId":"5572a10ab3cdc86cf39001f3","name":"健康养生最新"},
          * {"channelId":"5572a10ab3cdc86cf39001f4","name":"科技最新"},
-         * {"channelId":"5572a10bb3cdc86cf39001f5","name":"数码最新"},{"channelId":"5572a10bb3cdc86cf39001f6","name":"电脑最新"},{"channelId":"5572a10bb3cdc86cf39001f7","name":"科普最新"},{"channelId":"5572a10bb3cdc86cf39001f8","name":"社会最新"}]
+         * {"channelId":"5572a10bb3cdc86cf39001f5","name":"数码最新"},
+         * {"channelId":"5572a10bb3cdc86cf39001f6","name":"电脑最新"},
+         * {"channelId":"5572a10bb3cdc86cf39001f7","name":"科普最新"},
+         * {"channelId":"5572a10bb3cdc86cf39001f8","name":"社会最新"}]
          */
 
         public int totalNum;

@@ -8,7 +8,7 @@ package com.xujun.funapp.beans;
 public class TxNewsClassify {
 
     public String type;
-    public String  title;
+    public String title;
 
     public TxNewsClassify(String type, String title) {
         this.type = type;

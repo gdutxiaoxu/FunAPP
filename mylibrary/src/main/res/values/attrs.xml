@@ -4,4 +4,47 @@
         <attr name="picture" format="reference"/>
         <attr name="text" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="TitleView">
+        <attr name="leftText" format="string"/>
+        <attr name="leftTextColor" format="color"/>
+        <attr name="leftTextSize" format="dimension"/>
+        <attr name="leftIcon" format="reference|color"/>
+        <attr name="title" format="string"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleColor" format="color"/>
+
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightTextSize" format="dimension"/>
+        <attr name="rightIcon" format="reference|color"/>
+
+        <attr name="leftVisibility">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0"/>
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1"/>
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <attr name="rightVisibility">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0"/>
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1"/>
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <attr name="titleVisibility">
+            <!-- Visible on screen; the default value. -->
+            <enum name="visible" value="0"/>
+            <!-- Not displayed, but taken into account during layout (space is left for it). -->
+            <enum name="invisible" value="1"/>
+            <!-- Completely hidden, as if the view had not been added. -->
+            <enum name="gone" value="2"/>
+        </attr>
+
+    </declare-styleable>
 </resources>

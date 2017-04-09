@@ -7,15 +7,30 @@ package com.xujun.funapp.image;
 
 public class ImageRequestManager {
 
+    public static final String type_Glide="Glide";
+    public static final String type_Picasso="Picasso";
+    public static final String type_default =type_Glide;
+
    private ImageRequestManager(){
 
    }
 
-    public static IimageListener getInstance(){
-        return Holder.mIimageListener;
+    public static IimageListener getRequest(){
+      return getRequest(type_default);
+
     }
 
-    private static class Holder{
-        private static final IimageListener mIimageListener=GlideRequest.getInstance();
+    public static IimageListener getRequest(String type){
+        switch (type){
+            case type_Glide:
+                return new GlideRequest();
+
+            case type_Picasso:
+                return new PicassoRequest();
+
+            default:
+                return new GlideRequest();
+        }
+
     }
 }

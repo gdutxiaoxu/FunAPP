@@ -43,7 +43,7 @@ public class PicturePagerAdapter extends BasePagerAdapter {
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         String url = mResources.get(position);
         Log.i(TAG, "instantiateItem: url=" + url);
-        ImageRequestManager.getInstance().display(mContext, iv, url, R.drawable.ic_progress);
+        ImageRequestManager.getRequest().display(mContext, iv, url, R.drawable.ic_progress);
 
         collection.addView(iv, 0);
         return iv;

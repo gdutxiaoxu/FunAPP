@@ -17,8 +17,9 @@ public class Constants {
 
 
     public static class IntentConstants {
-        public static final String DEFAULT_PARCEABLE_NAME = "DEFAULT_PARCEABLE_NAME";
-        public static final String DEFAULT_STRING_NAME = "DEFAULT_STRING_NAME";
+        public static final String DEFAULT_PARCEABLE_NAME = "default_parceable_name";
+        public static final String DEFAULT_STRING_NAME = "default_string_name";
+        public static final String TITLE_NAME = "title_name";
         public static final int RESULT_CODE_PICK_CITY = 2333;
         public static final String KEY_PICKED_CITY = "picked_city";
     }

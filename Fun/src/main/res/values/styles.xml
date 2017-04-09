@@ -1,11 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
+<!--
+    android:configChanges="keyboardHidden|orientation|screenSize"-->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:configChanges">keyboardHidden|orientation|screenSize</item>
     </style>
 
     <style name="LetterIndexTextViewStyle">

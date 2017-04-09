@@ -37,8 +37,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".view.main.MainActivity">
+        android:theme="@style/AppTheme"
+
+        >
+        <activity
+            android:name=".view.main.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -55,27 +60,29 @@
             android:name=".view.location.CityPickerActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
-
         <activity android:name=".view.detail.PictureDetailActivity2">
-
         </activity>
-
         <activity android:name=".view.detail.YYNewsDetailActivity">
-
         </activity>
-
         <activity android:name=".view.wechat.WechatActivity">
 
-     <!--       <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--
+                       <intent-filter>
+                       <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
+                       <category android:name="android.intent.category.LAUNCHER"/>
+                   </intent-filter>
+            -->
+
+        </activity>
+        <activity android:name=".view.detail.UrlDetailActivity"/>
+        <activity android:name=".view.previouslife.PreviousLifeActivity"/>
+        <activity android:name=".view.previouslife.PreviousLifeDetailActivity"/>
+        <activity android:name=".view.detail.WebViewActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize">
 
         </activity>
 
-
-        <activity android:name=".view.detail.UrlDetailActivity"></activity>
         <receiver android:name=".network.NetworkChangeListener">
         </receiver>
         <receiver android:name=".network.NetworkConnectChangedReceiver">
@@ -90,7 +97,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="KlBwuaZOYlycg2aI2VSdotgjItHFcT43"/>
-        <!--//key:开发者申请的Key-->
+        <!-- //key:开发者申请的Key -->
         <activity android:name=".view.location.GPSLocationActivity">
         </activity>
     </application>

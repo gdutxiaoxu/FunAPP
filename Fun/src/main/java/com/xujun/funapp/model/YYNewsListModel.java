@@ -1,18 +1,13 @@
 package com.xujun.funapp.model;
 
-import com.xujun.funapp.beans.YYNews;
-import com.xujun.funapp.network.ApiManger;
-import com.xujun.funapp.network.YiYuanApi;
 import com.xujun.myrxretrofitlibrary.BaseFunc1;
-import com.xujun.myrxretrofitlibrary.YYHttpManger;
+import com.xujun.myrxretrofitlibrary.yiyuan.YYHttpManger;
+import com.xujun.myrxretrofitlibrary.yiyuan.YiYuanApi;
 
 import java.util.HashMap;
 
 import okhttp3.ResponseBody;
-import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * @ explain:
@@ -22,38 +17,39 @@ import rx.schedulers.Schedulers;
 public class YYNewsListModel {
 
     public void getNews(String channelId, String channelName, int page,
-                        int maxResult, Subscriber<YYNews> subscriber) {
-        YiYuanApi api = ApiManger.getInstance().getApi(YiYuanApi.class, YiYuanApi.mBaseUrl);
-        HashMap<String, Object> map = new HashMap<>();
+                        int maxResult, Subscriber<String> subscriber) {
+        if(page<=1){
+
+
+        }
+
+        HashMap<java.lang.String, Object> map = new HashMap<>();
         map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
         map.put(YiYuanApi.API_SIGN_KEY,YiYuanApi.API_SIGN);
         map.put("channelId",channelId);
         map.put("channelName",channelName);
         map.put("page",page);
         map.put("maxResult",maxResult);
-        Observable<YYNews> observable = api.getNews(map);
-        observable.subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).subscribe(subscriber);
-//        observable.compose(new HttpManger.LiftAllTransformer<YYNews,YYNews>())
-//                .subscribe(subscriber);
+        String url= com.xujun.myrxretrofitlibrary.yiyuan.YiYuanApi.mBaseUrl+"/109-35/";
+        YYHttpManger.getInstance().push(url,map,subscriber);
 
     }
 
-    public void getNews(String url,String channelId, String channelName, int page,
+    public void getNews(java.lang.String url, java.lang.String channelId, java.lang.String channelName, int page,
                         int maxResult, BaseFunc1 baseFunc1) {
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<java.lang.String, Object> map = new HashMap<>();
         map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
         map.put(YiYuanApi.API_SIGN_KEY,YiYuanApi.API_SIGN);
         map.put("channelId",channelId);
         map.put("channelName",channelName);
         map.put("page",page);
         map.put("maxResult",maxResult);
-//        YYHttpManger.getInstance().testRequestBody(map,url,baseFunc1);
+//        YYHttpManger.getRequest().testRequestBody(map,url,baseFunc1);
     }
 
-    public void getNews(String url,String channelId, String channelName, int page,
+    public void getNews(java.lang.String url, java.lang.String channelId, java.lang.String channelName, int page,
                         int maxResult, Subscriber<ResponseBody> subscriber) {
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<java.lang.String, Object> map = new HashMap<>();
         map.put(YiYuanApi.API_ID_KEY,YiYuanApi.API_ID);
         map.put(YiYuanApi.API_SIGN_KEY,YiYuanApi.API_SIGN);
         map.put("channelId",channelId);

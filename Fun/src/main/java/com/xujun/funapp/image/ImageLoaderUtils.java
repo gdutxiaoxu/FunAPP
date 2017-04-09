@@ -1,58 +1,52 @@
 package com.xujun.funapp.image;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
-import com.xujun.funapp.R;
-
 /**
  * @ explain:
  * @ author：xujun on 2016/9/17 17:34
  * @ email：gdutxiaoxu@163.com
  */
 public class ImageLoaderUtils {
-
-    /**
+/*
+    *//**
      * 指定大小加载图片
      *
      * @param mContext   上下文
-     * @param path       图片路径
+     * @param url       图片路径
      * @param width      宽
      * @param height     高
      * @param mImageView 控件
-     */
-    public static void loadImageViewSize(Context mContext, String path, int width, int height,
+     *//*
+    public static void loadImageViewSize(Context mContext, String url, int width, int height,
                                      ImageView mImageView) {
-        Picasso.with(mContext).load(path).resize(width, height).centerCrop().into(mImageView);
+        Picasso.with(mContext).load(url).resize(width, height).centerCrop().into(mImageView);
+//        Glide.with(mContext).load(url).into(mImageView);
     }
 
-    public static void loadImageView(Context mContext, String path, ImageView mImageView) {
-        Picasso.with(mContext).load(path).into(mImageView);
+    public static void loadImageView(Context mContext, String url, ImageView mImageView) {
+//        Picasso.with(mContext).load(url).into(mImageView);
+        Glide.with(mContext).load(url).into(mImageView);
     }
 
-    /**
+    *//**
      * 加载有默认图片
      *
      * @param mContext   上下文
      * @param path       图片路径
      * @param resId      默认图片资源
      * @param mImageView 控件
-     */
+     *//*
     public static void loadImageViewHolder(Context mContext, String path, int resId, ImageView
             mImageView) {
         Picasso.with(mContext).load(path).fit().placeholder(resId).into(mImageView);
     }
 
-    /**
+    *//**
      * 裁剪图片
      *
      * @param mContext   上下文
      * @param path       图片路径
      * @param mImageView 控件
-     */
+     *//*
     public static void loadImageViewCrop(Context mContext, String path, ImageView mImageView) {
         Picasso.with(mContext).load(path).transform(new CropImageView()).into(mImageView);
     }
@@ -73,9 +67,9 @@ public class ImageLoaderUtils {
 
     }
 
-    /**
+    *//**
      * 自定义图片裁剪
-     */
+     *//*
     public static class CropImageView implements Transformation {
 
         @Override
@@ -98,5 +92,5 @@ public class ImageLoaderUtils {
 
             return "lgl";
         }
-    }
+    }*/
 }

@@ -4,7 +4,7 @@ import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.beans.Test;
 import com.xujun.funapp.common.util.WriteLogUtil;
-import com.xujun.funapp.network.RequestListener;
+import com.xujun.myrxretrofitlibrary.RequestListener;
 import com.xujun.funapp.network.retrofit.TnGouAPi;
 import com.xujun.funapp.network.retrofit.TnGouNet;
 

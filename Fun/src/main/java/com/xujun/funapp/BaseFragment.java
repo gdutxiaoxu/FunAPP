@@ -1,5 +1,6 @@
 package com.xujun.funapp;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -14,17 +15,26 @@ import com.xujun.funapp.common.Constants;
 public class BaseFragment extends Fragment {
 
     public void readyGo(Class<?> clazz) {
-        this.readyGo(clazz, null, null);
+        this.readyGo(clazz, null, "");
     }
 
     public void readyGo(Class<?> clazz, Parcelable parcelable) {
-        this.readyGo(clazz, Constants.IntentConstants. DEFAULT_PARCEABLE_NAME, parcelable);
+        this.readyGo(clazz, Constants.IntentConstants.DEFAULT_PARCEABLE_NAME, parcelable);
     }
 
     public void readyGo(Class<?> clazz, String name, Parcelable parcelable) {
         Intent intent = new Intent(getActivity(), clazz);
         if (null != parcelable) {
             intent = intent.putExtra(name, parcelable);
+        }
+        startActivity(intent);
+    }
+
+    public void readyGo(Class<?> clazz, String name, String value) {
+
+        Intent intent = new Intent(getActivity(), clazz);
+        if (null != value) {
+            intent = intent.putExtra(name, value);
         }
         startActivity(intent);
     }

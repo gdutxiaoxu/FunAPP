@@ -16,9 +16,12 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="3">
 
             <com.xujun.funapp.widget.ImageButtonWithText
+
                 android:id="@+id/wechat"
                 style="@style/imageText"
                 app:picture="@drawable/sel_wechat"
@@ -37,7 +40,11 @@
                 app:text="星座运势"/>
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="3">
 
             <com.xujun.funapp.widget.ImageButtonWithText
                 android:id="@+id/past_life"

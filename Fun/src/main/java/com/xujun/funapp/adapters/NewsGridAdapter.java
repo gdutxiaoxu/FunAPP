@@ -93,14 +93,14 @@ public class NewsGridAdapter extends BaseRecyclerAdapter<TxNews.NewslistBean> {
             WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
-                    ImageRequestManager.getInstance().display(mContext,iv,picUrl);
-//                  ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+                    ImageRequestManager.getRequest().display(mContext,iv,picUrl);
+//                  ImageRequestManager.getRequest().display(mContext, iv, picUrl);
                 } else {
                     iv.setImageDrawable(new ColorDrawable(Color.GRAY));
                 }
 
             } else {
-              ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+              ImageRequestManager.getRequest().display(mContext, iv, picUrl);
             }
         } else if (mType == LayoutMangerType.Grid) {
 
@@ -120,13 +120,13 @@ public class NewsGridAdapter extends BaseRecyclerAdapter<TxNews.NewslistBean> {
             WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
-                  ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+                  ImageRequestManager.getRequest().display(mContext, iv, picUrl);
                 } else {
                     iv.setImageDrawable(new ColorDrawable(Color.GRAY));
                 }
 
             } else {
-              ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+              ImageRequestManager.getRequest().display(mContext, iv, picUrl);
             }
 
         }else{
@@ -148,13 +148,13 @@ public class NewsGridAdapter extends BaseRecyclerAdapter<TxNews.NewslistBean> {
             WriteLogUtil.i("isIntelligentNoPic=" + isIntelligentNoPic);
             if (isIntelligentNoPic) {
                 if (APP.getInstance().isWifi()) {
-                  ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+                  ImageRequestManager.getRequest().display(mContext, iv, picUrl);
                 } else {
                     iv.setImageDrawable(new ColorDrawable(Color.GRAY));
                 }
 
             } else {
-              ImageRequestManager.getInstance().display(mContext, iv, picUrl);
+              ImageRequestManager.getRequest().display(mContext, iv, picUrl);
             }
 
         }

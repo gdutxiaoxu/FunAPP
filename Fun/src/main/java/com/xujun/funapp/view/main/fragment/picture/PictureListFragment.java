@@ -13,6 +13,7 @@ import com.xujun.funapp.adapters.PictureListAdapter;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.BaseListFragment;
 import com.xujun.funapp.common.Constants.IntentConstants;
+import com.xujun.funapp.common.RequestResult;
 import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.MultiItemTypeSupport;
 import com.xujun.funapp.model.PictureListModel;
@@ -115,8 +116,8 @@ public class PictureListFragment extends BaseListFragment<PictureListPresenter>
                 return R.layout.item_picture_list_two;
             }
         });
-        View headerView = View.inflate(mContext, R.layout.header_view_test, null);
-        mMultiPictureListAdapter.addHeaderView(headerView);
+//        View headerView = View.inflate(mContext, R.layout.header_view_test, null);
+//        mMultiPictureListAdapter.addHeaderView(headerView);
         return mMultiPictureListAdapter;
     }
 

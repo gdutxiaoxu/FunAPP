@@ -35,7 +35,7 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
             //成功的时候
             if (resultResponse.isSuccess()) {
                 //result==0表示成功返回，继续用本来的Model类解析
-                return gson.fromJson(response, type);
+                return gson.fromJson(response, type_default);
                 //
             } else {
                 //ErrResponse 将msg解析为异常消息文本

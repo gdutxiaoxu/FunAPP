@@ -3,6 +3,7 @@ package com.xujun.funapp.common.mvp;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -12,8 +13,9 @@ import android.util.Log;
 
 import com.xujun.funapp.common.ActivityCollector;
 import com.xujun.funapp.common.Constants;
-import com.xujun.mylibrary.utils.LUtils;
 import com.xujun.funapp.common.util.SPUtils;
+import com.xujun.funapp.common.util.WriteLogUtil;
+import com.xujun.mylibrary.utils.LUtils;
 
 import org.simple.eventbus.EventBus;
 
@@ -30,15 +32,16 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
 
     protected Context mContext;
 
-
     protected T mBind;
     protected E mPresenter;
     private Parcelable mParcelableExtra;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WriteLogUtil.d(this.getClass().getSimpleName() + " onCreate");
+        //        设置屏幕方向
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ActivityCollector.add(this);
 
         initWindows();
@@ -87,6 +90,7 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        WriteLogUtil.d(this.getClass().getSimpleName() + " onDestroy");
         mBind.unbind();
         ActivityCollector.remove(this);
         if (dialog != null) {
@@ -133,8 +137,6 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     protected void initListener() {
     }
 
-
-
     /**
      * 在setContentView前初始化Window设置
      */
@@ -151,7 +153,6 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
      * 获取Layout的id
      */
     protected abstract int getContentViewLayoutID();
-
 
 
 }

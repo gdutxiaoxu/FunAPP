@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.xujun.funapp.common.APP;
 import com.xujun.funapp.network.INetworkListener;
-import com.xujun.funapp.network.RequestListener;
+import com.xujun.myrxretrofitlibrary.RequestListener;
 
 import java.io.File;
 import java.util.Map;
