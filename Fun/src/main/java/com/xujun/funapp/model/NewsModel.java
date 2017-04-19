@@ -3,12 +3,12 @@ package com.xujun.funapp.model;
 import com.xujun.funapp.beans.TxNews;
 import com.xujun.funapp.beans.YiYuanNewsClassify;
 import com.xujun.funapp.beans.YiYuanResponse;
-import com.xujun.myrxretrofitlibrary.RequestListener;
+import com.xujun.funapp.common.network.RequestListener;
 import com.xujun.funapp.network.retrofit.ApiNet;
 import com.xujun.funapp.network.retrofit.TxApi;
 import com.xujun.funapp.network.retrofit.TxNet;
 import com.xujun.funapp.network.retrofitclient.NetworkApi;
-import com.xujun.myrxretrofitlibrary.yiyuan.YYHttpManger;
+import com.xujun.funapp.common.network.yiyuan.YYHttpManger;
 
 import java.util.Map;
 

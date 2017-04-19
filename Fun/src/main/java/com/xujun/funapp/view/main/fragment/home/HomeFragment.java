@@ -24,7 +24,7 @@ import com.xujun.funapp.view.previouslife.PreviousLifeActivity;
 import com.xujun.funapp.view.wechat.WechatActivity;
 import com.xujun.funapp.widget.ImageButtonWithText;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.myrxretrofitlibrary.GsonManger;
+import com.xujun.funapp.common.network.GsonManger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,8 @@ import java.util.List;
  * @email gdutxiaoxu@163.com
  */
 
-public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> implements YYNewsListContract.View, View.OnClickListener {
+public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter>
+        implements YYNewsListContract.View, View.OnClickListener {
 
     List<NewsContentlistEntity> mData = new ArrayList<>();
     private MultiYYNewsListAdapter mMultiYYNewsListAdapter;
@@ -55,23 +56,23 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
         mMultiYYNewsListAdapter = new MultiYYNewsListAdapter(mContext, mData, new
                 MultiItemTypeSupport<NewsContentlistEntity>() {
 
-            @Override
-            public int getItemType(NewsContentlistEntity newsContentlistEntity, int
-                    position) {
-                if (newsContentlistEntity.havePic) {
-                    return MultiYYNewsListAdapter.TYPE_ONE;
-                }
-                return MultiYYNewsListAdapter.TYPE_TWO;
-            }
+                    @Override
+                    public int getItemType(NewsContentlistEntity newsContentlistEntity, int
+                            position) {
+                        if (newsContentlistEntity.havePic) {
+                            return MultiYYNewsListAdapter.TYPE_ONE;
+                        }
+                        return MultiYYNewsListAdapter.TYPE_TWO;
+                    }
 
-            @Override
-            public int getLayoutId(int itemType) {
-                if (itemType == MultiYYNewsListAdapter.TYPE_ONE) {
-                    return R.layout.item_yy_news_list_one;
-                }
-                return R.layout.item_yy_news_list_two;
-            }
-        });
+                    @Override
+                    public int getLayoutId(int itemType) {
+                        if (itemType == MultiYYNewsListAdapter.TYPE_ONE) {
+                            return R.layout.item_yy_news_list_one;
+                        }
+                        return R.layout.item_yy_news_list_two;
+                    }
+                });
         initHeadView();
 
         return mMultiYYNewsListAdapter;
@@ -105,7 +106,8 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
     @Override
     protected void initListener() {
         super.initListener();
-        mMultiYYNewsListAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        mMultiYYNewsListAdapter.setOnItemClickListener(new BaseRecyclerAdapter
+                .OnItemClickListener() {
 
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -116,15 +118,17 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
                 View title = recyclerHolder.getView(R.id.tv_title);
 
                 if (android.os.Build.VERSION.SDK_INT >= 22) {
-                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-                            title, mContext.getString(R.string.share_view)).toBundle();
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation
+                            (getActivity(),
+                                    title, mContext.getString(R.string.share_view)).toBundle();
 
                     Intent intent = new Intent(mContext, WebViewActivity.class);
-                    intent.putExtra(Constants.IntentConstants.DEFAULT_STRING_NAME,link);
-                    intent.putExtra(Constants.IntentConstants.TITLE_NAME,newslistBean.title);
+                    intent.putExtra(Constants.IntentConstants.DEFAULT_STRING_NAME, link);
+                    intent.putExtra(Constants.IntentConstants.TITLE_NAME, newslistBean.title);
                     mContext.startActivity(intent, bundle);
-                }else{
-                    readyGo(WebViewActivity.class, Constants.IntentConstants.DEFAULT_STRING_NAME,link);
+                } else {
+                    readyGo(WebViewActivity.class, Constants.IntentConstants.DEFAULT_STRING_NAME,
+                            link);
                 }
 
 
@@ -157,19 +161,33 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
     @Override
     public void onReceiveNews(String result) {
         YYNews yyNews = GsonManger.getInstance().fromJson(result, YYNews.class);
-        List<NewsContentlistEntity> contentlist = yyNews.pagebean
-                .contentlist;
-        if (false == ListUtils.isEmpty(contentlist)) {
-            handleResult(contentlist, RequestResult.success);
-        } else {
-            handleResult(contentlist, RequestResult.empty);
+        YYNews.PagebeanEntity pagebean = yyNews.pagebean;
+        if(pagebean.allNum>=mPage){
+            List<NewsContentlistEntity> contentlist = pagebean
+                    .contentlist;
+            if (false == ListUtils.isEmpty(contentlist)) {
+                handleResult(contentlist, RequestResult.success);
+            } else {
+                handleResult(contentlist, RequestResult.empty);
+            }
+        }else{
+           handleResult(null,RequestResult.empty);
         }
+
     }
 
     @Override
     public void onReceiveNewsError(Throwable error) {
         handleResult(null, RequestResult.error);
         WriteLogUtil.e(" =" + error.getMessage());
+
+    }
+
+    @Override
+    public void onReceiveLocal(int page, List list) {
+
+        handleResult(list, RequestResult.success);
+
     }
 
     @Override
@@ -180,6 +198,9 @@ public class HomeFragment extends BaseTopListFragment<YYNewsListPresenter> imple
                 break;
             case R.id.past_life:
                 readyGo(PreviousLifeActivity.class);
+                break;
+            case R.id.joke:
+
             default:
                 break;
         }

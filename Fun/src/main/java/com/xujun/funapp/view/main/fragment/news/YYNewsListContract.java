@@ -1,7 +1,10 @@
 package com.xujun.funapp.view.main.fragment.news;
 
+import com.xujun.funapp.beans.NewsContentlistEntity;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.mvp.BaseView;
+
+import java.util.List;
 
 /**
  * @ explain:
@@ -14,12 +17,14 @@ public class YYNewsListContract {
 
         void onReceiveNews(String result);
         void onReceiveNewsError(Throwable error);
+        void onReceiveLocal(int page, List<NewsContentlistEntity> list);
 
     }
 
     public interface Presenter extends BasePresenter {
 
         void getNews(String channelId, String channelName, int page, int maxResult);
+
 
     }
 }

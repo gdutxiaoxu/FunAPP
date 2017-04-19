@@ -142,6 +142,7 @@ public abstract class BaseListFragment<P extends BasePresenter> extends
                 /**
                  * 在第一页刷新结束的要隐藏mMultiLayout
                  */
+                mBaseAdapter.clearDates();
                 show(MutiLayout.LoadResult.noone);
                 mRefreshLayout.endRefreshing();
             } else {

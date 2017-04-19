@@ -37,7 +37,7 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     private Parcelable mParcelableExtra;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WriteLogUtil.d(this.getClass().getSimpleName() + " onCreate");
         //        设置屏幕方向

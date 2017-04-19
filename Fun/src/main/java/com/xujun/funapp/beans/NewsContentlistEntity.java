@@ -89,6 +89,24 @@ public class NewsContentlistEntity extends DataSupport implements Parcelable {
         public int height;
         public int width;
         public String url;
+
+        @Override
+        public String toString() {
+            return "ImageurlsEntity{" +
+                    "height=" + height +
+                    ", width=" + width +
+                    ", url='" + url + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "NewsContentlistEntity{" +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", imageurls=" + imageurls +
+                '}';
     }
 }
 

@@ -14,7 +14,7 @@ import com.xujun.funapp.databinding.ActivityPreviousLifeDetailBinding;
 import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.presenter.PreviousLifeDetailContract;
 import com.xujun.funapp.presenter.PreviousLifeDetailPresenter;
-import com.xujun.myrxretrofitlibrary.GsonManger;
+import com.xujun.funapp.common.network.GsonManger;
 
 import java.lang.reflect.Type;
 import java.util.List;

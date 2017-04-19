@@ -3,7 +3,7 @@ package com.xujun.funapp.view.main.fragment.picture;
 import com.xujun.funapp.beans.PictureListBean;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.model.PictureListModel;
-import com.xujun.myrxretrofitlibrary.RequestListener;
+import com.xujun.funapp.common.network.RequestListener;
 
 /**
  * @ explain:

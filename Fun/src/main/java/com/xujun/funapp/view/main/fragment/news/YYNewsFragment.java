@@ -12,7 +12,7 @@ import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.common.util.ResourceUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.myrxretrofitlibrary.GsonManger;
+import com.xujun.funapp.common.network.GsonManger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

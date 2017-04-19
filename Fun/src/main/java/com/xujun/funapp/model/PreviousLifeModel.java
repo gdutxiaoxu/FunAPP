@@ -1,6 +1,6 @@
 package com.xujun.funapp.model;
 
-import com.xujun.myrxretrofitlibrary.juhe.JuHeApiManger;
+import com.xujun.funapp.common.network.juhe.JuHeApiManger;
 
 import java.util.Map;
 

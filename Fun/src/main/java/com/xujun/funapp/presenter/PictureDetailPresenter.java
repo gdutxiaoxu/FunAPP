@@ -3,7 +3,7 @@ package com.xujun.funapp.presenter;
 import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.common.mvp.DefaultContract;
 import com.xujun.funapp.model.PictureDetailMOdel;
-import com.xujun.myrxretrofitlibrary.RequestListener;
+import com.xujun.funapp.common.network.RequestListener;
 
 /**
  * @ explain:图片详情的Presenter

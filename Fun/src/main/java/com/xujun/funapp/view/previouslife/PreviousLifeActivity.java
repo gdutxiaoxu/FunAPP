@@ -15,7 +15,7 @@ import com.xujun.funapp.presenter.PreviousLifeContract;
 import com.xujun.funapp.presenter.PreviousLifePresenter;
 import com.xujun.mylibrary.utils.DateUtils;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.myrxretrofitlibrary.GsonManger;
+import com.xujun.funapp.common.network.GsonManger;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

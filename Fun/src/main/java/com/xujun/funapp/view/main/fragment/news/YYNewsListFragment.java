@@ -31,7 +31,7 @@ import com.xujun.funapp.image.ImageRequestManager;
 import com.xujun.funapp.view.detail.WebViewActivity;
 import com.xujun.funapp.widget.CarouselView;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.myrxretrofitlibrary.GsonManger;
+import com.xujun.funapp.common.network.GsonManger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,6 +221,13 @@ public class YYNewsListFragment extends BaseListFragment<YYNewsListPresenter> im
         Log.i(TAG, "onReceiveNewsError: +=" + mItemPosition);
         handleResult(null, RequestResult.error);
         WriteLogUtil.e(" =" + error.getMessage());
+
+    }
+
+    @Override
+    public void onReceiveLocal(int page, List list) {
+
+        handleResult(list, RequestResult.success);
 
     }
 

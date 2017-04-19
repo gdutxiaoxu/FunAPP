@@ -15,6 +15,7 @@ import com.xujun.funapp.common.recyclerView.BaseRecyclerAdapter;
 import com.xujun.funapp.common.recyclerView.LayoutMangerType;
 import com.xujun.funapp.common.recyclerView.RecyclerUtils;
 import com.xujun.funapp.common.util.AnimationUtil;
+import com.xujun.funapp.common.util.UIUtils;
 import com.xujun.funapp.databinding.FragmentBaseListTopBinding;
 import com.xujun.funapp.widget.MutiLayout;
 
@@ -22,8 +23,6 @@ import java.util.List;
 
 import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-
-
 
 /**
  * @ explain:
@@ -50,15 +49,12 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
     //    根布局
     private FrameLayout mFlRoot;
 
-
     private MutiLayout mMultiLayout;
 
     protected LayoutMangerType mLayoutMangerType = LayoutMangerType.Linear;
-    private Boolean mEnableLoadMore=true;
+    private Boolean mEnableLoadMore = true;
     private FloatingActionButton mFloatActionButton;
     private LinearLayoutManager mLinearLayoutManager;
-
-
 
     protected void setOnRefreshListner(onRefreshListener OnRefreshListener) {
         this.mOnRefreshListener = OnRefreshListener;
@@ -86,8 +82,8 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
         refreshViewHolder.setLoadingMoreText("正在加载更多");
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         mFloatActionButton = binding.floatActionButton;
-        mFloatActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
+        mFloatActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
+                .OnGlobalLayoutListener() {
 
             @Override
             public void onGlobalLayout() {
@@ -158,13 +154,16 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
                 super.onScrolled(recyclerView, dx, dy);
                 int firstVisibleItemPosition = mLinearLayoutManager
                         .findFirstVisibleItemPosition();
-                if(dy>0){
-                    if(firstVisibleItemPosition>=8 && mFloatActionButton.getVisibility()!=View.VISIBLE){
-                        AnimationUtil.translateXInt(mFloatActionButton, (int) mFloatActionButton.getTranslationX(),0);
+                if (dy > 0) {
+                    if (firstVisibleItemPosition >= 8 && mFloatActionButton.getVisibility() !=
+                            View.VISIBLE) {
+                        AnimationUtil.translateXInt(mFloatActionButton, (int) mFloatActionButton
+                                .getTranslationX(), 0);
                     }
-                }else{
-                    if(firstVisibleItemPosition<4&&mFloatActionButton.getVisibility()==View.VISIBLE){
-                        AnimationUtil.translateXOut(mFloatActionButton,0,200);
+                } else {
+                    if (firstVisibleItemPosition < 4 && mFloatActionButton.getVisibility() ==
+                            View.VISIBLE) {
+                        AnimationUtil.translateXOut(mFloatActionButton, 0, 200);
                     }
                 }
             }
@@ -184,6 +183,7 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
                  */
                 show(MutiLayout.LoadResult.noone);
                 mRefreshLayout.endRefreshing();
+                mBaseAdapter.clearDates();
             } else {
                 mRefreshLayout.endLoadingMore();
             }
@@ -212,6 +212,7 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
 
             mPage--;
         } else {
+            UIUtils.showShortText("已经到底了");
 
             if (isFirstPage()) {
                 /**
@@ -222,18 +223,20 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mRefreshLayout.setVisibility(View.INVISIBLE);
                 mRefreshLayout.endRefreshing();
+
             } else {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRefreshLayout.setVisibility(View.VISIBLE);
                 mRefreshLayout.endLoadingMore();
-                // 设置不能加载更多了
-                setEnableLoadMore(false);
+
             }
-            mPage--;
+            // 设置不能加载更多了
+            setEnableLoadMore(false);
         }
 
 
     }
+
     public void setEnableLoadMore(Boolean enableLoadMore) {
         mEnableLoadMore = enableLoadMore;
     }
@@ -287,8 +290,6 @@ public abstract class BaseTopListFragment<P extends BasePresenter> extends
     protected boolean isFirstPage() {
         return mPage <= 1;
     }
-
-
 
     public void switchRecyclerAdapter(LayoutMangerType type, BaseRecyclerAdapter adapter) {
         if (mLayoutMangerType == type) {

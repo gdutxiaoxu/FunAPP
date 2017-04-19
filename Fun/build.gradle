@@ -65,7 +65,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(path: ':library')
     compile 'com.tamic.novate:novate:1.2.7.1'
-    compile project(path: ':myrxretrofitlibrary')
     compile project(path: ':mylibrary')
 
 }

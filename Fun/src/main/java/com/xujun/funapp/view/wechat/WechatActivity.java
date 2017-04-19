@@ -15,7 +15,7 @@ import com.xujun.funapp.presenter.WeChatContract;
 import com.xujun.funapp.presenter.WeChatPresenter;
 import com.xujun.funapp.view.detail.UrlDetailActivity;
 import com.xujun.mylibrary.utils.ListUtils;
-import com.xujun.myrxretrofitlibrary.GsonManger;
+import com.xujun.funapp.common.network.GsonManger;
 
 import java.util.ArrayList;
 import java.util.List;

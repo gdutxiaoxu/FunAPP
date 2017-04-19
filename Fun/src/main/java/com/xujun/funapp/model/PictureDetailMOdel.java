@@ -3,7 +3,7 @@ package com.xujun.funapp.model;
 import com.orhanobut.logger.Logger;
 import com.xujun.funapp.beans.PictureDetailBean;
 import com.xujun.funapp.network.retrofit.TnGouNet;
-import com.xujun.myrxretrofitlibrary.RequestListener;
+import com.xujun.funapp.common.network.RequestListener;
 import com.xujun.funapp.network.retrofit.TnGouAPi;
 
 import rx.Observable;

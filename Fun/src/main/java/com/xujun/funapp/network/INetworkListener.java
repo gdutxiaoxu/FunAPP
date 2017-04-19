@@ -1,6 +1,6 @@
 package com.xujun.funapp.network;
 
-import com.xujun.myrxretrofitlibrary.RequestListener;
+import com.xujun.funapp.common.network.RequestListener;
 
 import java.util.Map;
 

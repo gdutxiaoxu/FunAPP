@@ -46,7 +46,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     @Override
     public int getItemCount() {
-        return isEmpty() ? 0 : mDatas.size() + getHeaderViewCounts();
+        return isEmpty() ? 0+getHeaderViewCounts() : mDatas.size() + getHeaderViewCounts();
     }
 
     @Override
