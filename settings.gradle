@@ -1,1 +1,1 @@
-include ':app', ':myrxretrofitlibrary', ':mylibrary', ':library', ':Fun'
+include  ':library', ':Fun', ':mylibrary'

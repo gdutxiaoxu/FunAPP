@@ -27,7 +27,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     /**
      * HeaderView Type=TYPE_HEADER+position;
-     * Normal TYpe=TYPE_NORMAL;
+     * Normal Type=TYPE_NORMAL;
      */
     private static final int TYPE_HEADER = 10000;
     private static final int TYPE_NORMAL = 0;

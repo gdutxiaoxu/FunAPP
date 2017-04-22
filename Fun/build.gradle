@@ -1,6 +1,26 @@
 apply plugin: 'com.android.application'
 
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
 
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -28,9 +48,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
+//            signingConfigs signingConfigs.config
+            applicationIdSuffix ".relesse"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
         }
     }
 }
@@ -38,11 +65,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // -------------------- 以下三个库是必须依赖的 ----------------------------
-
     // -------------------- 以上三个库是必须依赖的 ----------------------------
-
     // 添加依赖
-
     //    compile project(':commonlibrary')
     compile rootProject.ext.dep["appcompat-v7"]
     compile rootProject.ext.dep["design"]
@@ -55,16 +79,17 @@ dependencies {
     compile rootProject.ext.dep["rxandroid"]
     compile rootProject.ext.dep["glide"]
     compile rootProject.ext.dep["glide:okhttp3"]
-//    compile rootProject.ext.dep["picasso"]
+    //    compile rootProject.ext.dep["picasso"]
     compile rootProject.ext.dep["logger"]
     compile rootProject.ext.dep["nineoldandroids"]
     compile rootProject.ext.dep["androideventbus"]
     compile rootProject.ext.dep["fab"]
     compile rootProject.ext.dep["refreshlayout"]
     compile rootProject.ext.dep["litepal"]
+    compile rootProject.ext.dep["okhttp3:interceptor"]
     testCompile 'junit:junit:4.12'
     compile project(path: ':library')
-    compile 'com.tamic.novate:novate:1.2.7.1'
+    //    github 上面封装 retrofit 的一个库。
+    //    compile 'com.tamic.novate:novate:1.2.7.1'
     compile project(path: ':mylibrary')
-
 }
