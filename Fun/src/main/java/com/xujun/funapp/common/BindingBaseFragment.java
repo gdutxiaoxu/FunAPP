@@ -41,6 +41,7 @@ public abstract class BindingBaseFragment<V extends ViewDataBinding, P extends B
         super.onCreate(savedInstanceState);
         mPresenter = setPresenter();
         initAru();
+
         if (hasEventBus()) {
             EventBus.getDefault().register(this);
         }

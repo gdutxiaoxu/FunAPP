@@ -6,14 +6,15 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.view.Window;
 
+import com.xujun.funapp.R;
 import com.xujun.funapp.common.ActivityCollector;
-import com.xujun.funapp.common.Constants;
-import com.xujun.funapp.common.util.SPUtils;
+import com.xujun.funapp.common.ThemeManager;
 import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.mylibrary.utils.LUtils;
 
@@ -25,7 +26,7 @@ import org.simple.eventbus.EventBus;
  * @ email：gdutxiaoxu@163.com
  */
 public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BasePresenter> extends
-        BaseActivity {
+        BaseActivity implements ThemeManager.OnThemeChangeListener {
 
     private static final String DEFAULT_NAME = "DEFAULT_NAME";
     public static final String TAG = "tag";
@@ -36,22 +37,26 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     protected E mPresenter;
     private Parcelable mParcelableExtra;
 
+    // 默认是日间模式
+    private int theme = R.style.DayAppTheme;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         WriteLogUtil.d(this.getClass().getSimpleName() + " onCreate");
         //        设置屏幕方向
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ActivityCollector.add(this);
 
         initWindows();
-        // 切换夜间模式的
+       /* // 切换夜间模式的
         boolean isNightMode = SPUtils.getBoolean(Constants.SPConstants.isNightMode);
         if (false == isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
+        }*/
 
         LUtils.d(this.getClass().getSimpleName() + ">>>>>>>>>>>onCreate()");
         // base setup
@@ -88,8 +93,24 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     }
 
     @Override
+    public void onThemeChanged() {
+       initTheme();
+    }
+
+    public void initTheme() {
+
+        // 设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(getResources().getColor(ThemeManager.getCurrentThemeRes
+                    (this, R.color.colorPrimary)));
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        ThemeManager.unregisterThemeChangeListener(this);
         WriteLogUtil.d(this.getClass().getSimpleName() + " onDestroy");
         mBind.unbind();
         ActivityCollector.remove(this);

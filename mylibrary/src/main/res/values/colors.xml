@@ -4,20 +4,11 @@
     <color name="colorPrimaryDark">#EB413D</color>
     <color name="colorAccent">#EB413D</color>
 
-
-    <color name="colorPrimary_night">#3b3b3b</color>
-    <color name="colorPrimaryDark_night">#383838</color>
-    <color name="colorAccent_night">#a72b55</color>
-    <color name="textColor">#FF000000</color>
-    <color name="textColor_night">#FFFFFF</color>
-    <color name="backgroundColor">#FFFFFF</color>
-    <color name="backgroundColor_night">#3b3b3b</color>
-
-
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="bg_tab_select">#80FF80</color>
     <color name="bg_tab_unselect">#C0C0C0</color>
     <color name="bg_tab">#fff</color>
+
 
 
     <color name="divider">#E5E5E5</color>
@@ -28,8 +19,6 @@
     <color name="gray_deep">#5c5c5c</color>
     <color name="alpha_gray">#CC646464</color>
     <color name="theme_gray">#646464</color>
-
-
 
 
 </resources>

@@ -8,6 +8,7 @@ import com.xujun.funapp.R;
 import com.xujun.funapp.common.BindingBaseFragment;
 import com.xujun.funapp.common.Constants.IntentConstants;
 import com.xujun.funapp.common.Constants.SPConstants;
+import com.xujun.funapp.common.ThemeManager;
 import com.xujun.funapp.common.mvp.BasePresenter;
 import com.xujun.funapp.common.util.SPUtils;
 import com.xujun.funapp.common.util.WriteLogUtil;
@@ -16,8 +17,6 @@ import com.xujun.funapp.view.location.CityPickerActivity;
 import com.xujun.funapp.view.location.GPSLocationActivity;
 import com.xujun.funapp.widget.SettingClickItem;
 import com.xujun.funapp.widget.SettingSwitchItem;
-
-import static com.xujun.funapp.common.Constants.SPConstants.city;
 
 /**
  * @ explain:
@@ -59,8 +58,11 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
         mSsiNightMode.setOnChangedListenr(new SettingSwitchItem.onChangeListener() {
             @Override
             public void onChange(boolean checked) {
-                SPUtils.put(SPConstants.isNightMode, checked);
-                getActivity().recreate();
+                /*SPUtils.put(SPConstants.isNightMode, checked);
+                getActivity().recreate();*/
+
+                ThemeManager.setThemeMode(ThemeManager.getThemeMode() == ThemeManager.ThemeMode
+                        .DAY ? ThemeManager.ThemeMode.NIGHT : ThemeManager.ThemeMode.DAY);
             }
         });
 
@@ -68,8 +70,8 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CityPickerActivity.class);
-                intent.putExtra(IntentConstants.KEY_PICKED_CITY,mCity);
-                getActivity().startActivityForResult(intent,0);
+                intent.putExtra(IntentConstants.KEY_PICKED_CITY, mCity);
+                getActivity().startActivityForResult(intent, 0);
             }
         });
         mSciGPSlocation.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +90,7 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
         mSsiIsIntelligentNoPic.setChecked(isIntelligentNoPic);
         boolean isNightMode = SPUtils.getBoolean(SPConstants.isNightMode);
         mSsiNightMode.setChecked(isNightMode);
-        mCity = SPUtils.getString(city);
+        mCity = SPUtils.getString(IntentConstants.KEY_PICKED_CITY);
         mSciLocation.setContent(mCity);
 
     }
@@ -108,12 +110,12 @@ public class SettingFragment extends BindingBaseFragment<FragmentSettingBinding,
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       switch (resultCode) {
+        switch (resultCode) {
             case IntentConstants.RESULT_CODE_PICK_CITY:
                 String city = data.getStringExtra(IntentConstants.KEY_PICKED_CITY);
-                if(!TextUtils.isEmpty(city)){
+                if (!TextUtils.isEmpty(city)) {
                     mSciLocation.setContent(city);
-                    SPUtils.put(IntentConstants.KEY_PICKED_CITY,city);
+                    SPUtils.put(IntentConstants.KEY_PICKED_CITY, city);
                 }
 
                 break;

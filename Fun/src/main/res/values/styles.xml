@@ -1,8 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
-<!--
-    android:configChanges="keyboardHidden|orientation|screenSize"-->
+    <!--
+        android:configChanges="keyboardHidden|orientation|screenSize"-->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -22,5 +22,26 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
+
+
+    <!-- Base application theme. -->
+    <style name="DayAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="mainBackground">@android:color/white</item>
+    </style>
+
+    <style name="NightAppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary_night</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_night</item>
+        <item name="colorAccent">@color/colorAccent_night</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="mainBackground">@color/backgroundColor_night</item>
+    </style>
+
 
 </resources>

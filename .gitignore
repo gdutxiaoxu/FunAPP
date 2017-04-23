@@ -8,6 +8,5 @@
 /captures
 .externalNativeBuild
 /app
-/mylibrary
 /keystore.properties
 /Fun/*.jks
