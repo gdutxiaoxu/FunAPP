@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$/Fun" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/mylibrary" />
+            <option value="$PROJECT_DIR$/titleView" />
+            <option value="$PROJECT_DIR$/titleviewlibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

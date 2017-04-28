@@ -129,12 +129,21 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
         LUtils.d(this.getClass().getSimpleName() + ">>>>>>>>>>>onDestroy()");
     }
 
+
+    /**
+     * 获取Layout的id
+     */
+    protected abstract int getContentViewLayoutID();
+
     protected boolean hasEventBus() {
         return false;
     }
 
     protected void initIntent(Intent intent) {
     }
+
+
+    protected abstract void initView(T bind);
 
     protected void initData() {
 
@@ -153,7 +162,6 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
 
     protected abstract E setPresenter();
 
-    protected abstract void initView(T bind);
 
     protected void initListener() {
     }
@@ -170,10 +178,6 @@ public abstract class BaseMVPActivity<T extends ViewDataBinding, E extends BaseP
     protected void getBundleExtras(Bundle extras) {
     }
 
-    /**
-     * 获取Layout的id
-     */
-    protected abstract int getContentViewLayoutID();
 
 
 }

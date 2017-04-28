@@ -6,10 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    >
 
-    tools:context="com.xujun.funapp.TextActivity">
-
-    <com.xujun.mylibrary.widget.TitleView
+    <com.xujun.funapp.widget.TitleView
         android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -18,6 +17,6 @@
         app:leftIcon="@drawable/sel_back"
     >
 
-    </com.xujun.mylibrary.widget.TitleView>
+    </com.xujun.funapp.widget.TitleView>
 
 </RelativeLayout>

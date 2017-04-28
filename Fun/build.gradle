@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -49,11 +48,11 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+//            applicationIdSuffix ".debug"
         }
         release {
 //            signingConfigs signingConfigs.config
-            applicationIdSuffix ".relesse"
+//            applicationIdSuffix ".relesse"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -87,9 +86,10 @@ dependencies {
     compile rootProject.ext.dep["refreshlayout"]
     compile rootProject.ext.dep["litepal"]
     compile rootProject.ext.dep["okhttp3:interceptor"]
-    testCompile 'junit:junit:4.12'
     compile project(path: ':library')
     //    github 上面封装 retrofit 的一个库。
     //    compile 'com.tamic.novate:novate:1.2.7.1'
     compile project(path: ':mylibrary')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

@@ -3,6 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 android:background="@color/colorAccent"
+                android:minHeight="?android:actionBarSize"
                 android:orientation="vertical">
 
 
@@ -11,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:padding="10dp"
         android:clickable="true"
+        android:padding="10dp"
         android:src="@drawable/sel_back"/>
 
     <TextView

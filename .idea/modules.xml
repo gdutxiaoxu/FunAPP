@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Fun/Fun.iml" filepath="$PROJECT_DIR$/Fun/Fun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FunAPP_github.iml" filepath="$PROJECT_DIR$/FunAPP_github.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mylibrary/mylibrary.iml" filepath="$PROJECT_DIR$/mylibrary/mylibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/titleView/titleView.iml" filepath="$PROJECT_DIR$/titleView/titleView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/titleviewlibrary/titleviewlibrary.iml" filepath="$PROJECT_DIR$/titleviewlibrary/titleviewlibrary.iml" />
     </modules>
   </component>
 </project>

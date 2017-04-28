@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:title="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+
+    tools:context="com.jarek.titleview.MainActivity">
+
+    <com.jarek.library.TitleView
+        android:id="@+id/title_main"
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:title_name="@string/more"
+        title:right_text="@string/more"
+        title:title_text_color="@android:color/white"
+        title:right_image_two="@mipmap/icon_crop_rotate"
+        title:title_text_size="20sp"
+        title:small_text_size="15sp"
+        title:left_text="返回"
+        title:left_text_drawable_left="@mipmap/back_normal"
+        title:right_text_drawable_right="@mipmap/bar_button_right"
+        android:layout_height="50dp"/>
+
+    <com.jarek.library.TitleView
+        android:id="@+id/title_main2"
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:title_name="标题"
+        title:right_text="@string/more"
+        title:title_text_color="@android:color/white"
+        title:right_image_two="@mipmap/icon_crop_rotate"
+        title:title_text_size="20sp"
+        title:small_text_size="15sp"
+        title:left_text="返回"
+        title:right_text_drawable_right="@mipmap/bar_button_right"
+        android:layout_height="50dp"/>
+
+    <com.jarek.library.TitleView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:left_image="@mipmap/back_normal"
+        title:title_name="标题"
+        title:title_text_color="@android:color/white"
+        title:right_image_two="@mipmap/icon_crop_rotate"
+        title:title_text_size="20sp"
+        title:small_text_size="15sp"
+        title:title_gravity="left"
+        title:right_image="@mipmap/bar_button_right"
+        android:layout_height="50dp"/>
+
+
+    <com.jarek.library.TitleView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:left_image="@mipmap/back_normal"
+        title:title_name="标题"
+        title:title_text_color="@android:color/white"
+        title:right_text_two="@string/more"
+        title:title_text_size="17sp"
+        title:small_text_size="@dimen/title_text_small_size"
+        title:right_image="@mipmap/bar_button_right"
+        android:layout_height="50dp"/>
+
+    <com.jarek.library.TitleView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:left_image="@mipmap/back_normal"
+        title:title_name="标题"
+        title:title_text_color="@android:color/white"
+
+        android:layout_height="100dp"/>
+
+    <com.jarek.library.TitleView
+
+        android:layout_width="match_parent"
+        android:background="#0093fe"
+        title:title_name="标题"
+        title:right_text="@string/more"
+        title:title_text_color="@android:color/white"
+        title:right_image_two="@mipmap/icon_crop_rotate"
+        title:title_text_size="20sp"
+        title:small_text_size="15sp"
+        title:left_image="@mipmap/back_normal"
+        title:left_text="返回"
+        title:left_text_drawable_left="@mipmap/back_normal"
+        title:right_text_drawable_right="@mipmap/bar_button_right"
+        android:layout_height="50dp"/>
+
+
+</LinearLayout>

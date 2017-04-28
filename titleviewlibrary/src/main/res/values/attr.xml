@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 标题属性 -->
+    <declare-styleable name="TitleView">
+        <attr name="title_name" format="reference|string"/>
+        <attr name="title_text_color" format="reference|color"/>
+        <attr name="title_drawable_right" format="reference"/>
+        <attr name="title_drawable_left" format="reference"/>
+        <attr name="title_text_size" format="reference|dimension"/>
+        <attr name="left_text" format="reference|string"/>
+        <attr name="left_image" format="reference"/>
+        <attr name="small_text_size" format="reference|dimension"/>
+        <attr name="title_gravity">
+            <enum name="left" value="3"/>
+            <enum name="center" value="17"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="right_image" format="reference"/>
+        <attr name="right_text" format="reference|string"/>
+        <attr name="right_image_two" format="reference"/>
+        <attr name="right_text_two" format="reference|string"/>
+        <attr name="title_height" format="dimension"/>
+        <attr name="right_text_drawable_right" format="reference"/>
+        <attr name="right_text_drawable_left" format="reference"/>
+        <attr name="right_text_two_drawable_right" format="reference"/>
+        <attr name="right_text_two_drawable_left" format="reference"/>
+        <attr name="left_text_drawable_right" format="reference"/>
+        <attr name="left_text_drawable_left" format="reference"/>
+    </declare-styleable>
+</resources>

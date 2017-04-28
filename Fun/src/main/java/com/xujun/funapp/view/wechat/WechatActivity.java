@@ -14,6 +14,7 @@ import com.xujun.funapp.common.util.WriteLogUtil;
 import com.xujun.funapp.presenter.WeChatContract;
 import com.xujun.funapp.presenter.WeChatPresenter;
 import com.xujun.funapp.view.detail.UrlDetailActivity;
+import com.xujun.funapp.view.search.SearchWeChat;
 import com.xujun.mylibrary.utils.ListUtils;
 import com.xujun.funapp.common.network.GsonManger;
 
@@ -50,6 +51,12 @@ public class WechatActivity extends BaseListActivity<WeChatPresenter> implements
     @Override
     protected void initListener() {
         super.initListener();
+        mBind.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readyGo(SearchWeChat.class);
+            }
+        });
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, RecyclerView.ViewHolder holder, int position) {

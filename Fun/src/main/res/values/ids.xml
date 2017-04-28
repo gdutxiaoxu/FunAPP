@@ -2,5 +2,7 @@
 <resources>
 
     <item name="tv_title" type="id"></item>
+    <item name="list_view" type="id"></item>
+    <item name="recycler_view" type="id"></item>
 
 </resources>
