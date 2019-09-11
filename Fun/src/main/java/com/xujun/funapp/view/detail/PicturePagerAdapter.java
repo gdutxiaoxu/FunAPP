@@ -10,9 +10,9 @@ import com.xujun.funapp.image.ImageRequestManager;
 
 import java.util.List;
 
-import ru.xujun.touchgallery.GalleryWidget.BasePagerAdapter;
-import ru.xujun.touchgallery.GalleryWidget.GalleryViewPager;
-import ru.xujun.touchgallery.TouchView.TouchImageView;
+import ru.xujun.touchgallery.gallerywidget.BasePagerAdapter;
+import ru.xujun.touchgallery.gallerywidget.GalleryViewPager;
+import ru.xujun.touchgallery.touchview.TouchImageView;
 
 /**
  * @author xujun  on 2016/12/4.

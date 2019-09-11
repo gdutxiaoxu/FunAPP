@@ -15,7 +15,7 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ru.xujun.touchgallery.GalleryWidget;
+package ru.xujun.touchgallery.gallerywidget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -26,7 +26,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import ru.xujun.touchgallery.TouchView.TouchImageView;
+import ru.xujun.touchgallery.touchview.TouchImageView;
 
 /**
  This class implements method to help <b>TouchImageView</b> fling, draggin and scaling.

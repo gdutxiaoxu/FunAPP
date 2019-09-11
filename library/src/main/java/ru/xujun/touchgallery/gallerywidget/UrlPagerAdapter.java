@@ -15,17 +15,17 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ru.xujun.touchgallery.GalleryWidget;
+package ru.xujun.touchgallery.gallerywidget;
 
 import java.util.List;
 
 import android.content.Context;
 import android.view.ViewGroup;
-import ru.xujun.touchgallery.TouchView.UrlTouchImageView;
+import ru.xujun.touchgallery.touchview.UrlTouchImageView;
 
 
 /**
- Class wraps URLs to adapter, then it instantiates {@link ru.xujun.touchgallery.TouchView.UrlTouchImageView} objects to paging up through them.
+ Class wraps URLs to adapter, then it instantiates {@link ru.xujun.touchgallery.touchview.UrlTouchImageView} objects to paging up through them.
  */
 public class UrlPagerAdapter extends BasePagerAdapter {
 

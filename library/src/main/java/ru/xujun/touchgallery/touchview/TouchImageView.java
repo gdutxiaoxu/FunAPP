@@ -15,7 +15,7 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ru.xujun.touchgallery.TouchView;
+package ru.xujun.touchgallery.touchview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,18 +26,18 @@ import android.graphics.PointF;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
 @SuppressLint("NewApi")
-public class TouchImageView extends ImageView {
+public class TouchImageView extends AppCompatImageView {
 
     private int positionForTouchImageView = -1;
 

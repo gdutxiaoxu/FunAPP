@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-
-        <ru.xujun.touchgallery.GalleryWidget.GalleryViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-        >
-
-        </ru.xujun.touchgallery.GalleryWidget.GalleryViewPager>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_page_num"
@@ -20,7 +15,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:padding="10dp"
-            android:text="1/10"/>
+            android:text="1/10" />
+
+        <ru.xujun.touchgallery.gallerywidget.GalleryViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ru.xujun.touchgallery.gallerywidget.GalleryViewPager>
 
     </FrameLayout>
 

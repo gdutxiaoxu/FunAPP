@@ -15,7 +15,7 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ru.xujun.touchgallery.TouchView;
+package ru.xujun.touchgallery.touchview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,7 +24,7 @@ import android.util.AttributeSet;
 import java.io.File;
 import java.io.FileInputStream;
 
-import ru.xujun.touchgallery.TouchView.InputStreamWrapper.InputStreamProgressListener;
+import ru.xujun.touchgallery.touchview.InputStreamWrapper.InputStreamProgressListener;
 
 public class FileTouchImageView extends UrlTouchImageView 
 {

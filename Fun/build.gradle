@@ -2,28 +2,28 @@ apply plugin: 'com.android.application'
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-
-// Initialize a new Properties() object called keystoreProperties.
-def keystoreProperties = new Properties()
-
-// Load your keystore.properties file into the keystoreProperties object.
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//def keystorePropertiesFile = rootProject.file("keystore.properties")
+//
+//// Initialize a new Properties() object called keystoreProperties.
+//def keystoreProperties = new Properties()
+//
+//// Load your keystore.properties file into the keystoreProperties object.
+//keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
 
     signingConfigs {
         config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
         }
     }
 
 
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+//    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.xujun.funapp"
@@ -62,34 +62,34 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // -------------------- 以下三个库是必须依赖的 ----------------------------
     // -------------------- 以上三个库是必须依赖的 ----------------------------
     // 添加依赖
-    //    compile project(':commonlibrary')
-    compile rootProject.ext.dep["appcompat-v7"]
-    compile rootProject.ext.dep["design"]
-    compile rootProject.ext.dep["cardview-v7"]
-    compile rootProject.ext.dep["recyclerview-v7"]
-    compile rootProject.ext.dep["retrofit"]
-    compile rootProject.ext.dep["converter-gson"]
-    compile rootProject.ext.dep["adapter-rxjava"]
-    compile rootProject.ext.dep["rxjava"]
-    compile rootProject.ext.dep["rxandroid"]
-    compile rootProject.ext.dep["glide"]
-    compile rootProject.ext.dep["glide:okhttp3"]
-    //    compile rootProject.ext.dep["picasso"]
-    compile rootProject.ext.dep["logger"]
-    compile rootProject.ext.dep["nineoldandroids"]
-    compile rootProject.ext.dep["androideventbus"]
-    compile rootProject.ext.dep["fab"]
-    compile rootProject.ext.dep["refreshlayout"]
-    compile rootProject.ext.dep["litepal"]
-    compile rootProject.ext.dep["okhttp3:interceptor"]
-    compile project(path: ':library')
+    //    implementation project(':commonlibrary')
+    implementation rootProject.ext.dep["appcompat-v7"]
+    implementation rootProject.ext.dep["design"]
+    implementation rootProject.ext.dep["cardview-v7"]
+    implementation rootProject.ext.dep["recyclerview-v7"]
+    implementation rootProject.ext.dep["retrofit"]
+    implementation rootProject.ext.dep["converter-gson"]
+    implementation rootProject.ext.dep["adapter-rxjava"]
+    implementation rootProject.ext.dep["rxjava"]
+    implementation rootProject.ext.dep["rxandroid"]
+    implementation rootProject.ext.dep["glide"]
+    implementation rootProject.ext.dep["glide:okhttp3"]
+    //    implementation rootProject.ext.dep["picasso"]
+    implementation rootProject.ext.dep["logger"]
+    implementation rootProject.ext.dep["nineoldandroids"]
+    implementation rootProject.ext.dep["androideventbus"]
+    implementation rootProject.ext.dep["fab"]
+    implementation rootProject.ext.dep["refreshlayout"]
+    implementation rootProject.ext.dep["litepal"]
+    implementation rootProject.ext.dep["okhttp3:interceptor"]
+    implementation project(path: ':library')
     //    github 上面封装 retrofit 的一个库。
-    //    compile 'com.tamic.novate:novate:1.2.7.1'
-    compile project(path: ':mylibrary')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    //    implementation 'com.tamic.novate:novate:1.2.7.1'
+    implementation project(path: ':mylibrary')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
 }

@@ -1,4 +1,4 @@
-package ru.xujun.touchgallery.TouchView;
+package ru.xujun.touchgallery.touchview;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

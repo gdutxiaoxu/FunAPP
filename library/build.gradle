@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 16
+//        applicationId "ru.xujun.touchgallery"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
     buildTypes {
@@ -15,8 +15,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.+'
+    implementation rootProject.ext.dep["appcompat-v7"]
 }

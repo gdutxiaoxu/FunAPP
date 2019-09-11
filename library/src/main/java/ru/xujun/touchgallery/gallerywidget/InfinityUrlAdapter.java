@@ -1,4 +1,4 @@
-package ru.xujun.touchgallery.GalleryWidget;
+package ru.xujun.touchgallery.gallerywidget;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import ru.xujun.touchgallery.TouchView.UrlTouchImageView;
+import ru.xujun.touchgallery.touchview.UrlTouchImageView;
 
 /**
  * Created by fabio on 28/05/14.

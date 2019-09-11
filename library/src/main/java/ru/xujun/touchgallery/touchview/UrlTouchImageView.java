@@ -15,7 +15,7 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package ru.xujun.touchgallery.TouchView;
+package ru.xujun.touchgallery.touchview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,7 +31,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import ru.xujun.touchgallery.R;
-import ru.xujun.touchgallery.TouchView.InputStreamWrapper.InputStreamProgressListener;
+import ru.xujun.touchgallery.touchview.InputStreamWrapper.InputStreamProgressListener;
 
 public class UrlTouchImageView extends RelativeLayout {
     protected ProgressBar mProgressBar;

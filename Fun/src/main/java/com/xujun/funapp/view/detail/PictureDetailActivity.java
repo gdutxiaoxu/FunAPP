@@ -18,7 +18,7 @@ import com.xujun.funapp.presenter.PictureDetailPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.xujun.touchgallery.GalleryWidget.GalleryViewPager;
+import ru.xujun.touchgallery.gallerywidget.GalleryViewPager;
 
 public class PictureDetailActivity extends
         BaseMVPActivity<ActivityPictureDetailBinding,PictureDetailPresenter>
